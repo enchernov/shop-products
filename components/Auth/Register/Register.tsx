@@ -1,31 +1,24 @@
 import React, {FormEvent, useState} from 'react';
 import {InputField} from "../InputField/InputField";
+import {useFormRegisterSubmit, useFieldChange} from "../../../utils/hooks";
 
-interface IUser{
+export interface IUser{
     username: string;
     email: string;
     password: string;
 }
 
-type Props = {
-    initialData: IUser;
-    onSubmit: (registerData: IUser) => FormEvent
+type SignupProps = {
+    data: IUser;
 }
 
-const useFieldChange = (setState: any) => (fieldName: string) => (fieldValue: string) => {
-    setState((state: object) => ({
-        ...state,
-        [fieldName]: fieldValue,
-    }));
-};
-
-const Register: React.FunctionComponent<Props> = ({ initialData, onSubmit }) => {
-    const [registerData, setRegisterData] = useState<IUser>(initialData);
+const Register: React.FunctionComponent<SignupProps> = ({ data }) => {
+    const [registerData, setRegisterData] = useState(data);
     const handleChange = useFieldChange(setRegisterData);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        onSubmit(registerData);
+        useFormRegisterSubmit(registerData);
     };
 
     return (

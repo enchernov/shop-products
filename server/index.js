@@ -4,19 +4,21 @@ import path from "path";
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+
+require('dotenv').config();
 // #endregion Global Imports
 
 // #region Local Imports
 
 // #endregion Local Imports
 
-const MONGO_URI = 'mongodb://localhost:27017/Photos';
+
 const PORT = parseInt(process.env.PORT || '3000', 10);
 const dev = process.env.NODE_DEV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useFindAndModify: false});
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useFindAndModify: false});
 
 app.prepare().then(() => {
     const server = express();
