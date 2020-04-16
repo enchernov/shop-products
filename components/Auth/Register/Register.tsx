@@ -8,11 +8,11 @@ export interface IUser{
     password: string;
 }
 
-type SignupProps = {
+type RegisterProps = {
     data: IUser;
 }
 
-const Register: React.FunctionComponent<SignupProps> = ({ data }) => {
+const Register: React.FunctionComponent<RegisterProps> = ({ data }) => {
     const [registerData, setRegisterData] = useState(data);
     const handleChange = useFieldChange(setRegisterData);
 
