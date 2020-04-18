@@ -1,16 +1,8 @@
 import React, {FormEvent, useState} from 'react';
 import {InputField} from "../InputField/InputField";
-import {useFormRegisterSubmit, useFieldChange} from "../../../utils/hooks";
-
-export interface IUser{
-    username: string;
-    email: string;
-    password: string;
-}
-
-type RegisterProps = {
-    data: IUser;
-}
+import {useFieldChange} from "../../../utils/hooks";
+import {RegisterProps} from "../../../types";
+import {IUser} from "../../../interfaces";
 
 const Register: React.FunctionComponent<RegisterProps> = ({ data }) => {
     const [registerData, setRegisterData] = useState(data);
@@ -19,6 +11,10 @@ const Register: React.FunctionComponent<RegisterProps> = ({ data }) => {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         useFormRegisterSubmit(registerData);
+    };
+
+    const useFormRegisterSubmit = (registerData: IUser) => {
+        console.log(registerData);
     };
 
     return (

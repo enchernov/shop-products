@@ -1,11 +1,9 @@
 import Layout from '../components/Layout'
-import Register, {IUser} from "../components/Auth/Register/Register";
+import Register from "../components/Auth/Register/Register";
 import {GetStaticProps} from "next";
 import {initialData} from "../utils/sample-data";
-
-type SignupProps = {
-    data: IUser;
-}
+import {RegisterProps} from "../types";
+import {IUser} from "../interfaces";
 
 export const getStaticProps: GetStaticProps = async () => {
     const data: IUser = initialData;
@@ -16,8 +14,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
 };
 
-const Signup = ({ data }: SignupProps) => {
-
+const Signup = ({ data }: RegisterProps) => {
     return (
         <Layout title="Регистрация">
             <Register data={data} />
