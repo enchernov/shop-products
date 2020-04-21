@@ -1,5 +1,4 @@
-import { User } from '../interfaces'
-import {IUser} from "../components/Auth/Register/Register";
+import {IUser, User} from '../interfaces'
 
 /** Dummy user data. */
 export const sampleUserData: User[] = [
