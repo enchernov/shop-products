@@ -1,11 +1,4 @@
-interface IInputField {
-    type: string;
-    label: string;
-    name: string;
-    id: string;
-    value: string;
-    onChange: (fieldValue: string) => void;
-}
+import {IInputField} from "../../../interfaces";
 
 export const InputField = (props: IInputField) => (
     <div>
@@ -13,3 +6,4 @@ export const InputField = (props: IInputField) => (
         <input type={props.type} name={props.name} id={props.id} value={props.value} onChange={e => props.onChange(e.target.value)} />
     </div>
 );
+
