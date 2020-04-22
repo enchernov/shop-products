@@ -4,8 +4,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start",
-    "start-server": "node server/index.js",
+    "start": "node server/index.js",
     "dev-server": "nodemon server/index.js",
     "type-check": "tsc"
   },
