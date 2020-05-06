@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Layout from '../components/Layout'
+import { withApollo } from '../apollo/client'
 
 const AboutPage: React.FunctionComponent = () => (
   <Layout title="About | Next.js + TypeScript Example">
@@ -14,4 +15,4 @@ const AboutPage: React.FunctionComponent = () => (
   </Layout>
 )
 
-export default AboutPage
+export default withApollo(AboutPage)

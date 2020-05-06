@@ -1,16 +1,15 @@
 import React from "react";
 import Layout from '../components/Layout'
-import Register from "../components/Auth/Register/Register";
+import Login from "../components/Auth/Login/Login";
 import { initialData } from "../utils/sample-data";
-
 import { withApollo } from '../apollo/client';
 
-const SignUp = () => {
+const SignIn = () => {
     return (
-        <Layout title="Регистрация">
-            <Register data={initialData} />
+        <Layout title="Вход">
+            <Login data={initialData} />
         </Layout>
     );
 };
 
-export default withApollo(SignUp)
+export default withApollo(SignIn)
