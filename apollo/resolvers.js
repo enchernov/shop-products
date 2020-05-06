@@ -4,8 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
 
-const User = require("../server/models/user");
-
+const User = require("../server/models/user.js");
 require('dotenv').config();
 
 function createUser(data) {
@@ -26,12 +25,11 @@ function validPassword(user, password) {
 const resolvers = {
     Query: {
         async viewer(_parent, _args, context, _info) {
-            const { token } = cookie.parse(context.req.headers.cookie != null ? context.req.headers.cookie : '');
-            console.log("[resolvers.js] TOKEN: ", token);
+            const { token } = cookie.parse(context.req.headers.cookie != null ? context.req.headers.cookie : '')
             if (token) {
                 try {
-                    const { id, email, username } = jwt.verify(token, process.env.JWT_SECRET);
-                    return await User.findOne({id, email, username})
+                    const { id, email, username } = jwt.verify(token, process.env.JWT_SECRET)
+                    return User.find(user => user.id === id && user.email === email && user.username === username)
                 } catch {
                     throw new AuthenticationError('Токен аутентификации неправильный, пожалуйста, войдите')
                 }
@@ -53,6 +51,7 @@ const resolvers = {
         async signIn(_parent, _args, context) {
             try {
                 const user = await User.findOne({email: _args.input.email});
+
                 if (user && validPassword(user, _args.input.password)) {
                     const token = jwt.sign({
                             email: user.email,
@@ -77,8 +76,7 @@ const resolvers = {
                     console.log("Успешный вход: ", user.username);
                     return { user }
                 }
-            } catch (e){
-                console.log(e);
+            } catch {
                 throw new UserInputError('Неверная комбинация email и пароля');
             }
         },

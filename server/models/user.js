@@ -1,7 +1,4 @@
 const { Schema, model } = require('mongoose');
-const mongoose = require('mongoose');
-
-//delete mongoose.connection.models['User'];
 
 const userSchema = new Schema({
     id:{
@@ -27,4 +24,5 @@ const userSchema = new Schema({
         minlength: 6
     }
 });
+
 module.exports = model('User', userSchema);

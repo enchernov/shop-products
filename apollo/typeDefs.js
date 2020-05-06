@@ -4,10 +4,10 @@ const typeDefs = gql`
     type User {
         id: String!
         email: String!,
-        username: String!,
-        password: String!
+        username: String!
     }
     input SignUpInput {
+        id: String!
         email: String!
         password: String!,
         username: String!

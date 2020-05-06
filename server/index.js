@@ -50,6 +50,7 @@ app.prepare().then(() => {
             resave: false,
             saveUninitialized: false,
             store: new MongoStore({
+                //mongooseConnection: mongoose.connection
                 mongooseConnection: db
             })
         })
@@ -60,7 +61,7 @@ app.prepare().then(() => {
         req.session.destroy(() => res.redirect('/'));
     });
 
-    server.get('*', (req, res) => {
+    server.all('*', (req, res) => {
         return handle(req, res)
     });
 

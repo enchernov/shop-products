@@ -2,11 +2,11 @@ const { ApolloServer } = require('apollo-server-express');
 const typeDefs = require('../../apollo/typeDefs');
 const resolvers = require('../../apollo/resolvers');
 
-const apolloServer = new ApolloServer({
-    typeDefs: typeDefs,
-    resolvers: resolvers,
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
     playground: {
-        endpoint: `http://localhost:4000/graphql`,
+        endpoint: `http://localhost:4000/api/graphql`,
         settings: {
             'editor.theme': 'light'
         }
@@ -16,4 +16,4 @@ const apolloServer = new ApolloServer({
     }
 });
 
-module.exports = apolloServer;
+module.exports = server;

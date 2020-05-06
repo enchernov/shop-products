@@ -1,9 +1,10 @@
 import * as React from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
+
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
-//import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 type Props = {
   title?: string
@@ -17,25 +18,27 @@ const ViewerQuery = gql`
       email
     }
   }
-`;
+`
 
 const Layout: React.FunctionComponent<Props> = ({
   children,
   title = 'This is the default title',
 }) => {
-    //const router = useRouter();
-    let { data, loading } = useQuery(ViewerQuery);
-    /*
-    if (!loading && (data.viewer === null) && (typeof window !== 'undefined')) {
-        router.push('/signin')
-    }*/
+  const router = useRouter();
+  const { data, loading } = useQuery(ViewerQuery);
 
-  const UserProfile = () => {
-    if (!loading && data && data.viewer) {
+  console.log(data);
+
+  if (!loading && data.viewer === null && typeof window !== 'undefined') {
+    router.push('/signin')
+  }
+
+  const userProfile = () => {
+    if (data && data.viewer) {
       return (
         <>
           <Link href="/profile">
-            <a>Profile - {data.viewer.username}</a>
+            <a>Profile</a>
           </Link>{' '}
           |{' '}
           <Link href="/signout">
@@ -78,7 +81,7 @@ const Layout: React.FunctionComponent<Props> = ({
             <a>About</a>
           </Link>{' '}
           |{' '}
-          <UserProfile/>
+          { userProfile }
         </nav>
       </header>
       {children}
