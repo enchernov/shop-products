@@ -53,7 +53,6 @@ const resolvers = {
         async signIn(_parent, _args, context) {
             try {
                 const user = await User.findOne({email: _args.input.email});
-
                 if (user && validPassword(user, _args.input.password)) {
                     const token = jwt.sign({
                             email: user.email,
@@ -78,7 +77,8 @@ const resolvers = {
                     console.log("Успешный вход: ", user.username);
                     return { user }
                 }
-            } catch {
+            } catch (e){
+                console.log(e);
                 throw new UserInputError('Неверная комбинация email и пароля');
             }
         },
