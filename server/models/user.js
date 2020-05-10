@@ -1,4 +1,7 @@
 const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
+
+delete mongoose.connection.models['User'];
 
 const userSchema = new Schema({
     id:{
@@ -9,7 +12,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-        minlength: 3,
+        minlength: 1,
         unique: true
     },
     email: {
@@ -21,7 +24,7 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true,
-        minlength: 6
+        minlength: 1
     }
 });
 

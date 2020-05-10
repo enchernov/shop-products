@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
 
-const User = require("../server/models/user.js");
+const User = require("../../models/user");
 require('dotenv').config();
 
 function createUser(data) {
@@ -29,7 +29,7 @@ const resolvers = {
             if (token) {
                 try {
                     const { id, email, username } = jwt.verify(token, process.env.JWT_SECRET)
-                    return User.find(user => user.id === id && user.email === email && user.username === username)
+                    return User.findOne({id, email, username})
                 } catch {
                     throw new AuthenticationError('Токен аутентификации неправильный, пожалуйста, войдите')
                 }
@@ -40,7 +40,6 @@ const resolvers = {
         async signUp(_parent, _args) {
             try {
                 const user = await new User(createUser(_args.input));
-                console.log(user);
                 await user.save();
                 return { user }
             } catch (e) {
@@ -51,6 +50,7 @@ const resolvers = {
         async signIn(_parent, _args, context) {
             try {
                 const user = await User.findOne({email: _args.input.email});
+                console.log("user: " + user)
 
                 if (user && validPassword(user, _args.input.password)) {
                     const token = jwt.sign({

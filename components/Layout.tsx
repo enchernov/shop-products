@@ -4,7 +4,6 @@ import Head from 'next/head'
 
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
-import { useRouter } from 'next/router'
 
 type Props = {
   title?: string
@@ -18,31 +17,25 @@ const ViewerQuery = gql`
       email
     }
   }
-`
+`;
 
 const Layout: React.FunctionComponent<Props> = ({
   children,
-  title = 'This is the default title',
+  title = '',
 }) => {
-  const router = useRouter();
-  const { data, loading } = useQuery(ViewerQuery);
+  let { data } = useQuery(ViewerQuery);
 
-  console.log(data);
-
-  if (!loading && data.viewer === null && typeof window !== 'undefined') {
-    router.push('/signin')
-  }
-
-  const userProfile = () => {
+  const UserProfile = () => {
+    console.log(data);
     if (data && data.viewer) {
       return (
         <>
-          <Link href="/profile">
-            <a>Profile</a>
+          <Link href="#">
+            <a>Профиль - {data.viewer.username}</a>
           </Link>{' '}
           |{' '}
-          <Link href="/signout">
-            <a>Signout</a>
+          <Link href="signout">
+            <a>Выход</a>
           </Link>
         </>
       )
@@ -50,14 +43,13 @@ const Layout: React.FunctionComponent<Props> = ({
     else {
       return (
         <>
-          <Link href="/signup">
-            <a>Signup</a>
+          <Link href="signup">
+            <a>Регистрация</a>
           </Link>{' '}
           |{' '}
-          <Link href="/signin">
-            <a>Signin</a>
+          <Link href="signin">
+            <a>Вход</a>
           </Link>
-          |{' '}
         </>
       )
     }
@@ -74,20 +66,19 @@ const Layout: React.FunctionComponent<Props> = ({
       <header>
         <nav>
           <Link href="/">
-            <a>Home</a>
+            <a>Главная</a>
           </Link>{' '}
           |{' '}
-          <Link href="/about">
-            <a>About</a>
+          <Link href="about">
+            <a>О нас</a>
           </Link>{' '}
           |{' '}
-          { userProfile }
+          <UserProfile />
         </nav>
       </header>
       {children}
       <footer>
         <hr/>
-        <span>I'm here to stay (Footer)</span>
       </footer>
     </div>
   )

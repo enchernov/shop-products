@@ -3,11 +3,11 @@ import Layout from '../components/Layout'
 import { withApollo } from '../apollo/client'
 
 const IndexPage = () => (
-    <Layout title="Home | Next.js + TypeScript Example">
+    <Layout title="Главная">
         <h1>Hello Next.js 👋</h1>
         <p>
-            <Link href="/about">
-                <a>About</a>
+            <Link href="about">
+                <a>О нас</a>
             </Link>
         </p>
     </Layout>

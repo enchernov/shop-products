@@ -1,3 +1,4 @@
+// #region Global Imports
 const next = require('next');
 const path = require('path');
 const express = require('express');
@@ -7,16 +8,18 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
-
 require('dotenv').config();
+// #endregion Global Imports
 
-const PORT = parseInt(process.env.PORT, 10) || 4000;
-const dev = process.env.NODE_ENV !== 'production';
+// #region Local Imports
+const apolloServer = require('./data/server');
+// #endregion Local Imports
+
+const PORT = parseInt(process.env.PORT, 10) || 3000;
+const dev = process.env.NODE_ENV === 'development';
 const app = next({ dev });
 const handle = app.getRequestHandler();
-const apolloServer = require('./data/schema');
 
-/*
 mongoose.connect(process.env.MONGO_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
@@ -26,13 +29,6 @@ mongoose.connect(process.env.MONGO_URI, {
     console.log('Подключение к БД успешно установлено')
 }).catch((err) => {
     console.error('Ошибка подключения');
-});*/
-
-mongoose.connect(process.env.MONGO_URI, { useCreateIndex: true, useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true});
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'Ошибка подключения:'));
-db.once('open', () => {
-    console.log('Подключение к БД успешно установлено')
 });
 
 app.prepare().then(() => {
@@ -50,8 +46,7 @@ app.prepare().then(() => {
             resave: false,
             saveUninitialized: false,
             store: new MongoStore({
-                //mongooseConnection: mongoose.connection
-                mongooseConnection: db
+                mongooseConnection: mongoose.connection
             })
         })
     );
@@ -61,7 +56,7 @@ app.prepare().then(() => {
         req.session.destroy(() => res.redirect('/'));
     });
 
-    server.all('*', (req, res) => {
+    server.get('*', (req, res) => {
         return handle(req, res)
     });
 

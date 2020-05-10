@@ -1,12 +1,13 @@
 import React, { FormEvent, useState } from 'react';
-import { InputField } from "../InputField/InputField";
-import { useFieldChange } from "../../../utils/hooks";
-import { RegisterProps } from "../../../types";
-import { getErrorMessage } from "../../../utils/form";
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import { useRouter } from 'next/router';
 import gql from "graphql-tag";
 import Link from "next/link";
+
+import { InputField } from "../InputField/InputField";
+import { useFieldChange } from "../../../utils/hooks";
+import { RegisterProps } from "../../../types";
+import { getErrorMessage } from "../../../utils/form";
 
 const SignInMutation = gql`
     mutation SignInMutation($email: String!, $password: String!) {
@@ -22,11 +23,11 @@ const SignInMutation = gql`
 
 const Login: React.FunctionComponent<RegisterProps> = () => {
     const client = useApolloClient();
+    const router = useRouter();
     const [signIn] = useMutation(SignInMutation);
     const [loginData, setLoginData] = useState({email: "", password:""});
-    const handleChange = useFieldChange(setLoginData);
-    const router = useRouter();
     const [errorMsg, setErrorMsg] = React.useState();
+    const handleChange = useFieldChange(setLoginData);
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();

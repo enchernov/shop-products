@@ -9,7 +9,6 @@ import { useFieldChange } from "../../../utils/hooks";
 import { IUser } from "../../../interfaces";
 import Link from "next/link";
 
-
 const SignUpMutation = gql`
     mutation SignUpMutation($username: String!, $email: String!, $password: String!) {
         signUp(input: { username: $username, email: $email, password: $password }) {
