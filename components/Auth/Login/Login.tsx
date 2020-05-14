@@ -6,7 +6,6 @@ import Link from "next/link";
 
 import { InputField } from "../InputField/InputField";
 import { useFieldChange } from "../../../utils/hooks";
-import { RegisterProps } from "../../../types";
 import { getErrorMessage } from "../../../utils/form";
 
 const SignInMutation = gql`
@@ -21,12 +20,12 @@ const SignInMutation = gql`
     }
 `;
 
-const Login: React.FunctionComponent<RegisterProps> = () => {
+const Login: React.FunctionComponent = () => {
     const client = useApolloClient();
     const router = useRouter();
     const [signIn] = useMutation(SignInMutation);
     const [loginData, setLoginData] = useState({email: "", password:""});
-    const [errorMsg, setErrorMsg] = React.useState();
+    const [errorMsg, setErrorMsg] = useState();
     const handleChange = useFieldChange(setLoginData);
 
     const handleSubmit = async (e: FormEvent) => {

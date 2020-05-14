@@ -1,59 +1,49 @@
 import * as React from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
-
-import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
+import {IUser} from "../interfaces";
 
 type Props = {
-  title?: string
+  title?: string,
+    viewer?: IUser
 }
 
-const ViewerQuery = gql`
-  query ViewerQuery {
-    viewer {
-      id
-      username
-      email
-    }
-  }
-`;
 
 const Layout: React.FunctionComponent<Props> = ({
   children,
   title = '',
+    viewer
 }) => {
-  let { data } = useQuery(ViewerQuery);
 
-  const UserProfile = () => {
-    console.log(data);
-    if (data && data.viewer) {
-      return (
-        <>
-          <Link href="#">
-            <a>Профиль - {data.viewer.username}</a>
-          </Link>{' '}
-          |{' '}
-          <Link href="signout">
-            <a>Выход</a>
-          </Link>
-        </>
-      )
+    const UserProfile = () => {
+        console.log("viewer: ", viewer);
+        if (viewer) {
+          return (
+            <>
+              <Link href="#">
+                <a>Профиль - {viewer.username}</a>
+              </Link>{' '}
+              |{' '}
+              <Link href="signout">
+                <a>Выход</a>
+              </Link>
+            </>
+          )
+        }
+        else {
+          return (
+            <>
+              <Link href="signup">
+                <a>Регистрация</a>
+              </Link>{' '}
+              |{' '}
+              <Link href="signin">
+                <a>Вход</a>
+              </Link>
+            </>
+          )
+        }
     }
-    else {
-      return (
-        <>
-          <Link href="signup">
-            <a>Регистрация</a>
-          </Link>{' '}
-          |{' '}
-          <Link href="signin">
-            <a>Вход</a>
-          </Link>
-        </>
-      )
-    }
-  }
 
   return (
     <div>

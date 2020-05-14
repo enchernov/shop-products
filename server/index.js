@@ -61,7 +61,8 @@ app.prepare().then(() => {
     });
 
     apolloServer.applyMiddleware({
-        app: server
+        app: server,
+        path: "/graphql"
     });
 
     server.listen(PORT, err => {

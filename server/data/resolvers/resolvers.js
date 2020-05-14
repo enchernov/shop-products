@@ -6,7 +6,6 @@ const { v4: uuidv4 } = require('uuid');
 
 const User = require("../../models/user");
 require('dotenv').config();
-
 function createUser(data) {
     const salt = bcrypt.genSaltSync(10);
 
@@ -25,15 +24,15 @@ function validPassword(user, password) {
 const resolvers = {
     Query: {
         async viewer(_parent, _args, context, _info) {
-            const { token } = cookie.parse(context.req.headers.cookie != null ? context.req.headers.cookie : '')
+            const { token } = cookie.parse(context.req.headers.cookie != null ? context.req.headers.cookie : '');
             if (token) {
                 try {
-                    const { id, email, username } = jwt.verify(token, process.env.JWT_SECRET)
+                    const { id, email, username } = jwt.verify(token, process.env.JWT_SECRET);
                     return User.findOne({id, email, username})
                 } catch {
                     throw new AuthenticationError('Токен аутентификации неправильный, пожалуйста, войдите')
                 }
-            }
+            } return undefined
         },
     },
     Mutation: {
@@ -50,8 +49,7 @@ const resolvers = {
         async signIn(_parent, _args, context) {
             try {
                 const user = await User.findOne({email: _args.input.email});
-                console.log("user: " + user)
-
+                console.log("user: " + user);
                 if (user && validPassword(user, _args.input.password)) {
                     const token = jwt.sign({
                             email: user.email,
