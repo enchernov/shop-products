@@ -1,27 +1,40 @@
 import * as React from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
-import {IUser} from "../interfaces";
+import {useQuery} from "@apollo/react-hooks";
+import gql from "graphql-tag";
 
 type Props = {
-  title?: string,
-    viewer?: IUser
+  title?: string
 }
+
+const ViewerQuery = gql`
+  query {
+    viewer {
+      id
+      username
+      email
+    }
+  }
+`;
 
 
 const Layout: React.FunctionComponent<Props> = ({
   children,
-  title = '',
-    viewer
+  title = ''
 }) => {
-
+    const {data} = useQuery(ViewerQuery,
+        {
+            pollInterval: 500
+        }
+    );
     const UserProfile = () => {
-        console.log("viewer: ", viewer);
-        if (viewer) {
+        console.log("viewer: ", data?data.viewer:"null");
+        if (data && data.viewer !== null || undefined) {
           return (
             <>
               <Link href="#">
-                <a>Профиль - {viewer.username}</a>
+                <a>Профиль - {data.viewer.username}</a>
               </Link>{' '}
               |{' '}
               <Link href="signout">
@@ -43,7 +56,7 @@ const Layout: React.FunctionComponent<Props> = ({
             </>
           )
         }
-    }
+    };
 
   return (
     <div>

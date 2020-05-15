@@ -141,7 +141,7 @@ function createIsomorphLink(ctx) {
         const { HttpLink } = require('apollo-link-http');
         return new HttpLink({
             //uri: process.env.GRAPHQL_URI,
-            uri: 'http://localhost:3000/graphql',
+            uri: '/graphql',
             credentials: 'same-origin'
         })
     }

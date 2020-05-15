@@ -16,8 +16,8 @@ const SignOut = () => {
     const [signOut] = useMutation(SignOutMutation);
     React.useEffect(() => {
         signOut().then(() => {
-            client.resetStore().then(() => {
-                router.push('/')
+            client.clearStore().then(() => {
+                router.push('/');
             })
         })
     }, [signOut, router, client]);
