@@ -1,16 +1,12 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
-import { withApollo } from '../apollo/client'
+import React, { FunctionComponent } from 'react'
+import Layout from '../components/Layout/Layout'
+import Index from "../components/Index/Index";
+import { withApollo } from '../apollo/apolloClient';
 
-const IndexPage = () => {
+const IndexPage: FunctionComponent = () => {
     return (
         <Layout title="Главная">
-            <h1>Hello Next.js 👋</h1>
-            <p>
-                <Link href="about">
-                    <a>О нас</a>
-                </Link>
-            </p>
+            <Index />
         </Layout>
     )
 };

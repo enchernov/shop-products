@@ -5,14 +5,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
-require('dotenv').config();
+const expressPlayground = require("graphql-playground-middleware-express").default;
 // #endregion Global Imports
 
 // #region Local Imports
-const apolloServer = require('./data/server');
+const apolloServer = require('./apollo/apolloServer');
+const userMiddleware = require('./middleware/user');
+const authMiddleware = require('./middleware/auth');
 // #endregion Local Imports
 
 const PORT = parseInt(process.env.PORT, 10) || 3000;
@@ -20,6 +20,7 @@ const dev = process.env.NODE_ENV === 'development';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGO_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
@@ -31,30 +32,21 @@ mongoose.connect(process.env.MONGO_URI, {
     console.error('Ошибка подключения');
 });
 
+const { ObjectId } = mongoose.Types;
+ObjectId.prototype.valueOf = function() {
+    return this.toString();
+};
+
 app.prepare().then(() => {
     const server = express();
     server.use(cors());
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: true }));
-    server.use(express.static(path.join(__dirname, "../static")));
+    server.use(express.static(path.join(__dirname, "../public")));
     server.use(cookieParser());
+    server.use(userMiddleware);
 
-    server.use(
-        session({
-            secret: process.env.SESSION_SECRET,
-            key: 'token',
-            resave: false,
-            saveUninitialized: false,
-            store: new MongoStore({
-                mongooseConnection: mongoose.connection
-            })
-        })
-    );
-
-    server.post('/logout', (req, res) => {
-        res.cookie('token', '', { maxAge: -1 });
-        req.session.destroy(() => res.redirect('/'));
-    });
+    server.use('/profile', authMiddleware)
 
     server.get('*', (req, res) => {
         return handle(req, res)
@@ -64,6 +56,10 @@ app.prepare().then(() => {
         app: server,
         path: "/graphql"
     });
+
+    server.get('/playground', expressPlayground({
+        endpoint: "/graphql"
+    }));
 
     server.listen(PORT, err => {
         if (err) throw err;

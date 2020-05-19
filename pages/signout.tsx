@@ -1,29 +1,30 @@
-import React from 'react'
-import { useMutation, useApolloClient } from '@apollo/react-hooks'
+import React, { FunctionComponent } from 'react'
 import gql from 'graphql-tag'
 import { useRouter } from 'next/router'
-import { withApollo } from '../apollo/client'
+import { useMutation, useApolloClient } from '@apollo/react-hooks'
+import { withApollo } from '../apollo/apolloClient';
 
 const SignOutMutation = gql`
     mutation SignOutMutation {
         signOut
     }
-`;
+`
 
-const SignOut = () => {
-    const client = useApolloClient();
-    const router = useRouter();
-    const [signOut] = useMutation(SignOutMutation);
+const SignOutPage: FunctionComponent = () => {
+    const client = useApolloClient()
+    const router = useRouter()
+    const [signOut] = useMutation(SignOutMutation)
+
     React.useEffect(() => {
         signOut().then(() => {
-            client.clearStore().then(() => {
-                router.push('/');
+            client.resetStore().then(() => {
+                router.push('/signin')
             })
         })
-    }, [signOut, router, client]);
-    return (
-        <p>signout return</p>
-    )
-};
+    }, [signOut, router, client])
 
-export default withApollo(SignOut)
+    return <p>Выход...</p>
+}
+
+export default withApollo(SignOutPage)
+

@@ -1,10 +1,9 @@
-import {IUser} from "../interfaces";
+import { IUser } from "../interfaces";
 
-export type Props = {
-    item?: IUser
-    errors?: string,
+export type LayoutProps = {
+    title?: string,
 }
 
-export type RegisterProps = {
-    data: IUser;
+export type HeaderProps = {
+    isAuth: IUser;
 }

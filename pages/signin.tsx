@@ -1,14 +1,14 @@
-import React from "react";
-import Layout from '../components/Layout'
-import Login from "../components/Auth/Login/Login";
-import { withApollo } from '../apollo/client';
+import React, { FunctionComponent } from "react";
+import Layout from '../components/Layout/Layout'
+import SignIn from "../components/Auth/SignIn";
+import { withApollo } from '../apollo/apolloClient';
 
-const SignIn = () => {
+const SignInPage: FunctionComponent = () => {
     return (
         <Layout title="Вход">
-            <Login/>
+            <SignIn />
         </Layout>
     );
 };
 
-export default withApollo(SignIn)
+export default withApollo(SignInPage)

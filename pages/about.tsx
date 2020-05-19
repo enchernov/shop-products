@@ -1,12 +1,12 @@
-import React from 'react'
-import Layout from '../components/Layout'
-import { withApollo } from '../apollo/client'
+import React, { FunctionComponent } from 'react'
+import Layout from "../components/Layout/Layout";
+import About from "../components/About/About";
+import { withApollo } from '../apollo/apolloClient';
 
-const AboutPage: React.FunctionComponent = () => (
-  <Layout title="О нас">
-    <h1>О нас</h1>
-    <p>This is the about page</p>
-  </Layout>
-)
+const AboutPage: FunctionComponent = () => (
+    <Layout title="О нас">
+        <About />
+    </Layout>
+);
 
-export default withApollo(AboutPage)
+export default withApollo(AboutPage);

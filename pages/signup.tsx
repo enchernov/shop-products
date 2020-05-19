@@ -1,16 +1,14 @@
-import React from "react";
-import Layout from '../components/Layout'
-import Register from "../components/Auth/Register/Register";
-import { initialData } from "../utils/sample-data";
+import React, { FunctionComponent } from "react";
+import Layout from '../components/Layout/Layout'
+import SignUp from "../components/Auth/SignUp";
+import { withApollo } from '../apollo/apolloClient';
 
-import { withApollo } from '../apollo/client';
-
-const SignUp = () => {
+const SignUpPage: FunctionComponent = () => {
     return (
         <Layout title="Регистрация">
-            <Register data={initialData} />
+            <SignUp />
         </Layout>
     );
 };
 
-export default withApollo(SignUp)
+export default withApollo(SignUpPage)

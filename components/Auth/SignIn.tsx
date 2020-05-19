@@ -4,15 +4,15 @@ import { useRouter } from 'next/router';
 import gql from "graphql-tag";
 import Link from "next/link";
 
-import { InputField } from "../InputField/InputField";
-import { useFieldChange } from "../../../utils/hooks";
-import { getErrorMessage } from "../../../utils/form";
+import { useFieldChange } from "../../utils/hooks";
+import { getErrorMessage } from "../../utils/form";
+import { InputField } from "./InputField";
+import { IUser } from "../../interfaces";
 
 const SignInMutation = gql`
     mutation SignInMutation($email: String!, $password: String!) {
         signIn(input: { email: $email, password: $password }) {
             user {
-                id
                 email
                 username
             }
@@ -20,20 +20,19 @@ const SignInMutation = gql`
     }
 `;
 
-const Login: React.FunctionComponent = () => {
+const SignIn = () => {
     const client = useApolloClient();
     const router = useRouter();
     const [signIn] = useMutation(SignInMutation);
-    const [loginData, setLoginData] = useState({email: "", password:""});
+    const [loginData, setLoginData] = useState<IUser>({
+        email: '',
+        password: ''
+    });
     const [errorMsg, setErrorMsg] = useState();
     const handleChange = useFieldChange(setLoginData);
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        await useFormLoginSubmit(loginData);
-    };
-
-    const useFormLoginSubmit = async (loginData: {email: string, password: string}) => {
         try {
             await client.resetStore();
             const { data } = await signIn({
@@ -42,30 +41,31 @@ const Login: React.FunctionComponent = () => {
             if (data.signIn.user) {
                 await router.push('/')
             }
-            console.log("Успешный вход: ", data.signIn.user.username)
         } catch (error) {
             setErrorMsg(getErrorMessage(error));
         }
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            {errorMsg && <p>{errorMsg}</p>}
+        <form onSubmit={ handleSubmit }>
+            { errorMsg && <p>{ errorMsg }</p> }
             <InputField
                 type="email"
                 label="Введите email"
                 name="email"
-                id="email"
-                value={loginData.email}
-                onChange={handleChange('email')}
+                autoComplete="email"
+                required
+                value={ loginData.email }
+                onChange={ handleChange('email') }
             />
             <InputField
                 type="password"
                 label="Введите пароль"
                 name="password"
-                id="password"
-                value={loginData.password}
-                onChange={handleChange('password')}
+                autoComplete="password"
+                required
+                value={ loginData.password }
+                onChange={ handleChange('password') }
             />
             <button type="submit">Войти</button>
             <Link href="signup">
@@ -75,4 +75,4 @@ const Login: React.FunctionComponent = () => {
     );
 };
 
-export default Login;
+export default SignIn;

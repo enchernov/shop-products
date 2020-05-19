@@ -1,4 +1,6 @@
-export function getErrorMessage(error: any) {
+import { ApolloError } from "apollo-server-errors";
+
+export function getErrorMessage(error: ApolloError) {
     if (error.graphQLErrors) {
         for (const graphQLError of error.graphQLErrors) {
             if (
