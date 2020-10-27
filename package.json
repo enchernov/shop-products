@@ -1,0 +1,10 @@
+{
+  "name": "shop-products",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "docker-compose up -d",
+    "build": "docker-compose build",
+    "stop": "docker-compose down --remove-orphans",
+    "pull": "docker-compose pull"
+  }
+}
