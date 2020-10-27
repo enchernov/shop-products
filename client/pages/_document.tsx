@@ -18,9 +18,9 @@ interface IMyDocument {
 }
 
 class MyDocument extends Document implements IMyDocument {
-  url = 'https://frenders.com'
-  title = 'Frenders'
-  description = 'Website for created 3D Mockup'
+  url = 'https://foodmarket.com'
+  title = 'FoodMarket'
+  description = 'Покупка и доставка еды онлайн'
 
   render(): JSX.Element {
     return (

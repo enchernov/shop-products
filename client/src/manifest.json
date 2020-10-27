@@ -1,7 +1,7 @@
 {
   "short_name": "FoodMarket",
-  "name": "FoodMarket: приложение для покупки и доставки еды",
-  "description": "Приложение для покупки и доставки еды",
+  "name": "FoodMarket: приложение для покупки и доставки еды онлайн",
+  "description": "Приложение для покупки и доставки еды онлайн",
   "icons": [
     {
       "src": "./images/icons/android-icon-36x36.png",
