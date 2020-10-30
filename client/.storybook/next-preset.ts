@@ -23,7 +23,7 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['next/babel', require.resolve('babel-preset-react-app')],
-                        plugins: ['react-docgen'],
+                        plugins: ['react-docgen-typescript'],
                     },
                 },
             ],
@@ -38,7 +38,7 @@ module.exports = {
                 'css-loader',
                 'sass-loader'
             ],
-            include: path.resolve(__dirname, '../src/styles/global.sass'),
+            include: path.resolve(__dirname, '../public/styles/global.sass'),
         });
 
         return newConfig;

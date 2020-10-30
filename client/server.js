@@ -11,7 +11,7 @@ app
   .prepare()
   .then(() => {
     const server = express()
-    server.use('/', express.static(join(__dirname, 'src/')))
+    server.use('/', express.static(join(__dirname, 'public/')))
 
     server.get('/service-worker.js', (req, res) => {
       const parsedUrl = parse(req.url, true)
@@ -20,7 +20,8 @@ app
       app.serveStatic(req, res, filePath)
     })
 
-    server.get('*', (req, res) => handle(req, res, parse(req.url, true)))
+    server.get('*', (req, res) =>
+        handle(req, res, parse(req.url, true)))
 
     server.listen(PORT, (err) => {
       if (err) throw err

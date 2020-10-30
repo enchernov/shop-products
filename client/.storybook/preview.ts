@@ -1,9 +1,10 @@
 import { addDecorator } from '@storybook/react'
-import ThemeProvider from './theme-provider'
-
-import LightTheme from '../src/scripts/themes/light-theme'
-import DarkTheme from '../src/scripts/themes/dark-theme'
 import { withThemesProvider } from 'storybook-addon-styled-component-theme'
+import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport'
+
+import ThemeProvider from './theme-provider'
+import LightTheme from '../public/scripts/themes/light-theme'
+import DarkTheme from '../public/scripts/themes/dark-theme'
 
 export const themes = [LightTheme, DarkTheme]
 
@@ -20,4 +21,7 @@ export const parameters = {
         : a[1].id.localeCompare(b[1].id, { numeric: true })
     },
   },
+  viewport: {
+      viewports: MINIMAL_VIEWPORTS,
+  }
 }

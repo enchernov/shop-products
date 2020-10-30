@@ -1868,6 +1868,23 @@
     regenerator-runtime "^0.13.3"
     ts-dedent "^1.1.1"
 
+"@storybook/addon-viewport@^6.0.27":
+  version "6.0.27"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-viewport/-/addon-viewport-6.0.27.tgz#acfecc633b84b9d486e5ca7c302c4a328fe813a9"
+  integrity sha512-oSHJeWsWr21UIxp5yU+aTpegBLBphz1Vx49t1v3uqxTWZaUAWtXTbdZxkvTd4kkEDzEEyUa4Vj8UoXPMTpYBAA==
+  dependencies:
+    "@storybook/addons" "6.0.27"
+    "@storybook/api" "6.0.27"
+    "@storybook/client-logger" "6.0.27"
+    "@storybook/components" "6.0.27"
+    "@storybook/core-events" "6.0.27"
+    "@storybook/theming" "6.0.27"
+    core-js "^3.0.1"
+    global "^4.3.2"
+    memoizerific "^1.11.3"
+    prop-types "^15.7.2"
+    regenerator-runtime "^0.13.3"
+
 "@storybook/addons@6.0.27", "@storybook/addons@^6.0.27":
   version "6.0.27"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-6.0.27.tgz#bd39373b3b95360d732b855f692f843e0745f9fe"
@@ -9808,7 +9825,7 @@ react-docgen-typescript-plugin@^0.5.2:
     react-docgen-typescript-loader "^3.7.2"
     tslib "^2.0.0"
 
-react-docgen-typescript@^1.15.0, react-docgen-typescript@^1.20.1:
+react-docgen-typescript@^1.15.0, react-docgen-typescript@^1.20.1, react-docgen-typescript@^1.20.5:
   version "1.20.5"
   resolved "https://registry.yarnpkg.com/react-docgen-typescript/-/react-docgen-typescript-1.20.5.tgz#fb8d78a707243498436c2952bd3f6f488a68d4f3"
   integrity sha512-AbLGMtn76bn7SYBJSSaKJrZ0lgNRRR3qL60PucM5M4v/AXyC8221cKBXW5Pyt9TfDRfe+LDnPNlg7TibxX0ovA==

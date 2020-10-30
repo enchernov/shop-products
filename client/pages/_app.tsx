@@ -4,7 +4,7 @@ import { AppProps } from 'next/app'
 import ThemeProvider from '../.storybook/theme-provider'
 import { themes } from '../.storybook/preview'
 
-import '../src/styles/global.sass'
+import '../public/styles/global.sass'
 import 'sanitize.css'
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {

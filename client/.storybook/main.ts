@@ -5,6 +5,7 @@ module.exports = {
   addons: [
     '@storybook/addon-actions',
     '@storybook/addon-links',
+    '@storybook/addon-viewport',
     '@storybook/addon-docs',
     '@storybook/addon-controls',
     'storybook-addon-styled-component-theme/dist/register',
