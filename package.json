@@ -2,9 +2,10 @@
   "name": "shop-products",
   "version": "1.0.0",
   "scripts": {
-    "start": "docker-compose up -d",
-    "build": "docker-compose build",
-    "stop": "docker-compose down --remove-orphans",
-    "pull": "docker-compose pull"
+    "start": "docker-compose -f docker-compose.dev.yml up --build",
+    "build": "docker-compose -f docker-compose.dev.yml build",
+    "stop": "docker-compose -f docker-compose.dev.yml down --remove-orphans",
+    "pull": "docker-compose -f docker-compose.dev.yml pull",
+    "remove": "docker system prune -a"
   }
 }

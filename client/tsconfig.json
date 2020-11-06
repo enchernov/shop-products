@@ -25,7 +25,8 @@
     "strict": true,
     "target": "esnext",
     "types": [
-      "node"
+      "node",
+      "jest"
     ]
   },
   "exclude": ["node_modules"],

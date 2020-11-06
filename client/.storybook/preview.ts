@@ -2,7 +2,7 @@ import { addDecorator } from '@storybook/react'
 import { withThemesProvider } from 'storybook-addon-styled-component-theme'
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport'
 
-import ThemeProvider from './theme-provider'
+import ThemeProvider from '../providers/ThemeProvider'
 import LightTheme from '../public/scripts/themes/light-theme'
 import DarkTheme from '../public/scripts/themes/dark-theme'
 

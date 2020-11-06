@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { AppProps } from 'next/app'
 
-import ThemeProvider from '../.storybook/theme-provider'
+import ThemeProvider from '../providers/ThemeProvider'
 import { themes } from '../.storybook/preview'
 
 import '../public/styles/global.sass'

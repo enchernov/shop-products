@@ -13,13 +13,6 @@ app
     const server = express()
     server.use('/', express.static(join(__dirname, 'public/')))
 
-    server.get('/service-worker.js', (req, res) => {
-      const parsedUrl = parse(req.url, true)
-      const { pathname } = parsedUrl
-      const filePath = join(__dirname, '.next', pathname)
-      app.serveStatic(req, res, filePath)
-    })
-
     server.get('*', (req, res) =>
         handle(req, res, parse(req.url, true)))
 
