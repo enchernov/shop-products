@@ -7,13 +7,13 @@ import IconButton from './index'
 import { IIconButtonProps } from './IconButton'
 
 export default {
-  title: 'ui/IconButton',
+  title: 'IconButton',
   component: IconButton,
   argTypes: {
     icon: {
       control: {
         type: 'select',
-        options: ['menu', 'more', 'search', 'visibility', 'visibilityOff'],
+        options: ['menu', 'more'],
       },
     },
   },
