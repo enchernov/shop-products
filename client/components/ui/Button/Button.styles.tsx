@@ -1,10 +1,10 @@
-import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-export const useStyles = makeStyles(() =>
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
-      fontSize: '0.7rem',
       boxShadow: 'none',
+      color: theme.palette.primary.contrastText,
       borderRadius: 0,
       '&:hover': {
         boxShadow: 'none',

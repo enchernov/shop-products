@@ -5,8 +5,6 @@ export const useStyles = makeStyles((theme: Theme) =>
     avatar: {
       background: theme.palette.secondary.main,
       color: theme.palette.primary.contrastText,
-      width: 30,
-      height: 30,
     },
   })
 )

@@ -1,10 +1,4 @@
-import React, {
-  FunctionComponent,
-  ElementType,
-  forwardRef,
-  Ref,
-  ReactNode,
-} from 'react'
+import React, { FunctionComponent, forwardRef, Ref, ReactNode } from 'react'
 import { Avatar as MuiAvatar, AvatarProps } from '@material-ui/core'
 import { useStyles } from './Avatar.styles'
 import clsx from 'clsx'
@@ -50,5 +44,6 @@ const Avatar: FunctionComponent<AvatarPropsType> = forwardRef(
 )
 
 Avatar.defaultProps = defaultProps
+Avatar.displayName = 'Avatar'
 
 export default Avatar

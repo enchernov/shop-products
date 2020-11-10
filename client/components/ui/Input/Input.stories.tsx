@@ -77,7 +77,7 @@ const Template: Story<IInputProps> = (args) => (
 export const Text = Template.bind({})
 Text.args = {
   value: 'Text',
-  id: 'text_input',
+  id: 'text',
   label: 'Text input',
   name: 'simple_text_input',
   type: 'text',
@@ -86,7 +86,7 @@ Text.args = {
 export const Password = Template.bind({})
 Password.args = {
   value: 'My password',
-  id: 'password_input',
+  id: 'password',
   label: 'Пароль',
   name: 'password_input',
   type: 'password',
@@ -98,9 +98,9 @@ Password.args = {
 export const Email = Template.bind({})
 Email.args = {
   value: 'awesome@mail.com',
-  id: 'email_input',
+  id: 'email',
   label: 'Email',
-  name: 'email_input',
+  name: 'email',
   type: 'email',
   helperText: 'Введите email',
   variant: 'outlined',

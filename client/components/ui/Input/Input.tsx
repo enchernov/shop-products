@@ -8,7 +8,7 @@ import {
 
 import IconButton from '../IconButton'
 import { useStyles } from './Input.styles'
-import clsx from "clsx";
+import clsx from 'clsx'
 
 type InputTypeType = 'text' | 'email' | 'password' | 'checkbox'
 type IconType = 'search' | 'visibility' | 'visibilityOff'
@@ -29,7 +29,7 @@ export interface IInputProps {
   helperText?: string
   fullWidth?: boolean
   checked?: boolean
-  onInputChange?: () => void
+  onChange?: (fieldValue: any) => void
   onIconClick?: () => void
   onCheckBoxChange?: () => void
 }
@@ -47,7 +47,7 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
     {
       className,
       disabled,
-      onInputChange,
+      onChange,
       onIconClick,
       value,
       id,
@@ -109,7 +109,7 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
         error={error}
         disabled={disabled}
         label={label}
-        onChange={onInputChange}
+        onChange={onChange}
         color={error ? 'secondary' : 'primary'}
         fullWidth={fullWidth}
         {...props}
@@ -119,5 +119,6 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
 )
 
 Input.defaultProps = defaultProps
+Input.displayName = 'Input'
 
 export default Input

@@ -1,10 +1,10 @@
 import React from 'react'
 import { NextPage } from 'next'
 import Link from 'next/link'
-import Layout from '../components/Layout'
+import Layout from '../components/layouts/Layout/Layout'
 
 const IndexPage: NextPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
+  <Layout title="Главная">
     <h1>Hello Next.js 👋</h1>
     <p>
       <Link href="/about">

@@ -6,28 +6,27 @@ export const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       maxWidth: 400,
       '&:not(:last-child)': {
-        marginBottom: 20,
+        marginBottom: 10,
       },
     },
     heading: {
-      margin: '0 0 40px 0',
+      margin: '0 0 20px 0',
     },
-    link: {},
     formPaper: {
       padding: 40,
     },
     registerPaper: {
-      padding: 10,
+      padding: 20,
     },
     form: {
-      marginBottom: 40,
+      marginBottom: 20,
     },
     input: {
-      marginBottom: 40,
+      marginBottom: 20,
     },
     button: {
-      padding: 20,
-      marginBottom: 10,
+      padding: 15,
+      marginBottom: 20,
     },
     error: {
       color: theme.palette.error.main,

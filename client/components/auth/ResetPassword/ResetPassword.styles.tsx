@@ -1,32 +1,28 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles(() =>
   createStyles({
     container: {
       width: '100%',
       maxWidth: 400,
       '&:not(:last-child)': {
-        marginBottom: 20,
+        marginBottom: 10,
       },
     },
     heading: {
-      margin: '0 0 40px 0',
+      margin: '0 0 20px 0',
     },
-    link: {},
     formPaper: {
-      padding: 40,
+      padding: 20,
     },
     registerPaper: {
-      padding: 10,
-    },
-    form: {
+      padding: 20,
     },
     input: {
       marginBottom: 20,
     },
     button: {
-      height: 40,
+      padding: 15,
     },
-    link: {},
   })
 )

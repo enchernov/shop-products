@@ -2,27 +2,35 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    services: {
-      // marginBottom: 40,
-    },
     facebook: {
       '&': {
-        color: '#3b5998',
+        backgroundColor: '#3b5998',
+        color: theme.palette.primary.contrastText,
+        padding: 10,
+        marginRight: 10,
       },
     },
     vk: {
       '&': {
-        color: '#2787F5',
+        backgroundColor: '#2787F5',
+        color: theme.palette.primary.contrastText,
+        padding: 10,
+        marginRight: 10,
       },
     },
     twitter: {
       '&': {
-        color: '#00acee',
+        backgroundColor: '#00acee',
+        color: theme.palette.primary.contrastText,
+        padding: 10,
+        marginRight: 10,
       },
     },
     google: {
       '&': {
-        color: '#DB4437',
+        backgroundColor: '#DB4437',
+        color: theme.palette.primary.contrastText,
+        padding: 10,
       },
     },
   })

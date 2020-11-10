@@ -41,4 +41,6 @@ const Link: FunctionComponent<LinkPropsType> = forwardRef(
   }
 )
 
+Link.displayName = 'Link'
+
 export default Link

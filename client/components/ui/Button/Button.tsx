@@ -11,6 +11,7 @@ import {
   SvgIconProps,
 } from '@material-ui/core'
 import { Edit, AddSharp } from '@material-ui/icons'
+import clsx from 'clsx'
 
 import Link from '../Link'
 import { useStyles } from './Button.styles'
@@ -44,16 +45,16 @@ const noop = () => {}
 
 const Button: FunctionComponent<ButtonPropsType> = forwardRef(
   (
-    { icon, children, disabled, href, onClick, fullWidth },
+    { icon, children, disabled, href, onClick, fullWidth, className, ...props },
     ref: Ref<HTMLButtonElement>
   ) => {
     const classes = useStyles()
 
     const IconComponent: any = icon ? iconButtonMap[icon] : null
-
     const startIcon = icon ? { startIcon: <IconComponent /> } : undefined
-
     const linkProps = href ? { href: href, component: Link } : undefined
+
+    const classesButton = clsx(classes.button, className)
 
     return (
       <MuiButton
@@ -62,11 +63,12 @@ const Button: FunctionComponent<ButtonPropsType> = forwardRef(
         variant="contained"
         size="small"
         disabled={disabled}
-        className={classes.button}
+        className={classesButton}
+        fullWidth={fullWidth}
         {...startIcon}
         {...linkProps}
-        fullWidth={fullWidth}
         onClick={!disabled ? onClick : noop}
+        {...props}
       >
         {children}
       </MuiButton>
@@ -75,5 +77,6 @@ const Button: FunctionComponent<ButtonPropsType> = forwardRef(
 )
 
 Button.defaultProps = defaultProps
+Button.displayName = 'Button'
 
 export default Button

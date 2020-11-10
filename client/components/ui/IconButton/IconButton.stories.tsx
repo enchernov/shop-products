@@ -7,7 +7,7 @@ import IconButton from './index'
 import { IIconButtonProps } from './IconButton'
 
 export default {
-  title: 'IconButton',
+  title: 'ui/IconButton',
   component: IconButton,
   argTypes: {
     icon: {

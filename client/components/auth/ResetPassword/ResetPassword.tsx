@@ -20,34 +20,33 @@ const ResetPassword: FunctionComponent = () => {
   return (
     <Grid
       container
-      direction={'column'}
-      alignItems={'center'}
-      justify={'space-between'}
+      direction='column'
+      alignItems='center'
+      justify='space-between'
     >
       <Grid item className={classes.container}>
         <Paper className={classes.formPaper} elevation={1}>
           <Grid
             container
-            direction={'column'}
-            alignItems={'center'}
-            justify={'space-between'}
+            direction='column'
+            alignItems='center'
+            justify='space-between'
           >
             <Grid item>
               <h2 className={classes.heading}>Восстановление пароля</h2>
             </Grid>
             <Grid item>
               <form
-                className={classes.form}
                 ref={resetPasswordForm}
                 onSubmit={handleSubmit}
               >
                 <Input
-                  id={'email_input'}
-                  type={'email'}
+                  id='email'
+                  type='email'
                   required
-                  label={'Email'}
-                  name={'email_input'}
-                  variant={'outlined'}
+                  label='Email'
+                  name='email'
+                  variant='outlined'
                   fullWidth
                   className={classes.input}
                 />
@@ -61,7 +60,7 @@ const ResetPassword: FunctionComponent = () => {
       </Grid>
       <Grid item className={classes.container}>
         <Paper className={classes.registerPaper} elevation={1}>
-          <Grid container justify={'center'} alignContent={'center'}>
+          <Grid container justify='center' alignContent='center'>
             <Grid item>
               <Link href={'/login'}>Войти</Link> или{' '}
               <Link href={'/register'}>Зарегистрироваться</Link>

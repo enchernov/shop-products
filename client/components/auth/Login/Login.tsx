@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState, useRef} from 'react'
+import React, { FunctionComponent, useState, useRef } from 'react'
 import { Grid, Paper } from '@material-ui/core'
 
 import Link from '../../ui/Link'
@@ -6,17 +6,16 @@ import Input from '../../ui/Input'
 import Button from '../../ui/Button'
 
 import { useStyles } from './Login.styles'
-// import {AppContext} from "../../../providers/AppProvider";
+import SocialAuth from '../SocialAuth'
 
 const Login: FunctionComponent = () => {
   const classes = useStyles()
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const loginForm = useRef(null)
-  // const appContext = useContext(AppContext)
 
   const handleIconClick = () => {
-    setIsPasswordVisible(!isPasswordVisible)
+    setIsPasswordVisible(isPasswordVisible => !isPasswordVisible)
   }
 
   const handleSubmit = (e) => {
@@ -29,15 +28,15 @@ const Login: FunctionComponent = () => {
       container
       direction={'column'}
       alignItems={'center'}
-      justify={'space-between'}
+      justify={'center'}
     >
       <Grid item className={classes.container}>
         <Paper className={classes.formPaper} elevation={1}>
           <Grid
             container
-            direction={'column'}
-            alignItems={'center'}
-            justify={'space-between'}
+            direction='column'
+            alignItems='center'
+            justify='space-between'
           >
             <Grid item>
               <h2 className={classes.heading}>Вход</h2>
@@ -49,22 +48,22 @@ const Login: FunctionComponent = () => {
                 onSubmit={handleSubmit}
               >
                 <Input
-                  id={'email_input'}
-                  type={'email'}
+                  id='email'
+                  type='email'
                   required
-                  label={'Email'}
-                  name={'email_input'}
-                  variant={'outlined'}
+                  label='Введите email'
+                  name='email'
+                  variant='outlined'
                   fullWidth
                   className={classes.input}
                 />
                 <Input
-                  id={'password_input'}
+                  id='password'
                   type={isPasswordVisible ? 'text' : 'password'}
                   required
-                  label={'Пароль'}
-                  name={'password_input'}
-                  variant={'outlined'}
+                  label='Введите пароль'
+                  name='password'
+                  variant='outlined'
                   icon={isPasswordVisible ? 'visibilityOff' : 'visibility'}
                   onIconClick={handleIconClick}
                   fullWidth
@@ -73,9 +72,7 @@ const Login: FunctionComponent = () => {
                 <Button type="submit" fullWidth className={classes.button}>
                   Войти
                 </Button>
-                <Link href={'/reset'} className={classes.link}>
-                  Забыли пароль?
-                </Link>
+                <Link href={'/auth/reset'}>Забыли пароль?</Link>
               </form>
             </Grid>
             <Grid item>
@@ -83,21 +80,15 @@ const Login: FunctionComponent = () => {
                 Или войдите с помощью сервисов
               </h3>
             </Grid>
-            <Grid container justify={'space-between'} alignContent={'center'}>
-              <Grid item>facebook</Grid>
-              <Grid item>vk</Grid>
-              <Grid item>twitter</Grid>
-              <Grid item>google</Grid>
-            </Grid>
+            <SocialAuth />
           </Grid>
         </Paper>
       </Grid>
       <Grid item className={classes.container}>
         <Paper className={classes.registerPaper} elevation={1}>
-          <Grid container justify={'center'} alignContent={'center'}>
+          <Grid container justify='center' alignContent='center'>
             <Grid item>
-              Ещё нет аккаунта?{' '}
-              <Link href={'/register'}>Зарегистрируйтесь</Link>
+              Ещё нет аккаунта? <Link href={'/auth/signup'}>Зарегистрируйтесь</Link>
             </Grid>
           </Grid>
         </Paper>

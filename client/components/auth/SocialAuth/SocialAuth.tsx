@@ -1,54 +1,46 @@
 import React, { FunctionComponent } from 'react'
 import { Grid } from '@material-ui/core'
 
+import SocialButton from '../../ui/SocialButton/SocialButton'
+
 import { useStyles } from './SocialAuth.styles'
-import IconButton from '../../ui/IconButton'
 
 type ServiceType = 'facebook' | 'vk' | 'twitter' | 'google'
 
-// const services: Record<ServiceType, string> = {
-//   facebook: 'facebook.com',
-//   vk: 'vk.com',
-//   twitter: 'twitter.com',
-//   google: 'google.com',
-// }
-interface IService {
+interface ISocialAuthProps {
   icon: ServiceType
-  href: string
 }
-const services: Array<IService> = [
+
+const services: Array<ISocialAuthProps> = [
   {
     icon: 'facebook',
-    href: 'facebook.com',
   },
   {
     icon: 'vk',
-    href: 'vk.com',
   },
   {
     icon: 'twitter',
-    href: 'twitter.com',
   },
   {
     icon: 'google',
-    href: 'google.com',
   },
 ]
+
 const SocialAuth: FunctionComponent = (props) => {
   const classes = useStyles()
+
   return (
     <Grid
       container
-      justify={'space-around'}
-      alignContent={'center'}
-      className={classes.services}
+      justify='center'
+      alignContent='center'
       {...props}
     >
-      {services.map((service, index) => (
-        <Grid item key={index}>
-          <IconButton
+      {services.map((service) => (
+        <Grid item key={service.icon}>
+          <SocialButton
             icon={service.icon}
-            href={service.href}
+            key={service.icon}
             className={classes[service.icon]}
           />
         </Grid>

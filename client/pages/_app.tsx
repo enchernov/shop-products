@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
-import { AppProps } from 'next/app'
+import App, { AppProps } from 'next/app'
+import withApollo from "../graphql/apolloClient";
 
 import ThemeProvider from '../providers/ThemeProvider'
+import ApolloClientProvider from "../providers/ApolloClientProvider"
 import { themes } from '../.storybook/preview'
 
-import '../public/styles/global.sass'
 import 'sanitize.css'
+import '../public/styles/global.sass'
 
-const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
+const MyApp = ({ Component, pageProps }: AppProps, apollo: any): JSX.Element => {
   useEffect(() => {
     const jssStyles: any = document.querySelector('#jss-server-side')
     if (jssStyles) {
@@ -17,9 +19,16 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 
   return (
     <ThemeProvider theme={themes[0]}>
-      <Component {...pageProps} />
+      <ApolloClientProvider client={apollo}>
+        <Component {...pageProps} />
+      </ApolloClientProvider>
     </ThemeProvider>
   )
 }
 
-export default MyApp
+MyApp.getInitialProps = async appContext => {
+    const appProps = await App.getInitialProps(appContext);
+    return { ...appProps };
+};
+
+export default withApollo(MyApp)

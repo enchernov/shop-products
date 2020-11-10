@@ -6,7 +6,7 @@ import { Meta } from '@storybook/react/types-6-0'
 import SocialAuth from './index'
 
 export default {
-  title: 'SocialAuth',
+  title: 'auth/SocialAuth',
   component: SocialAuth,
 } as Meta
 
