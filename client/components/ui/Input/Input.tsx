@@ -1,10 +1,5 @@
 import React, { forwardRef, FunctionComponent, Ref } from 'react'
-import {
-  // TextFieldProps,
-  FormControlLabel,
-  Checkbox,
-  TextField,
-} from '@material-ui/core'
+import { FormControlLabel, Checkbox, TextField } from '@material-ui/core'
 
 import IconButton from '../IconButton'
 import { useStyles } from './Input.styles'
@@ -17,11 +12,11 @@ type VariantType = 'standard' | 'filled' | 'outlined'
 export interface IInputProps {
   className: string
   disabled?: boolean
-  value?: string
+  value?: any
   id: string
   required?: boolean
   label: string
-  type?: InputTypeType
+  type: InputTypeType
   icon?: IconType
   name: string
   variant?: VariantType
@@ -29,9 +24,8 @@ export interface IInputProps {
   helperText?: string
   fullWidth?: boolean
   checked?: boolean
-  onChange?: (fieldValue: any) => void
+  onChange?: any
   onIconClick?: () => void
-  onCheckBoxChange?: () => void
 }
 
 const defaultProps: Partial<IInputProps> = {
@@ -61,7 +55,6 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
       required,
       fullWidth,
       checked,
-      onCheckBoxChange,
       ...props
     },
     ref: Ref<HTMLInputElement>
@@ -73,7 +66,12 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
     const endAdornment = icon
       ? {
           endAdornment: (
-            <IconButton icon={icon} disabled={disabled} onClick={onIconClick} />
+            <IconButton
+              icon={icon}
+              disabled={disabled}
+              onClick={onIconClick}
+              disableFocusRipple={true}
+            />
           ),
         }
       : undefined
@@ -84,7 +82,7 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
           control={
             <Checkbox
               checked={checked}
-              onChange={onCheckBoxChange}
+              onChange={onChange}
               name={name}
               color="primary"
             />
@@ -98,7 +96,7 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
       <TextField
         ref={ref}
         className={classesInput}
-        helperText={error ? error : helperText}
+        helperText={helperText}
         id={id}
         name={name}
         required={required}
@@ -110,7 +108,6 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
         disabled={disabled}
         label={label}
         onChange={onChange}
-        color={error ? 'secondary' : 'primary'}
         fullWidth={fullWidth}
         {...props}
       />

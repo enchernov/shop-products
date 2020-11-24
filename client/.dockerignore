@@ -7,3 +7,7 @@ Dockerfile.dev
 node_modules/
 storybook-static/
 coverage/
+.env
+.env.development
+.env.test
+.env.production

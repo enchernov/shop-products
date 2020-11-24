@@ -1,47 +1,27 @@
 import React, { FunctionComponent } from 'react'
 import { Grid } from '@material-ui/core'
+import clsx from 'clsx'
 
-import SocialButton from '../../ui/SocialButton/SocialButton'
-
+import SocialButton from '@ui/SocialButton/SocialButton'
 import { useStyles } from './SocialAuth.styles'
+import { useStyles as useButtonStyles } from '@ui/SocialButton/SocialButton.styles'
 
 type ServiceType = 'facebook' | 'vk' | 'twitter' | 'google'
 
-interface ISocialAuthProps {
-  icon: ServiceType
-}
-
-const services: Array<ISocialAuthProps> = [
-  {
-    icon: 'facebook',
-  },
-  {
-    icon: 'vk',
-  },
-  {
-    icon: 'twitter',
-  },
-  {
-    icon: 'google',
-  },
-]
+const services: Array<ServiceType> = ['facebook', 'vk', 'twitter', 'google']
 
 const SocialAuth: FunctionComponent = (props) => {
   const classes = useStyles()
-
+  const buttonClasses = useButtonStyles()
   return (
-    <Grid
-      container
-      justify='center'
-      alignContent='center'
-      {...props}
-    >
+    <Grid container justify="center" alignContent="center" {...props}>
       {services.map((service) => (
-        <Grid item key={service.icon}>
+        <Grid item key={service}>
           <SocialButton
-            icon={service.icon}
-            key={service.icon}
-            className={classes[service.icon]}
+            icon={service}
+            key={service}
+            className={clsx(classes[service], buttonClasses[service])}
+            href={`${process.env.STRAPI_API_URL}/connect/${service}`}
           />
         </Grid>
       ))}

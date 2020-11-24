@@ -5,7 +5,6 @@ import {
   SvgIconProps,
 } from '@material-ui/core'
 import clsx from 'clsx'
-
 import {
   GoogleIcon,
   FacebookIcon,
@@ -14,6 +13,7 @@ import {
 } from './icons/SocialIcons'
 
 import { useStyles } from './SocialButton.styles'
+import Link from '@ui/Link'
 
 type SocialIconType = 'vk' | 'facebook' | 'twitter' | 'google'
 
@@ -21,6 +21,7 @@ export interface ISocialButtonProps {
   icon: SocialIconType
   onClick?: () => void
   className?: string
+  href?: string
 }
 
 const iconButtonMap: Record<SocialIconType, ElementType<SvgIconProps>> = {
@@ -33,12 +34,13 @@ const iconButtonMap: Record<SocialIconType, ElementType<SvgIconProps>> = {
 type SocialButtonPropsType = IconButtonProps & ISocialButtonProps
 
 const SocialButton: FunctionComponent<SocialButtonPropsType> = forwardRef(
-  ({ icon, onClick, className }, ref: Ref<HTMLButtonElement>) => {
+  ({ icon, onClick, className, href }, ref: Ref<HTMLButtonElement>) => {
     const classes = useStyles()
 
     const IconComponent = iconButtonMap[icon]
 
     const classesIconButton = clsx(classes.iconButton, className)
+    const linkProps = href ? { href: href, component: Link } : undefined
 
     return (
       <MatIconButton
@@ -46,6 +48,7 @@ const SocialButton: FunctionComponent<SocialButtonPropsType> = forwardRef(
         size="medium"
         className={classesIconButton}
         onClick={onClick}
+        {...linkProps}
       >
         <IconComponent />
       </MatIconButton>

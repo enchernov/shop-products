@@ -12,9 +12,11 @@ const nextConfig = {
     }
     return config
   },
+
   webpackDevMiddleware: (config) => {
-    return config;
+    return config
   },
+
   workboxOpts: {
     swDest: process.env.NEXT_EXPORT
       ? 'service-worker.js'
@@ -32,6 +34,7 @@ const nextConfig = {
       },
     ],
   },
+
   async rewrites() {
     return [
       {

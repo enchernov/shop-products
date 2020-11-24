@@ -1,80 +1,99 @@
-import React, {FunctionComponent, useState, useRef, useCallback, useEffect} from 'react'
+import React, { FunctionComponent, useState } from 'react'
 import { Paper, Grid, Typography } from '@material-ui/core'
-import { useMutation } from "@apollo/client"
+import { useMutation } from '@apollo/client'
+import { useFormik } from 'formik'
+import * as yup from 'yup'
+import clsx from 'clsx'
 
-import Link from '../../ui/Link'
-import Input from '../../ui/Input'
-import Button from '../../ui/Button'
+import Link from '@ui/Link'
+import Input from '@ui/Input'
+import Button from '@ui/Button'
 import SocialAuth from '../SocialAuth'
-import { useFieldChange } from '../../../hooks/auth/useFieldChange'
-import { useErrorMessage } from '../../../hooks/auth/useErrorMessage'
 
-import REGISTER_USER from "../../../graphql/mutations/RegisterUser";
+import REGISTER_USER from '@graphql/mutations/RegisterUser'
 
 import { useStyles } from './Register.styles'
 
+// import { useErrorMessage } from '@hooks/auth/useErrorMessage'
+
+interface IRegisterProps {
+  username: string
+  email: string
+  password: string
+  passwordConfirm: string
+}
+
 const Register: FunctionComponent = () => {
   const classes = useStyles()
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-  const [isPasswordConfirmVisible, setIsPasswordConfirmVisible] = useState(false)
-  const [error, setError] = useState('')
-  const registerForm = useRef(null)
 
-  const [registerData, setRegisterData] = useState({
-    username: "",
-    email: "",
-    password: ""
-  })
+  const [error, setError] = useState<string>('')
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
+  const [isPasswordConfirmVisible, setIsPasswordConfirmVisible] = useState<
+    boolean
+  >(false)
 
-  const [register, result] = useMutation(REGISTER_USER, {
-    onError: (error) => {
-      setError(useErrorMessage(error.graphQLErrors[0].message))
-    }
-  })
-
-  useEffect(() => {
-      if (result.data) {
-
-      }
-  }, [result.data])
-
-  const handleChange = useFieldChange(setRegisterData);
-
-  const mutateRegister = useCallback(() => {
-     register({
-         variables: {
-             registerData
-         }
-     })
-  }, [register, registerData])
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    mutateRegister()
-  }
+  const [register] = useMutation<IRegisterProps>(REGISTER_USER)
 
   const handleIconPasswordClick = () => {
-    setIsPasswordVisible(isPasswordVisible => !isPasswordVisible)
+    setIsPasswordVisible((isPasswordVisible) => !isPasswordVisible)
   }
 
   const handleIconConfirmPasswordClick = () => {
-    setIsPasswordConfirmVisible(isPasswordConfirmVisible => !isPasswordConfirmVisible)
+    setIsPasswordConfirmVisible(
+      (isPasswordConfirmVisible) => !isPasswordConfirmVisible
+    )
   }
 
+  const initialValues: IRegisterProps = {
+    username: '',
+    email: '',
+    password: '',
+    passwordConfirm: '',
+  }
+
+  const validationSchema = yup.object({
+    username: yup.string().required('Логин обязателен для заполнения'),
+    email: yup
+      .string()
+      .email('Введите корректный email')
+      .required('Email обязателен для заполнения'),
+    password: yup
+      .string()
+      .min(6, 'Минимальная длина пароля - 6 символов')
+      .required('Пароль обязателен для заполнения'),
+    passwordConfirm: yup
+      .string()
+      .oneOf([yup.ref('password')], 'Пароли должны совпадать')
+      .required('Подтвердите пароль'),
+  })
+
+  const handleSubmit = async (values) => {
+    await register({
+      variables: {
+        input: values,
+      },
+    })
+      .then((data) => console.log(data))
+      .catch((error) => {
+        setError(error.message)
+      })
+  }
+
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: validationSchema,
+    onSubmit: handleSubmit,
+  })
+
   return (
-    <Grid
-      container
-      direction='column'
-      alignItems='center'
-      justify='center'
-    >
+    <Grid container direction="column" alignItems="center" justify="center">
       <Grid item className={classes.container}>
-        <Paper className={classes.formPaper} elevation={1}>
+        <Paper className={classes.formPaper} elevation={1} square>
           <Grid
             container
-            direction='column'
-            alignItems='center'
-            justify='space-between'
+            direction="column"
+            alignItems="center"
+            justify="space-between"
           >
             <Grid item>
               <Typography variant="h2" className={classes.heading}>
@@ -82,57 +101,99 @@ const Register: FunctionComponent = () => {
               </Typography>
             </Grid>
             <Grid item>
-              <form ref={registerForm} onSubmit={handleSubmit}>
-                { error && <p className={classes.error}>{error}</p> }
+              <form onSubmit={formik.handleSubmit}>
+                {error && <p className={classes.error}>{error}</p>}
                 <Input
-                  id='username'
-                  type='text'
-                  required
-                  label='Введите логин'
-                  name='username'
-                  variant='outlined'
+                  id="username"
+                  type="text"
+                  label="Введите логин"
+                  name="username"
+                  variant="outlined"
                   fullWidth
-                  className={classes.input}
-                  value={registerData.username}
-                  onChange={handleChange('username')}
+                  className={
+                    formik.touched.username && Boolean(formik.errors.username)
+                      ? clsx(classes.input, classes.input_error)
+                      : classes.input
+                  }
+                  value={formik.values.username}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.username && Boolean(formik.errors.username)
+                  }
+                  helperText={
+                    formik.touched.username ? formik.errors.username : undefined
+                  }
                 />
                 <Input
-                  id='email'
-                  type='email'
-                  required
-                  label='Введите email'
-                  name='email'
-                  variant='outlined'
+                  id="email"
+                  type="email"
+                  label="Введите email"
+                  name="email"
+                  variant="outlined"
                   fullWidth
-                  className={classes.input}
-                  value={registerData.email}
-                  onChange={handleChange('email')}
+                  className={
+                    formik.touched.email && Boolean(formik.errors.email)
+                      ? clsx(classes.input, classes.input_error)
+                      : classes.input
+                  }
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  error={formik.touched.email && Boolean(formik.errors.email)}
+                  helperText={
+                    formik.touched.email ? formik.errors.email : undefined
+                  }
                 />
                 <Input
-                  id='password'
+                  id="password"
                   type={isPasswordVisible ? 'text' : 'password'}
-                  required
-                  label='Введите пароль'
-                  name='password'
-                  variant='outlined'
+                  label="Введите пароль"
+                  name="password"
+                  variant="outlined"
                   icon={isPasswordVisible ? 'visibilityOff' : 'visibility'}
                   onIconClick={handleIconPasswordClick}
                   fullWidth
-                  className={classes.input}
-                  value={registerData.password}
-                  onChange={handleChange('password')}
+                  className={
+                    formik.touched.password && Boolean(formik.errors.password)
+                      ? clsx(classes.input, classes.input_error)
+                      : classes.input
+                  }
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.password && Boolean(formik.errors.password)
+                  }
+                  helperText={
+                    formik.touched.password ? formik.errors.password : undefined
+                  }
                 />
                 <Input
-                  id='passwordConfirm'
+                  id="passwordConfirm"
                   type={isPasswordConfirmVisible ? 'text' : 'password'}
-                  required
-                  label='Повторите пароль'
-                  name='passwordConfirm'
-                  variant='outlined'
-                  icon={isPasswordConfirmVisible ? 'visibilityOff' : 'visibility'}
+                  label="Повторите пароль"
+                  name="passwordConfirm"
+                  variant="outlined"
+                  icon={
+                    isPasswordConfirmVisible ? 'visibilityOff' : 'visibility'
+                  }
                   onIconClick={handleIconConfirmPasswordClick}
                   fullWidth
-                  className={classes.input}
+                  className={
+                    formik.touched.passwordConfirm &&
+                    Boolean(formik.errors.passwordConfirm)
+                      ? clsx(classes.input, classes.input_error)
+                      : classes.input
+                  }
+                  value={formik.values.passwordConfirm}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.passwordConfirm &&
+                    Boolean(formik.errors.passwordConfirm)
+                  }
+                  helperText={
+                    formik.touched.passwordConfirm
+                      ? formik.errors.passwordConfirm
+                      : undefined
+                  }
                 />
                 <Button type="submit" fullWidth className={classes.button}>
                   Зарегистрироваться
@@ -140,19 +201,19 @@ const Register: FunctionComponent = () => {
               </form>
             </Grid>
             <Grid item>
-              <h3 className={classes.heading}>
+              <Typography variant="h5" className={classes.serviceHeading}>
                 Или войдите с помощью сервисов
-              </h3>
+              </Typography>
             </Grid>
             <SocialAuth />
           </Grid>
         </Paper>
       </Grid>
       <Grid item className={classes.container}>
-        <Paper className={classes.loginPaper} elevation={1}>
-          <Grid container justify='center' alignContent='center'>
+        <Paper className={classes.loginPaper} elevation={1} square>
+          <Grid container justify="center" alignContent="center">
             <Grid item>
-              Уже зарегистрированы? <Link href={'/auth/signin'}>Войдите</Link>
+              Уже зарегистрированы? <Link href={'/signin'}>Войдите</Link>
             </Grid>
           </Grid>
         </Paper>

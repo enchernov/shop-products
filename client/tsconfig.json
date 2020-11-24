@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "alwaysStrict": true,
-    "baseUrl": "./",
+    "baseUrl": "../client",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
@@ -13,6 +13,14 @@
       "dom.iterable",
       "esnext"
     ],
+    "paths": {
+      "@components/*": ["components/*"],
+      "@ui/*": ["components/ui/*"],
+      "@hooks/*": ["hooks/*"],
+      "@graphql/*": ["graphql/*"],
+      "@public/*": ["public/*"],
+      "@providers/*": ["providers/*"]
+    },
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,

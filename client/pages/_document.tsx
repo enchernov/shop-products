@@ -117,7 +117,7 @@ class MyDocument extends Document implements IMyDocument {
             href="./images/icons/favicon-16x16.png"
           />
           <link rel="icon" href="./images/icons/favicon.ico" />
-          <link rel="manifest" href="./manifest.json" />
+          <link rel="manifest" href="/manifest.json" />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"

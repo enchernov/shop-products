@@ -22,6 +22,7 @@ export interface IIconButtonProps {
   onClick?: () => void
   disabled?: boolean
   className?: string
+  disableFocusRipple?: boolean
 }
 
 type IconButtonPropsType = IconButtonProps & IIconButtonProps
@@ -35,7 +36,10 @@ const iconButtonMap: Record<IconType, ElementType<SvgIconProps>> = {
 }
 
 const IconButton: FunctionComponent<IconButtonPropsType> = forwardRef(
-  ({ icon, onClick, disabled, className }, ref: Ref<HTMLButtonElement>) => {
+  (
+    { icon, onClick, disabled, className, disableFocusRipple },
+    ref: Ref<HTMLButtonElement>
+  ) => {
     const classes = useStyles()
 
     const IconComponent = iconButtonMap[icon]
@@ -49,6 +53,7 @@ const IconButton: FunctionComponent<IconButtonPropsType> = forwardRef(
         className={classesIconButton}
         onClick={onClick}
         disabled={disabled}
+        disableFocusRipple={disableFocusRipple}
       >
         <IconComponent />
       </MatIconButton>

@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions'
 
 import { ISocialButtonProps } from './SocialButton'
 import SocialButton from './index'
+import { useStyles } from './SocialButton.styles'
 
 export default {
   title: 'ui/SocialButton',
@@ -19,9 +20,16 @@ export default {
   },
 } as Meta
 
-const Template: Story<ISocialButtonProps> = (args) => (
-  <SocialButton onClick={action('clicked')} {...args} />
-)
+const Template: Story<ISocialButtonProps> = (args) => {
+  const classes = useStyles()
+  return (
+    <SocialButton
+      onClick={action('clicked')}
+      {...args}
+      className={classes[args.icon]}
+    />
+  )
+}
 
 export const Icon = Template.bind({})
 Icon.args = {

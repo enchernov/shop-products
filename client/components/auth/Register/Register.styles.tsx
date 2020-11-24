@@ -4,16 +4,16 @@ export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       width: '100%',
-      maxWidth: 400,
+      maxWidth: 420,
       '&:not(:last-child)': {
         marginBottom: 10,
       },
     },
     heading: {
-      margin: '0 0 20px 0',
+      margin: '0 0 10px 0',
     },
     serviceHeading: {
-      marginBottom: 10,
+      marginBottom: 20,
       marginTop: 0,
     },
     formPaper: {
@@ -23,7 +23,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       padding: 20,
     },
     input: {
-      marginBottom: 20,
+      marginBottom: 30,
+    },
+    input_error: {
+      marginBottom: 8,
     },
     button: {
       padding: 15,
@@ -31,6 +34,10 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     error: {
       color: theme.palette.error.main,
+      minHeight: 20,
+      margin: '0 0 10px 0',
+      width: '100%',
+      textAlign: 'center',
     },
   })
 )

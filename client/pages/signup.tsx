@@ -1,7 +1,8 @@
 import React from 'react'
 import { NextPage } from 'next'
-import Register from '../../components/auth/Register'
-import Layout from '../../components/layouts/Layout/Layout'
+
+import Layout from '../components/layouts/Layout'
+import Register from '../components/auth/Register'
 
 const SignUpPage: NextPage = () => {
   return (

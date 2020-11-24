@@ -25,4 +25,14 @@ export default createMuiTheme({
       contrastText: '#fff',
     },
   },
+  typography: {
+    h2: {
+      fontSize: '1.25rem',
+      fontWeight: 900,
+    },
+    h5: {
+      fontSize: '1rem',
+      fontWeight: 900,
+    },
+  },
 })

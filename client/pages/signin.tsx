@@ -1,7 +1,8 @@
 import React from 'react'
 import { NextPage } from 'next'
-import Login from '../../components/auth/Login'
-import Layout from '../../components/layouts/Layout/Layout'
+
+import Layout from '../components/layouts/Layout'
+import Login from '../components/auth/Login'
 
 const SignInPage: NextPage = () => {
   return (

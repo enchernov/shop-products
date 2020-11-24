@@ -14,11 +14,11 @@
     "test:coverage": "jest --coverage --setupFiles ./config/setupTests.ts"
   },
   "dependencies": {
-    "@apollo/react-hooks": "^4.0.0",
+    "@apollo/client": "^3.2.5",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/styles": "^4.10.0",
-    "apollo-client": "^2.6.10",
+    "dotenv": "^8.2.0",
     "next": "latest",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -41,6 +41,7 @@
     "@types/node": "^12.12.21",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
+    "@types/yup": "^0.29.9",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
     "babel-jest": "^26.6.1",
@@ -57,6 +58,7 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "express": "^4.17.1",
+    "formik": "^2.2.5",
     "graphql": "^15.4.0",
     "isomorphic-unfetch": "^3.1.0",
     "jest": "^26.6.1",
@@ -71,7 +73,8 @@
     "storybook-addon-styled-component-theme": "^1.3.0",
     "style-loader": "^2.0.0",
     "ts-jest": "^26.4.3",
-    "typescript": "4.0"
+    "typescript": "4.0",
+    "yup": "^0.30.0"
   },
   "license": "MIT"
 }
