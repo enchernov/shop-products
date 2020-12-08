@@ -7,3 +7,9 @@ services:
       context: ./client
     ports:
       - '3000:3000'
+  strapi:
+    build:
+      dockerfile: Dockerfile
+      context: ./server
+    ports:
+      - '1337:1337'

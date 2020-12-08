@@ -1,40 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
 import Layout from '../../components/layouts/Layout'
+import { AppContext } from '@providers/AppProvider'
+
+import * as ACTIONS from '@actions/index'
 
 const ConnectPage: NextPage = () => {
   const router = useRouter()
-  const [user, setUser] = useState(null)
-  const [jwt, setJwt] = useState(null)
+  const { state, dispatch } = useContext(AppContext)
   const { access_token, id_token, provider } = router.query
 
   useEffect(() => {
     if (access_token) {
       try {
         fetch(
-          `http://localhost:1337/auth/google/callback?access_token=${access_token}`
+          `${process.env.STRAPI_API_URL}/auth/${provider}/callback?access_token=${access_token}`
         )
           .then((res) => res.json())
           .then((data) => {
             console.log(data)
-            setUser(data.user)
-            setJwt(data.jwt)
+            dispatch(ACTIONS.authSuccess(data))
           })
       } catch (e) {
         console.log(e)
       }
     }
   }, [access_token])
+
   return (
     <Layout title={'Connect'}>
       <h1>Hello Next.js 👋</h1>
       <p>Access token: {access_token}</p>
       <p>ID token: {id_token}</p>
       <p>Provider: {provider}</p>
-      {jwt ? <p>JWT: {jwt}</p> : null}
-      {user ? <p>User: {JSON.stringify(user)}</p> : null}
+      {state.token ? <p>JWT: {state.token}</p> : null}
+      {state.user ? <p>User: {JSON.stringify(state.user)}</p> : null}
     </Layout>
   )
 }

@@ -1,15 +1,16 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useContext, useState } from 'react'
 import { Paper, Grid, Typography } from '@material-ui/core'
+import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import clsx from 'clsx'
 
-import Link from '@ui/Link'
-import Input from '@ui/Input'
-import Button from '@ui/Button'
+import { Button, Input, Link } from '@ui/index'
 import SocialAuth from '../SocialAuth'
-
+import { registerUser } from '@utils/auth'
+import * as ACTIONS from '@actions/index'
+import { AppContext } from '@providers/AppProvider'
 import REGISTER_USER from '@graphql/mutations/RegisterUser'
 
 import { useStyles } from './Register.styles'
@@ -25,8 +26,8 @@ interface IRegisterProps {
 
 const Register: FunctionComponent = () => {
   const classes = useStyles()
-
-  const [error, setError] = useState<string>('')
+  const router = useRouter()
+  const { state, dispatch } = useContext(AppContext)
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
   const [isPasswordConfirmVisible, setIsPasswordConfirmVisible] = useState<
     boolean
@@ -68,15 +69,13 @@ const Register: FunctionComponent = () => {
   })
 
   const handleSubmit = async (values) => {
-    await register({
-      variables: {
-        input: values,
-      },
-    })
-      .then((data) => console.log(data))
-      .catch((error) => {
-        setError(error.message)
-      })
+    try {
+      const data = await registerUser(dispatch, register, values)
+      if (!data.user) return
+      await router.push('/profile')
+    } catch (error) {
+      dispatch(ACTIONS.authError(error.message))
+    }
   }
 
   const formik = useFormik({
@@ -102,7 +101,9 @@ const Register: FunctionComponent = () => {
             </Grid>
             <Grid item>
               <form onSubmit={formik.handleSubmit}>
-                {error && <p className={classes.error}>{error}</p>}
+                {state.errorMessage && (
+                  <p className={classes.error}>{state.errorMessage}</p>
+                )}
                 <Input
                   id="username"
                   type="text"
@@ -195,7 +196,12 @@ const Register: FunctionComponent = () => {
                       : undefined
                   }
                 />
-                <Button type="submit" fullWidth className={classes.button}>
+                <Button
+                  type="submit"
+                  disabled={state.loading}
+                  fullWidth
+                  className={classes.button}
+                >
                   Зарегистрироваться
                 </Button>
               </form>

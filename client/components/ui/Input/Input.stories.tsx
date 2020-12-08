@@ -3,8 +3,7 @@ import { Story } from '@storybook/react'
 import { Meta } from '@storybook/react/types-6-0'
 import { action } from '@storybook/addon-actions'
 
-import Input from './index'
-import { IInputProps } from './Input'
+import Input, { IInputProps } from './Input'
 
 export default {
   title: 'ui/Input',
@@ -20,7 +19,7 @@ export default {
       control: {
         type: 'text',
       },
-      defaultValue: 'Text input',
+      defaultValue: 'Text',
     },
     disabled: {
       control: {
@@ -31,13 +30,13 @@ export default {
       control: {
         type: 'text',
       },
-      defaultValue: 'text_input',
+      defaultValue: 'text',
     },
     name: {
       control: {
         type: 'text',
       },
-      defaultValue: 'simple_text_input',
+      defaultValue: 'text',
     },
     icon: {
       control: {
@@ -48,7 +47,7 @@ export default {
     type: {
       control: {
         type: 'select',
-        options: ['text', 'password', 'email'],
+        options: ['text', 'password', 'email', 'checkbox'],
       },
     },
     variant: {
@@ -67,28 +66,33 @@ export default {
         type: 'text',
       },
     },
+    checked: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
 } as Meta
 
 const Template: Story<IInputProps> = (args) => (
-  <Input onChange={action('changed')} {...args} />
+  <Input onInputChange={action('changed')} {...args} />
 )
 
 export const Text = Template.bind({})
 Text.args = {
-  value: 'Text',
+  value: 'text',
   id: 'text',
-  label: 'Text input',
-  name: 'simple_text_input',
+  label: 'Text',
+  name: 'text',
   type: 'text',
 }
 
 export const Password = Template.bind({})
 Password.args = {
-  value: 'My password',
+  value: 'password',
   id: 'password',
   label: 'Пароль',
-  name: 'password_input',
+  name: 'password',
   type: 'password',
   icon: 'visibility',
   helperText: 'Введите пароль',
@@ -104,4 +108,12 @@ Email.args = {
   type: 'email',
   helperText: 'Введите email',
   variant: 'outlined',
+}
+
+export const Checkbox = Template.bind({})
+Checkbox.args = {
+  label: 'checkbox',
+  name: 'checkbox',
+  type: 'checkbox',
+  checked: false,
 }

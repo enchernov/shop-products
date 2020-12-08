@@ -9,13 +9,16 @@ import React, {
 
 export interface IActionsProps {
   type: string
-  value: any
+  payload?: any
+  error?: any
 }
 
 export interface IAppProps {
   isAuthenticated: boolean
   user: any
   loading: boolean
+  token: string | null
+  errorMessage: string | null
 }
 
 interface IAppContextProviderProps {

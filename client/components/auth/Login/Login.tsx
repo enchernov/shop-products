@@ -1,65 +1,63 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useContext, useState } from 'react'
 import { Grid, Paper, Typography } from '@material-ui/core'
+import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import clsx from 'clsx'
 
-import Link from '@ui/Link'
-import Input from '@ui/Input'
-import Button from '@ui/Button'
+import { Button, Link, Input } from '@ui/index'
 import SocialAuth from '../SocialAuth'
-
+import { AppContext } from '@providers/AppProvider'
+import { loginUser } from '@utils/auth'
+import * as ACTIONS from '@actions/index'
 import LOGIN_USER from '@graphql/mutations/LoginUser'
 
 import { useStyles } from './Login.styles'
 
 // import { useErrorMessage } from '@hooks/auth/useErrorMessage'
 
-interface ILoginProps {
+export interface ILoginProps {
   identifier: string
   password: string
 }
 
-const validationSchema = yup.object({
-  identifier: yup
-    .string()
-    .email('Введите корректный email')
-    .required('Email обязателен для заполнения'),
-  password: yup
-    .string()
-    .min(6, 'Минимальная длина пароля - 6 символов')
-    .required('Пароль обязателен для заполнения'),
-})
-
 const Login: FunctionComponent = () => {
   const classes = useStyles()
+  const router = useRouter()
+  const { state, dispatch } = useContext(AppContext)
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
+  const [login] = useMutation<ILoginProps>(LOGIN_USER)
 
   const handleIconClick = () => {
     setIsPasswordVisible((isPasswordVisible) => !isPasswordVisible)
   }
 
-  const [error, setError] = useState<string>('')
-
-  const [login] = useMutation<ILoginProps>(LOGIN_USER)
+  const handleSubmit = async (values) => {
+    try {
+      const data = await loginUser(dispatch, login, values)
+      if (!data.user) return
+      await router.push('/profile')
+    } catch (error) {
+      dispatch(ACTIONS.authError(error.message))
+    }
+  }
 
   const initialValues: ILoginProps = {
     identifier: '',
     password: '',
   }
 
-  const handleSubmit = async (values) => {
-    await login({
-      variables: {
-        input: values,
-      },
-    })
-      .then((data) => console.log(data))
-      .catch((error) => {
-        setError(error.message)
-      })
-  }
+  const validationSchema = yup.object({
+    identifier: yup
+      .string()
+      .email('Введите корректный email')
+      .required('Email обязателен для заполнения'),
+    password: yup
+      .string()
+      .min(6, 'Минимальная длина пароля - 6 символов')
+      .required('Пароль обязателен для заполнения'),
+  })
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -89,7 +87,9 @@ const Login: FunctionComponent = () => {
             </Grid>
             <Grid item>
               <form className={classes.form} onSubmit={formik.handleSubmit}>
-                {error && <p className={classes.error}>{error}</p>}
+                {state.errorMessage && (
+                  <p className={classes.error}>{state.errorMessage}</p>
+                )}
                 <Input
                   id="identifier"
                   type="email"
@@ -138,7 +138,12 @@ const Login: FunctionComponent = () => {
                     formik.touched.password ? formik.errors.password : undefined
                   }
                 />
-                <Button type="submit" fullWidth className={classes.button}>
+                <Button
+                  type="submit"
+                  disabled={state.loading}
+                  fullWidth
+                  className={classes.button}
+                >
                   Войти
                 </Button>
                 <Link href={'/reset'}>Забыли пароль?</Link>

@@ -9,6 +9,8 @@ const primaryRed = red[500]
 const accentRed = red.A200
 const darkRed = red[900]
 
+const errorRed = red[500]
+
 export default createMuiTheme({
   name: 'Light Theme',
   palette: {
@@ -16,7 +18,7 @@ export default createMuiTheme({
       light: accentGreen,
       main: primaryGreen,
       dark: darkGreen,
-      contrastText: '#fff',
+      contrastText: '#212121',
     },
     secondary: {
       light: primaryRed,
@@ -24,15 +26,30 @@ export default createMuiTheme({
       dark: darkRed,
       contrastText: '#fff',
     },
+    error: {
+      main: errorRed,
+    },
   },
   typography: {
-    h2: {
-      fontSize: '1.25rem',
-      fontWeight: 900,
+    h1: {
+      fontWeight: '700',
+      fontSize: '2rem',
     },
-    h5: {
+    h2: {
+      fontWeight: '500',
+      fontSize: '1.5rem',
+    },
+    h3: {
+      fontWeight: '400',
+      fontSize: '1.2rem',
+    },
+    h4: {
+      fontWeight: '300',
       fontSize: '1rem',
-      fontWeight: 900,
+    },
+    body1: {
+      fontSize: '0.875rem',
+      lineHeight: '0.875rem',
     },
   },
 })

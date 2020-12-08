@@ -2,13 +2,13 @@ import React, { FunctionComponent } from 'react'
 import { Grid } from '@material-ui/core'
 import clsx from 'clsx'
 
-import SocialButton from '@ui/SocialButton/SocialButton'
+import { SocialButton } from '@ui/index'
 import { useStyles } from './SocialAuth.styles'
 import { useStyles as useButtonStyles } from '@ui/SocialButton/SocialButton.styles'
 
-type ServiceType = 'facebook' | 'vk' | 'twitter' | 'google'
+type ServiceType = 'facebook' | 'vk' | 'instagram' | 'google'
 
-const services: Array<ServiceType> = ['facebook', 'vk', 'twitter', 'google']
+const services: Array<ServiceType> = ['facebook', 'vk', 'instagram', 'google']
 
 const SocialAuth: FunctionComponent = (props) => {
   const classes = useStyles()

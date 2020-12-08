@@ -1,35 +1,37 @@
-import React, { forwardRef, FunctionComponent, Ref } from 'react'
+import React, { ChangeEvent, forwardRef, FunctionComponent, Ref } from 'react'
 import { FormControlLabel, Checkbox, TextField } from '@material-ui/core'
-
-import IconButton from '../IconButton'
-import { useStyles } from './Input.styles'
 import clsx from 'clsx'
 
-type InputTypeType = 'text' | 'email' | 'password' | 'checkbox'
+import IconButton from '../IconButton'
+
+import { useStyles } from './Input.styles'
+
+type InputTypeType = 'text' | 'email' | 'password' | 'search' | 'checkbox'
 type IconType = 'search' | 'visibility' | 'visibilityOff'
 type VariantType = 'standard' | 'filled' | 'outlined'
 
 export interface IInputProps {
-  className: string
+  className?: string
   disabled?: boolean
-  value?: any
-  id: string
+  value?: string
+  id?: string
   required?: boolean
-  label: string
-  type: InputTypeType
+  label?: string
+  type?: InputTypeType
   icon?: IconType
-  name: string
+  name?: string
   variant?: VariantType
   error?: boolean
   helperText?: string
   fullWidth?: boolean
   checked?: boolean
-  onChange?: any
+  onChange?: (e: ChangeEvent<any>) => void
   onIconClick?: () => void
 }
 
 const defaultProps: Partial<IInputProps> = {
   disabled: false,
+  variant: 'outlined',
 }
 
 type DefaultProps = Readonly<typeof defaultProps>
@@ -60,7 +62,6 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
     ref: Ref<HTMLInputElement>
   ) => {
     const classes = useStyles()
-
     const classesInput = clsx(classes.input, className)
 
     const endAdornment = icon
@@ -70,7 +71,7 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
               icon={icon}
               disabled={disabled}
               onClick={onIconClick}
-              disableFocusRipple={true}
+              className={classes.icon}
             />
           ),
         }
@@ -96,7 +97,7 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
       <TextField
         ref={ref}
         className={classesInput}
-        helperText={helperText}
+        helperText={error ? error : helperText}
         id={id}
         name={name}
         required={required}
@@ -108,6 +109,7 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
         disabled={disabled}
         label={label}
         onChange={onChange}
+        color={error ? 'secondary' : 'primary'}
         fullWidth={fullWidth}
         {...props}
       />
@@ -116,6 +118,5 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
 )
 
 Input.defaultProps = defaultProps
-Input.displayName = 'Input'
 
 export default Input

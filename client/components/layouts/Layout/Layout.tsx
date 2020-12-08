@@ -19,6 +19,7 @@ const Layout: FunctionComponent<ILayoutProps> = ({ children, title = '' }) => {
   const changeLayout = () => {
     switch (router.pathname) {
       case '/':
+      case '/profile':
         return <GeneralLayout>{children}</GeneralLayout>
       case '/signin':
       case '/signup':

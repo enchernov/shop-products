@@ -1,18 +1,27 @@
-import React, { FunctionComponent } from 'react'
-import { Paper, Grid } from '@material-ui/core'
+import React, { FunctionComponent, useState } from 'react'
+import { Paper, Grid, Typography } from '@material-ui/core'
+import { useRouter } from 'next/router'
 
-import Link from '@ui/Link'
-import Input from '@ui/Input'
-import Button from '@ui/Button'
+import { Link } from '@ui/index'
+
+import ForgotPasswordForm from '../ForgotPasswordForm/ForgotPasswordForm'
+import ResetPasswordForm from '../ResetPasswordForm/ResetPasswordForm'
 
 import { useStyles } from './ResetPassword.styles'
 
 const ResetPassword: FunctionComponent = () => {
   const classes = useStyles()
+  const router = useRouter()
+  const code = router.query?.code
+  const [emailSend, setEmailSend] = useState<boolean>(false)
+  const [emailFormik, setFormikEmail] = useState<string>('')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(e)
+  const setEmailData = (value) => {
+    setEmailSend(value)
+  }
+
+  const setFormikEmailData = (value) => {
+    setFormikEmail(value)
   }
 
   return (
@@ -31,24 +40,23 @@ const ResetPassword: FunctionComponent = () => {
             justify="space-between"
           >
             <Grid item>
-              <h2 className={classes.heading}>Восстановление пароля</h2>
+              <Typography variant="h2" className={classes.heading}>
+                {emailSend ? 'Письмо отправлено' : 'Восстановление пароля'}
+              </Typography>
             </Grid>
             <Grid item>
-              <form onSubmit={handleSubmit}>
-                <Input
-                  id="email"
-                  type="email"
-                  required
-                  label="Email"
-                  name="email"
-                  variant="outlined"
-                  fullWidth
-                  className={classes.input}
+              {code ? (
+                <ForgotPasswordForm />
+              ) : emailSend ? (
+                <Typography variant="body1">
+                  Проверьте почтовый адрес {emailFormik}
+                </Typography>
+              ) : (
+                <ResetPasswordForm
+                  setEmailData={setEmailData}
+                  setFormikEmailData={setFormikEmailData}
                 />
-                <Button type="submit" fullWidth className={classes.button}>
-                  Восстановить доступ
-                </Button>
-              </form>
+              )}
             </Grid>
           </Grid>
         </Paper>

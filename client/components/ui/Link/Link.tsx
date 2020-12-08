@@ -1,46 +1,85 @@
-import React, {
-  FunctionComponent,
-  forwardRef,
-  AnchorHTMLAttributes,
-  Ref,
-  ReactNode,
-} from 'react'
+import React, { forwardRef } from 'react'
+import MuiLink, { LinkProps as MuiLinkProps } from '@material-ui/core/Link'
 import NextLink, { LinkProps as NextLinkProps } from 'next/link'
+import { useRouter } from 'next/router'
+
 import clsx from 'clsx'
 
-import { useStyles } from './Link.styles'
-
-type NextComposedProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> &
-  NextLinkProps
-
-export interface ILinkProps {
-  children: ReactNode
-  href: string
-  as?: string
-  className?: string
+const defaultProps: Partial<NextLinkProps> = {
+  prefetch: false,
 }
 
-type LinkPropsType = ILinkProps & NextComposedProps
+type DefaultProps = Readonly<typeof defaultProps>
 
-const Link: FunctionComponent<LinkPropsType> = forwardRef(
-  (
-    { href, children, as, className, ...props },
-    ref: Ref<HTMLAnchorElement>
-  ) => {
-    const classes = useStyles()
+type NextComposedProps = Omit<
+  React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  'href'
+> &
+  NextLinkProps
 
-    const classesLink = clsx(classes.link, className)
+const NextComposed = forwardRef<HTMLAnchorElement, NextComposedProps>(
+  (props, ref) => {
+    const { as, href, prefetch, ...other } = props
 
     return (
-      <NextLink href={href} as={as}>
-        <a ref={ref} className={classesLink} {...props}>
-          {children}
-        </a>
+      <NextLink href={href} prefetch={prefetch} as={as}>
+        <a ref={ref} {...other} />
       </NextLink>
     )
   }
 )
 
-Link.displayName = 'Link'
+interface ILinkPropsBase {
+  activeClassName?: string
+  innerRef?: React.Ref<HTMLAnchorElement>
+  naked?: boolean
+}
 
-export default Link
+export type LinkPropsType = ILinkPropsBase &
+  NextComposedProps &
+  Omit<MuiLinkProps, 'href'> &
+  DefaultProps
+
+const Link = (props: LinkPropsType) => {
+  const {
+    href,
+    activeClassName = 'active',
+    className: classNameProps,
+    innerRef,
+    naked,
+    ...other
+  } = props
+
+  const router = useRouter()
+  const pathname = typeof href === 'string' ? href : href.pathname
+  const className = clsx(classNameProps, {
+    [activeClassName]: router.pathname === pathname && activeClassName,
+  })
+
+  if (naked) {
+    return (
+      <NextComposed
+        className={className}
+        ref={innerRef}
+        href={href}
+        {...other}
+      />
+    )
+  }
+
+  return (
+    <MuiLink
+      component={NextComposed}
+      className={className}
+      ref={innerRef}
+      href={href as string}
+      {...other}
+    />
+  )
+}
+
+Link.defaultProps = defaultProps
+
+export default forwardRef<HTMLAnchorElement, LinkPropsType>((props, ref) => (
+  <Link {...props} innerRef={ref} />
+))

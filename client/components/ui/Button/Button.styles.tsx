@@ -4,10 +4,13 @@ export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
       boxShadow: 'none',
+      backgroundColor: theme.palette.primary.main,
       color: theme.palette.primary.contrastText,
-      borderRadius: 0,
+      margin: theme.spacing(0.5, 1, 0, 0),
+
       '&:hover': {
         boxShadow: 'none',
+        backgroundColor: theme.palette.primary.dark,
       },
     },
   })

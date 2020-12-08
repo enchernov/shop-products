@@ -1,7 +1,22 @@
-import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-export const useStyles = makeStyles(() =>
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {},
+    root: {
+      position: 'relative',
+      padding: '0 40px',
+      flex: 1,
+    },
+    logoutLink: {
+      cursor: 'pointer',
+      color: theme.palette.secondary.main,
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    },
+    header: {
+      padding: '20px 40px',
+    },
   })
 )

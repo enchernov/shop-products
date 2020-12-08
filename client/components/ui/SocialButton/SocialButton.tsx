@@ -1,21 +1,23 @@
 import React, { FunctionComponent, ElementType, forwardRef, Ref } from 'react'
 import {
-  IconButton as MatIconButton,
+  IconButton as MuiIconButton,
   IconButtonProps,
   SvgIconProps,
 } from '@material-ui/core'
 import clsx from 'clsx'
+
 import {
   GoogleIcon,
   FacebookIcon,
-  TwitterIcon,
+  InstagramIcon,
   VKIcon,
 } from './icons/SocialIcons'
 
-import { useStyles } from './SocialButton.styles'
-import Link from '@ui/Link'
+import { Link } from '@ui/index'
 
-type SocialIconType = 'vk' | 'facebook' | 'twitter' | 'google'
+import { useStyles } from './SocialButton.styles'
+
+type SocialIconType = 'vk' | 'facebook' | 'instagram' | 'google'
 
 export interface ISocialButtonProps {
   icon: SocialIconType
@@ -27,7 +29,7 @@ export interface ISocialButtonProps {
 const iconButtonMap: Record<SocialIconType, ElementType<SvgIconProps>> = {
   facebook: FacebookIcon,
   vk: VKIcon,
-  twitter: TwitterIcon,
+  instagram: InstagramIcon,
   google: GoogleIcon,
 }
 
@@ -36,14 +38,13 @@ type SocialButtonPropsType = IconButtonProps & ISocialButtonProps
 const SocialButton: FunctionComponent<SocialButtonPropsType> = forwardRef(
   ({ icon, onClick, className, href }, ref: Ref<HTMLButtonElement>) => {
     const classes = useStyles()
+    const classesIconButton = clsx(classes.iconButton, className)
 
     const IconComponent = iconButtonMap[icon]
-
-    const classesIconButton = clsx(classes.iconButton, className)
     const linkProps = href ? { href: href, component: Link } : undefined
 
     return (
-      <MatIconButton
+      <MuiIconButton
         ref={ref}
         size="medium"
         className={classesIconButton}
@@ -51,11 +52,9 @@ const SocialButton: FunctionComponent<SocialButtonPropsType> = forwardRef(
         {...linkProps}
       >
         <IconComponent />
-      </MatIconButton>
+      </MuiIconButton>
     )
   }
 )
-
-SocialButton.displayName = 'SocialButton'
 
 export default SocialButton

@@ -10,17 +10,18 @@ import {
   ButtonProps,
   SvgIconProps,
 } from '@material-ui/core'
-import { Edit, AddSharp } from '@material-ui/icons'
+import { Edit, AddSharp, Delete, Save } from '@material-ui/icons'
 import clsx from 'clsx'
 
 import Link from '../Link'
+
 import { useStyles } from './Button.styles'
 
-type IconType = 'create' | 'edit'
+type ButtonIconType = 'create' | 'edit' | 'delete' | 'save'
 
-export interface IButtonProps {
+export interface IButtonProps extends ButtonProps {
   children: ReactNode
-  icon?: IconType
+  icon?: ButtonIconType
   disabled?: boolean
   href?: string
   className?: string
@@ -34,14 +35,14 @@ const defaultProps: Partial<IButtonProps> = {
 
 type DefaultProps = Readonly<typeof defaultProps>
 
-type ButtonPropsType = ButtonProps & IButtonProps & DefaultProps
+type ButtonPropsType = IButtonProps & DefaultProps
 
-const iconButtonMap: Record<IconType, ElementType<SvgIconProps>> = {
+const iconButtonMap: Record<ButtonIconType, ElementType<SvgIconProps>> = {
   create: AddSharp,
   edit: Edit,
+  delete: Delete,
+  save: Save,
 }
-
-const noop = () => {}
 
 const Button: FunctionComponent<ButtonPropsType> = forwardRef(
   (
@@ -49,17 +50,15 @@ const Button: FunctionComponent<ButtonPropsType> = forwardRef(
     ref: Ref<HTMLButtonElement>
   ) => {
     const classes = useStyles()
+    const classesButton = clsx(classes.button, className)
 
     const IconComponent: any = icon ? iconButtonMap[icon] : null
     const startIcon = icon ? { startIcon: <IconComponent /> } : undefined
     const linkProps = href ? { href: href, component: Link } : undefined
 
-    const classesButton = clsx(classes.button, className)
-
     return (
       <MuiButton
         ref={ref}
-        color="primary"
         variant="contained"
         size="small"
         disabled={disabled}
@@ -67,7 +66,7 @@ const Button: FunctionComponent<ButtonPropsType> = forwardRef(
         fullWidth={fullWidth}
         {...startIcon}
         {...linkProps}
-        onClick={!disabled ? onClick : noop}
+        onClick={onClick}
         {...props}
       >
         {children}
@@ -77,6 +76,5 @@ const Button: FunctionComponent<ButtonPropsType> = forwardRef(
 )
 
 Button.defaultProps = defaultProps
-Button.displayName = 'Button'
 
 export default Button

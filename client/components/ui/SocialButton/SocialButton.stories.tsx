@@ -14,7 +14,7 @@ export default {
     icon: {
       control: {
         type: 'select',
-        options: ['google', 'vk', 'facebook', 'twitter'],
+        options: ['google', 'vk', 'facebook', 'instagram'],
       },
     },
   },

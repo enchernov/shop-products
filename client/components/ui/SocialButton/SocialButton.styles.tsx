@@ -32,13 +32,13 @@ export const useStyles = makeStyles(() =>
         backgroundColor: darken('#2787F5', 0.4),
       },
     },
-    twitter: {
-      backgroundColor: '#00acee',
+    instagram: {
+      backgroundColor: '#E1306C',
       '&': {
         color: '#FAFAFA',
       },
       '&:hover': {
-        backgroundColor: darken('#00acee', 0.4),
+        backgroundColor: darken('#E1306C', 0.4),
       },
     },
     google: {

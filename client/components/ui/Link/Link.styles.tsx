@@ -5,6 +5,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     link: {
       color: theme.palette.primary.main,
       textDecoration: 'none',
+
       '&:hover': {
         textDecoration: 'underline',
       },

@@ -1,29 +1,48 @@
 import React, { FunctionComponent, Reducer } from 'react'
 import AppProvider, { IActionsProps, IAppProps } from '../providers/AppProvider'
 
+import * as ACTION_TYPES from '../actions/types'
+
 const AppController: FunctionComponent = ({ children }) => {
   const initialState: IAppProps = {
     isAuthenticated: false,
     user: null,
+    token: null,
     loading: true,
+    errorMessage: null,
   }
 
   const reducer: Reducer<IAppProps, IActionsProps> = (state, action) => {
     switch (action.type) {
-      case 'setAuth': {
+      case ACTION_TYPES.REQUEST_AUTH: {
         return {
           ...state,
-          isAuthenticated: action.value,
+          loading: true,
         }
       }
-      case 'setUser': {
+      case ACTION_TYPES.AUTH_SUCCESS: {
         return {
           ...state,
-          user: action.value,
+          isAuthenticated: true,
+          loading: false,
+          user: action.payload.user,
+          token: action.payload.token,
         }
       }
-      case 'getUser': {
-        return state.user
+      case ACTION_TYPES.AUTH_ERROR: {
+        return {
+          ...state,
+          isAuthenticated: false,
+          loading: false,
+          errorMessage: action.error,
+        }
+      }
+      case ACTION_TYPES.LOGOUT: {
+        return {
+          ...state,
+          user: null,
+          token: null,
+        }
       }
       default:
         return state

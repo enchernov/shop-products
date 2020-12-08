@@ -4,16 +4,15 @@ export const useStyles = makeStyles(() =>
   createStyles({
     input: {
       '& > label': {
-        fontSize: '0.8rem',
+        fontSize: '0.9rem',
       },
-      '& > div': {
-        borderRadius: 0,
+      '& input': {
+        padding: '18px 14px',
       },
-      '& > div > input': {
-        padding: '16px 14px',
-      },
-      '& + p': {
-        height: 0,
+    },
+    icon: {
+      '&:hover': {
+        background: 'none',
       },
     },
   })
