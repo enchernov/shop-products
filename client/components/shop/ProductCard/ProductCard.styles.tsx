@@ -4,6 +4,7 @@ import grey from '@material-ui/core/colors/grey'
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      height: 'auto',
       padding: 20,
       width: 233,
       position: 'relative',

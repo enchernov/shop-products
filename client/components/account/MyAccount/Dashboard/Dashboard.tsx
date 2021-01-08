@@ -1,13 +1,17 @@
 import React, { ChangeEvent, FunctionComponent, useContext } from 'react'
 import LinkIcon from '@material-ui/icons/Link'
 import { useMutation } from '@apollo/client'
+import { CircularProgress } from '@material-ui/core'
 
 import { Avatar, Badge, IconButton } from '@ui/index'
+
 import UPLOAD from '@graphql/mutations/Upload'
+
 import { AppContext } from '@providers/AppProvider'
 
 import { useStyles } from './Dashboard.styles'
-import { loadAvatar } from '@actions/auth'
+
+import { loadAvatar, requestAuth, stopLoading } from '@actions/auth'
 
 const Dashboard: FunctionComponent = () => {
   const classes = useStyles()
@@ -24,11 +28,16 @@ const Dashboard: FunctionComponent = () => {
       source: 'users-permissions',
     }
     if (file) {
-      const { data } = await upload({
-        variables: fileData,
-      })
-      if (data) dispatch(loadAvatar(data.upload.url))
-      else return
+      try {
+        dispatch(requestAuth())
+        const { data } = await upload({
+          variables: fileData,
+        })
+        if (data) dispatch(loadAvatar(data.upload.url))
+        else return
+      } catch (e) {
+        dispatch(stopLoading())
+      }
     }
   }
 
@@ -65,9 +74,13 @@ const Dashboard: FunctionComponent = () => {
         <Avatar
           variant={'circle'}
           className={classes.avatar}
-          src={state.avatar}
+          src={state.avatar || state?.user?.avatar?.url || ''}
         >
-          {state.user?.username[0].toUpperCase()}
+          {state.loading ? (
+            <CircularProgress className={classes.progress} />
+          ) : (
+            state.user?.username[0].toUpperCase()
+          )}
         </Avatar>
       </Badge>
     </>

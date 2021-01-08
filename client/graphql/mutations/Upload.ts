@@ -15,7 +15,7 @@ const UPLOAD = gql`
       source: $source
       ref: $ref
     ) {
-      id
+      url
     }
   }
 `

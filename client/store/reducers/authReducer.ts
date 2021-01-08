@@ -24,6 +24,12 @@ export const authReducer: Reducer<IAppProps, IActionsProps> = (
         loading: true,
       }
     }
+    case ACTION_TYPES.STOP_LOADING: {
+      return {
+        ...state,
+        loading: false,
+      }
+    }
     case ACTION_TYPES.AUTH_SUCCESS: {
       return {
         ...state,
@@ -57,6 +63,7 @@ export const authReducer: Reducer<IAppProps, IActionsProps> = (
       return {
         ...state,
         avatar: action.payload,
+        loading: false,
       }
     }
     default:

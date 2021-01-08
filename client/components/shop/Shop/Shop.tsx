@@ -1,10 +1,13 @@
 import React, { FunctionComponent, useContext } from 'react'
 import { Grid, Typography } from '@material-ui/core'
-import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined'
+import { CategoryOutlined } from '@material-ui/icons'
 
 import { Input, Link, Divider } from '@ui/index'
-import { IProductProps } from '@interfaces/shop'
+
+import { ICategoryProps, IProductProps } from '@interfaces/shop'
+
 import { ShopContext } from '@providers/ShopProvider'
+
 import ProductCard from '@components/shop/ProductCard'
 import SortingSelector from '@components/shop/SortingSelector'
 
@@ -40,7 +43,7 @@ const Shop: FunctionComponent = () => {
             </Grid>
           </Grid>
           <Grid item>
-            <Grid container justify={'space-around'} spacing={1}>
+            <Grid container justify={'flex-start'} spacing={3}>
               {state.products.map((p: IProductProps, index: number) => (
                 <Grid item key={index}>
                   <ProductCard {...p} />
@@ -72,15 +75,18 @@ const Shop: FunctionComponent = () => {
           <Grid item>
             <Typography variant={'h3'}>Категории</Typography>
           </Grid>
-          {state.categories.map((x, index) => (
+          {state.categories.map((category: ICategoryProps, index: number) => (
             <Grid item key={index}>
               <Grid container spacing={1} alignItems={'center'}>
                 <Grid item>
-                  <FolderOutlinedIcon className={classes.categoryIcon} />
+                  <CategoryOutlined className={classes.categoryIcon} />
                 </Grid>
                 <Grid item>
-                  <Link href={x.link} className={classes.categoryLink}>
-                    {x.name}
+                  <Link
+                    href={`/category/${category.link}`}
+                    className={classes.categoryLink}
+                  >
+                    {category.name}
                   </Link>
                 </Grid>
               </Grid>

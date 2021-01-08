@@ -6,6 +6,11 @@ export const requestAuth = () => {
     type: ACTION_TYPES.REQUEST_AUTH,
   }
 }
+export const stopLoading = () => {
+  return {
+    type: ACTION_TYPES.STOP_LOADING,
+  }
+}
 
 export const authSuccess = (value: any) => {
   return {

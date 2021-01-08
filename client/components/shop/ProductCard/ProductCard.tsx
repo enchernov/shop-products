@@ -80,7 +80,12 @@ const ProductCard: FunctionComponent<IProductProps> = ({
         </Grid>
       </Grid>
 
-      <Grid container direction={'column'} justify={'space-between'}>
+      <Grid
+        container
+        direction={'column'}
+        justify={'space-between'}
+        spacing={0}
+      >
         <Grid item>
           <img src={image.url} alt={name} className={classes.image} />
         </Grid>
@@ -108,7 +113,7 @@ const ProductCard: FunctionComponent<IProductProps> = ({
             </Grid>
             <Grid item>
               <Link href={`/products/${id}`} className={classes.name}>
-                <Typography variant={'h2'}>{name}</Typography>
+                <Typography variant={'h4'}>{name}</Typography>
               </Link>
             </Grid>
             <Grid item>
@@ -119,7 +124,7 @@ const ProductCard: FunctionComponent<IProductProps> = ({
                 className={classes.actions}
               >
                 <Grid item>
-                  <Typography variant={'h3'}>{price + ' ₽'}</Typography>
+                  <Typography variant={'h4'}>{price + ' ₽'}</Typography>
                 </Grid>
                 <Grid item>
                   <Rating

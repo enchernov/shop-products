@@ -6,6 +6,8 @@ export const useStyles = makeStyles((theme: Theme) =>
       width: 150,
       height: 150,
       backgroundColor: theme.palette.primary.main,
+      fontSize: 48,
+      fontWeight: 500,
     },
     input: {
       display: 'none',
@@ -13,6 +15,9 @@ export const useStyles = makeStyles((theme: Theme) =>
     icon: {
       padding: 4,
       color: 'white',
+    },
+    progress: {
+      color: '#FFFFFF',
     },
   })
 )
