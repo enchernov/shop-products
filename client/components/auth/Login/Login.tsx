@@ -1,47 +1,59 @@
-import React, { FunctionComponent, useContext, useState } from 'react'
+import React, {
+  FunctionComponent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { Grid, Paper, Typography } from '@material-ui/core'
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import clsx from 'clsx'
+import { useSnackbar } from 'notistack'
 
 import { Button, Link, Input } from '@ui/index'
+import { ILoginProps, ILoginMutationProps } from '@interfaces/auth'
 import SocialAuth from '../SocialAuth'
 import { AppContext } from '@providers/AppProvider'
 import { loginUser } from '@utils/auth'
-import * as ACTIONS from '@actions/index'
 import LOGIN_USER from '@graphql/mutations/LoginUser'
+import { errorMessage } from '@hooks/auth/errorMessage'
 
 import { useStyles } from './Login.styles'
-
-// import { useErrorMessage } from '@hooks/auth/useErrorMessage'
-
-export interface ILoginProps {
-  identifier: string
-  password: string
-}
 
 const Login: FunctionComponent = () => {
   const classes = useStyles()
   const router = useRouter()
   const { state, dispatch } = useContext(AppContext)
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
-  const [login] = useMutation<ILoginProps>(LOGIN_USER)
+  const [login] = useMutation<ILoginMutationProps>(LOGIN_USER)
+  const { enqueueSnackbar } = useSnackbar()
+
+  useEffect(() => {
+    router.prefetch('/my-account')
+  }, [])
 
   const handleIconClick = () => {
     setIsPasswordVisible((isPasswordVisible) => !isPasswordVisible)
   }
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = useCallback(async (values) => {
     try {
       const data = await loginUser(dispatch, login, values)
-      if (!data.user) return
-      await router.push('/profile')
+      if (!data.user) {
+        enqueueSnackbar(errorMessage(data), {
+          variant: 'error',
+        })
+      } else {
+        enqueueSnackbar('Успешный вход', { variant: 'success' })
+        router.push('/my-account')
+      }
     } catch (error) {
-      dispatch(ACTIONS.authError(error.message))
+      enqueueSnackbar(errorMessage(error), { variant: 'error' })
     }
-  }
+  }, [])
 
   const initialValues: ILoginProps = {
     identifier: '',
@@ -63,6 +75,7 @@ const Login: FunctionComponent = () => {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: handleSubmit,
+    validateOnMount: true,
   })
 
   return (
@@ -87,9 +100,6 @@ const Login: FunctionComponent = () => {
             </Grid>
             <Grid item>
               <form className={classes.form} onSubmit={formik.handleSubmit}>
-                {state.errorMessage && (
-                  <p className={classes.error}>{state.errorMessage}</p>
-                )}
                 <Input
                   id="identifier"
                   type="email"
@@ -140,17 +150,17 @@ const Login: FunctionComponent = () => {
                 />
                 <Button
                   type="submit"
-                  disabled={state.loading}
+                  disabled={!formik.isValid}
                   fullWidth
                   className={classes.button}
                 >
-                  Войти
+                  {!state.loading ? 'Войти' : 'Загрузка'}
                 </Button>
                 <Link href={'/reset'}>Забыли пароль?</Link>
               </form>
             </Grid>
             <Grid item>
-              <Typography variant="h5" className={classes.serviceHeading}>
+              <Typography variant="h3" className={classes.serviceHeading}>
                 Или войдите с помощью сервисов
               </Typography>
             </Grid>

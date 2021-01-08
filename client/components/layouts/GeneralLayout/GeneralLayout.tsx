@@ -1,39 +1,57 @@
-import React, { FunctionComponent, ReactNode, useContext } from 'react'
+import React, { FunctionComponent, useContext } from 'react'
 import { Grid } from '@material-ui/core'
-import { Link } from '@ui/index'
 import { useRouter } from 'next/router'
+import { useSnackbar } from 'notistack'
 
+import { Link } from '@ui/index'
 import { logoutUser } from '@utils/auth'
 import { AppContext } from '@providers/AppProvider'
+import { ILayoutProps } from '@interfaces/layouts'
+import { errorMessage } from '@hooks/auth/errorMessage'
 
 import { useStyles } from './GeneralLayout.styles'
 
-interface IGeneralLayoutProps {
-  children: ReactNode
-}
-
-const GeneralLayout: FunctionComponent<IGeneralLayoutProps> = ({
-  children,
-}) => {
+const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
   const classes = useStyles()
   const { state, dispatch } = useContext(AppContext)
+  const { isAuthenticated } = state
   const router = useRouter()
+  const { enqueueSnackbar } = useSnackbar()
 
   const logout = async () => {
-    logoutUser(dispatch)
-    await router.push('/signin')
+    try {
+      await logoutUser(dispatch)
+      enqueueSnackbar('Вы успешно вышли', {
+        variant: 'success',
+      })
+      router.push('/signin')
+    } catch (error) {
+      enqueueSnackbar(errorMessage(error), {
+        variant: 'error',
+      })
+    }
   }
 
   return (
     <>
       <header className={classes.header}>
-        {state.isAuthenticated ? (
+        {isAuthenticated ? (
           <Grid container justify={'space-between'} spacing={1}>
             <Grid item>
-              <Link href={'/profile'}>Мой аккаунт</Link>
+              <Grid container spacing={1}>
+                <Grid item>
+                  <Link href={'/my-account'}>Мой аккаунт</Link>
+                </Grid>
+                <Grid item>
+                  <Link href={'/shop'}>Магазин</Link>
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item>
-              <span className={classes.logoutLink} onClick={logout}>
+              <span
+                className={classes.logoutLink}
+                onClick={async () => await logout()}
+              >
                 Выход
               </span>{' '}
             </Grid>
@@ -50,9 +68,6 @@ const GeneralLayout: FunctionComponent<IGeneralLayoutProps> = ({
         )}
       </header>
       <main className={classes.root}>{children}</main>
-      <footer>
-        <hr />
-      </footer>
     </>
   )
 }

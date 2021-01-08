@@ -1,4 +1,4 @@
-import React, { FunctionComponent, forwardRef, Ref } from 'react'
+import React, { FunctionComponent } from 'react'
 import { Divider as MuiDivider, DividerProps } from '@material-ui/core'
 import clsx from 'clsx'
 
@@ -20,20 +20,24 @@ const defaultProps: Partial<IDividerProps> = {
 
 type DefaultProps = Readonly<typeof defaultProps>
 
-type IDividerPropsType = IDividerProps & DividerProps & DefaultProps
+type DividerPropsType = DividerProps & IDividerProps & DefaultProps
 
-const Divider: FunctionComponent<IDividerPropsType> = forwardRef(
-  ({ className, type, style, ...props }, ref: Ref<any>) => {
-    const classes = useStyles()
-    const classesDivider = clsx(
-      classes.divider,
-      className,
-      type ? classes[type] : null,
-      style ? classes[style] : null
-    )
+const Divider: FunctionComponent<DividerPropsType> = ({
+  className,
+  type,
+  style,
+  ...props
+}) => {
+  const classes = useStyles()
 
-    return <MuiDivider ref={ref} className={classesDivider} {...props} />
-  }
-)
+  const classesDivider = clsx(
+    classes.divider,
+    className,
+    type ? classes[type] : null,
+    style ? classes[style] : null
+  )
+
+  return <MuiDivider className={classesDivider} {...props} />
+}
 
 export default Divider

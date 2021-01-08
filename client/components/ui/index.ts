@@ -8,6 +8,7 @@ import Input from '@ui/Input'
 import Link from '@ui/Link'
 import ListItem from '@ui/ListItem'
 import SocialButton from '@ui/SocialButton'
+import TabPanel from '@ui/TabPanel'
 
 export {
   Avatar,
@@ -20,4 +21,5 @@ export {
   Link,
   ListItem,
   SocialButton,
+  TabPanel,
 }

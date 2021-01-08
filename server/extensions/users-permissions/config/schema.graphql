@@ -1,0 +1,8 @@
+module.exports = {
+  definition: `
+    extend type UsersPermissionsMe {
+      avatar: UploadFile
+    }
+  `,
+};
+// module.exports = {};       cart(sort: String, limit: Int, start: Int, where: JSON): [Product]

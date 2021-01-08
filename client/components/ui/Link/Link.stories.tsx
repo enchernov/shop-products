@@ -2,7 +2,8 @@ import React from 'react'
 import { Story } from '@storybook/react'
 import { Meta } from '@storybook/react/types-6-0'
 
-import Link, { LinkPropsType } from './Link'
+import Link from './index'
+import { ILinkProps } from './Link'
 
 export default {
   title: 'ui/Link',
@@ -29,7 +30,7 @@ export default {
   },
 } as Meta
 
-const Template: Story<LinkPropsType> = (args) => <Link {...args} />
+const Template: Story<ILinkProps> = (args) => <Link {...args} />
 
 export const Default = Template.bind({})
 Default.args = {

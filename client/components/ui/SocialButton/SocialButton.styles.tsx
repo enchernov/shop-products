@@ -3,16 +3,10 @@ import { darken } from '@material-ui/core/styles/colorManipulator'
 
 export const useStyles = makeStyles(() =>
   createStyles({
-    iconButton: {
-      borderRadius: 0,
-    },
     button: {
-      padding: 16,
-      borderRadius: 3,
+      borderRadius: 0,
+      padding: 10,
       transition: '.1s ease-in-out',
-      '& svg': {
-        fontSize: '1.125rem',
-      },
     },
     facebook: {
       backgroundColor: '#3b5998',

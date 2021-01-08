@@ -1,100 +1,145 @@
-import React, { FunctionComponent, useState } from 'react'
-import ReCAPTCHA from 'react-google-recaptcha'
+import React, {
+  FunctionComponent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
+import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
-import * as yup from 'yup'
 import { useFormik } from 'formik'
-import clsx from 'clsx'
+import * as yup from 'yup'
 
 import { Button, Input } from '@ui/index'
-import FORGOT_PASSWORD from '@graphql/mutations/ForgotPassword'
+import { IResetPasswordProps, IUserDataMutationProps } from '@interfaces/auth'
+import { AppContext } from '@providers/AppProvider'
+import RESET_PASSWORD from '@graphql/mutations/ResetPassword'
+import { errorMessage } from '@hooks/auth/errorMessage'
+import { resetPasswordUser } from '@utils/auth'
+import { useSnackbar } from 'notistack'
 
-import { useStyles } from '../ResetPassword/ResetPassword.styles'
+import { useStyles } from './ResetPasswordForm.styles'
 
-interface IForgotPasswordProps {
-  email: string
-  password: string
-  passwordConfirmation: string
-  code: string
-}
-
-const ResetPasswordForm: FunctionComponent<any> = ({
-  setEmail,
-  setFormikEmailData,
-}) => {
+const ResetPasswordForm: FunctionComponent = () => {
   const classes = useStyles()
-  const [error, setError] = useState<string>('')
-  const [captchaToken, setCaptchaToken] = useState<string>('')
-  const [forgotPassword] = useMutation(FORGOT_PASSWORD)
+  const { state, dispatch } = useContext(AppContext)
+  const router = useRouter()
+  const { enqueueSnackbar } = useSnackbar()
+  const code = router.query?.code
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState<
+    boolean
+  >(false)
+  const [resetPassword] = useMutation<IUserDataMutationProps>(RESET_PASSWORD)
 
-  const initialValues: IForgotPasswordProps = {
-    email: '',
+  useEffect(() => {
+    router.prefetch('/signin')
+  }, [])
+
+  const handleIconPasswordClick = () => {
+    setIsPasswordVisible((isPasswordVisible) => !isPasswordVisible)
+  }
+
+  const handleIconConfirmPasswordClick = () => {
+    setIsConfirmPasswordVisible(
+      (isConfirmPasswordVisible) => !isConfirmPasswordVisible
+    )
+  }
+
+  const initialValues: IResetPasswordProps = {
     password: '',
     passwordConfirmation: '',
     code: '',
   }
 
-  const handleCaptcha = (value) => setCaptchaToken(value)
-
-  const emailValidationSchema = yup.object({
-    email: yup
+  const validationSchema = yup.object({
+    password: yup
       .string()
-      .email('Введите корректный email')
-      .required('Email обязателен для заполнения'),
+      .min(6, 'Минимальная длина пароля - 6 символов')
+      .required('Пароль обязателен для заполнения'),
+    passwordConfirmation: yup
+      .string()
+      .oneOf([yup.ref('password')], 'Пароли должны совпадать')
+      .required('Подтвердите пароль'),
   })
 
-  const emailHandleSubmit = async (values) => {
-    if (captchaToken.length) {
-      try {
-        const { data } = await forgotPassword({
-          variables: {
-            email: values.email,
-          },
+  const handleSubmit = useCallback(async (values: IResetPasswordProps) => {
+    try {
+      const data = await resetPasswordUser(
+        dispatch,
+        resetPassword,
+        values,
+        code
+      )
+      if (!data.user) {
+        enqueueSnackbar(errorMessage(data), {
+          variant: 'error',
         })
-        setEmail(data.forgotPassword.ok)
-        setFormikEmailData(values.email)
-      } catch (e) {
-        setError(e.message)
+      } else {
+        enqueueSnackbar('Вы успешно обновили пароль', {
+          variant: 'success',
+        })
+        router.push('/signin')
       }
-    } else {
-      setError('Выполните капчу')
+    } catch (error) {
+      enqueueSnackbar(errorMessage(error), {
+        variant: 'error',
+      })
     }
-  }
+  }, [])
 
-  const emailFormik = useFormik({
+  const formik = useFormik({
     initialValues: initialValues,
-    validationSchema: emailValidationSchema,
-    onSubmit: emailHandleSubmit,
+    validationSchema: validationSchema,
+    onSubmit: handleSubmit,
   })
 
   return (
-    <form onSubmit={emailFormik.handleSubmit}>
-      {error && <p className={classes.error}>{error}</p>}
+    <form onSubmit={formik.handleSubmit}>
       <Input
-        id="email"
-        type="email"
-        label="Email"
-        name="email"
-        variant="outlined"
+        id="password"
+        type={isPasswordVisible ? 'text' : 'password'}
+        label="Введите пароль"
+        name="password"
+        icon={isPasswordVisible ? 'visibilityOff' : 'visibility'}
+        onIconClick={handleIconPasswordClick}
         fullWidth
-        className={
-          emailFormik.touched.email && Boolean(emailFormik.errors.email)
-            ? clsx(classes.input, classes.error)
-            : classes.input
-        }
-        value={emailFormik.values.email}
-        onChange={emailFormik.handleChange}
-        error={emailFormik.touched.email && Boolean(emailFormik.errors.email)}
-        helperText={
-          emailFormik.touched.email ? emailFormik.errors.email : undefined
-        }
-      />
-      <ReCAPTCHA
-        onChange={handleCaptcha}
-        sitekey="6Lft4OwZAAAAACOwXs2stnxycUPTG9xrt5U6raK_"
         className={classes.input}
+        value={formik.values.password}
+        onChange={formik.handleChange}
+        error={formik.touched.password && Boolean(formik.errors.password)}
+        helperText={
+          formik.touched.password ? formik.errors.password : undefined
+        }
       />
-      <Button type="submit" fullWidth className={classes.button}>
-        Восстановить доступ
+      <Input
+        id="passwordConfirmation"
+        type={isConfirmPasswordVisible ? 'text' : 'password'}
+        label="Повторите пароль"
+        name="passwordConfirmation"
+        icon={isConfirmPasswordVisible ? 'visibilityOff' : 'visibility'}
+        onIconClick={handleIconConfirmPasswordClick}
+        fullWidth
+        className={classes.input}
+        value={formik.values.passwordConfirmation}
+        onChange={formik.handleChange}
+        error={
+          formik.touched.passwordConfirmation &&
+          Boolean(formik.errors.passwordConfirmation)
+        }
+        helperText={
+          formik.touched.passwordConfirmation
+            ? formik.errors.passwordConfirmation
+            : undefined
+        }
+      />
+      <Button
+        type="submit"
+        disabled={state.loading && !formik.isValid}
+        fullWidth
+        className={classes.button}
+      >
+        {!state.loading ? 'Изменить пароль' : 'Загрузка'}
       </Button>
     </form>
   )

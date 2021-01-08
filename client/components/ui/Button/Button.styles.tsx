@@ -1,16 +1,12 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles(() =>
   createStyles({
     button: {
       boxShadow: 'none',
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.primary.contrastText,
-      margin: theme.spacing(0.5, 1, 0, 0),
-
+      borderRadius: 0,
       '&:hover': {
         boxShadow: 'none',
-        backgroundColor: theme.palette.primary.dark,
       },
     },
   })

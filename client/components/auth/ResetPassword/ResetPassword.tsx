@@ -3,9 +3,8 @@ import { Paper, Grid, Typography } from '@material-ui/core'
 import { useRouter } from 'next/router'
 
 import { Link } from '@ui/index'
-
-import ForgotPasswordForm from '../ForgotPasswordForm/ForgotPasswordForm'
-import ResetPasswordForm from '../ResetPasswordForm/ResetPasswordForm'
+import ResetPasswordForm from '../ResetPasswordForm'
+import ForgotPasswordForm from '../ForgotPasswordForm'
 
 import { useStyles } from './ResetPassword.styles'
 
@@ -16,11 +15,11 @@ const ResetPassword: FunctionComponent = () => {
   const [emailSend, setEmailSend] = useState<boolean>(false)
   const [emailFormik, setFormikEmail] = useState<string>('')
 
-  const setEmailData = (value) => {
+  const setEmailData = (value: boolean) => {
     setEmailSend(value)
   }
 
-  const setFormikEmailData = (value) => {
+  const setFormikEmailData = (value: string) => {
     setFormikEmail(value)
   }
 
@@ -46,27 +45,33 @@ const ResetPassword: FunctionComponent = () => {
             </Grid>
             <Grid item>
               {code ? (
-                <ForgotPasswordForm />
+                <ResetPasswordForm />
               ) : emailSend ? (
-                <Typography variant="body1">
-                  Проверьте почтовый адрес {emailFormik}
+                <Typography component="p" className={classes.heading}>
+                  Проверьте ваш email адрес <strong>{emailFormik}</strong>
                 </Typography>
               ) : (
-                <ResetPasswordForm
-                  setEmailData={setEmailData}
-                  setFormikEmailData={setFormikEmailData}
-                />
+                <>
+                  <ForgotPasswordForm
+                    setEmailData={setEmailData}
+                    setFormikEmailData={setFormikEmailData}
+                  />
+                  <Grid item className={classes.container}>
+                    <Paper
+                      className={classes.registerPaper}
+                      elevation={1}
+                      square
+                    >
+                      <Grid container justify="center" alignContent="center">
+                        <Grid item>
+                          <Link href={'/signin'}>Войти</Link> или{' '}
+                          <Link href={'/signup'}>Зарегистрироваться</Link>
+                        </Grid>
+                      </Grid>
+                    </Paper>
+                  </Grid>
+                </>
               )}
-            </Grid>
-          </Grid>
-        </Paper>
-      </Grid>
-      <Grid item className={classes.container}>
-        <Paper className={classes.registerPaper} elevation={1} square>
-          <Grid container justify="center" alignContent="center">
-            <Grid item>
-              <Link href={'/signin'}>Войти</Link> или{' '}
-              <Link href={'/signup'}>Зарегистрироваться</Link>
             </Grid>
           </Grid>
         </Paper>

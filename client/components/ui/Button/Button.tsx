@@ -10,18 +10,18 @@ import {
   ButtonProps,
   SvgIconProps,
 } from '@material-ui/core'
-import { Edit, AddSharp, Delete, Save } from '@material-ui/icons'
+import { Edit, AddSharp, ShoppingCart } from '@material-ui/icons'
 import clsx from 'clsx'
 
-import Link from '../Link'
+import { Link } from '@ui/index'
 
 import { useStyles } from './Button.styles'
 
-type ButtonIconType = 'create' | 'edit' | 'delete' | 'save'
+type IconType = 'create' | 'edit' | 'cart'
 
 export interface IButtonProps extends ButtonProps {
   children: ReactNode
-  icon?: ButtonIconType
+  icon?: IconType
   disabled?: boolean
   href?: string
   className?: string
@@ -37,36 +37,50 @@ type DefaultProps = Readonly<typeof defaultProps>
 
 type ButtonPropsType = IButtonProps & DefaultProps
 
-const iconButtonMap: Record<ButtonIconType, ElementType<SvgIconProps>> = {
+const iconButtonMap: Record<IconType, ElementType<SvgIconProps>> = {
   create: AddSharp,
   edit: Edit,
-  delete: Delete,
-  save: Save,
+  cart: ShoppingCart,
 }
+
+const noop = () => {}
 
 const Button: FunctionComponent<ButtonPropsType> = forwardRef(
   (
-    { icon, children, disabled, href, onClick, fullWidth, className, ...props },
+    {
+      icon,
+      children,
+      disabled,
+      href,
+      onClick,
+      fullWidth,
+      className,
+      variant,
+      color,
+      ...props
+    },
     ref: Ref<HTMLButtonElement>
   ) => {
     const classes = useStyles()
-    const classesButton = clsx(classes.button, className)
 
     const IconComponent: any = icon ? iconButtonMap[icon] : null
     const startIcon = icon ? { startIcon: <IconComponent /> } : undefined
     const linkProps = href ? { href: href, component: Link } : undefined
 
+    const classesButton = clsx(classes.button, className)
+
     return (
       <MuiButton
         ref={ref}
-        variant="contained"
+        color={color || 'primary'}
+        variant={variant || 'contained'}
         size="small"
         disabled={disabled}
         className={classesButton}
         fullWidth={fullWidth}
         {...startIcon}
         {...linkProps}
-        onClick={onClick}
+        onClick={!disabled ? onClick : noop}
         {...props}
       >
         {children}

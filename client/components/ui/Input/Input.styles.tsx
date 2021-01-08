@@ -1,18 +1,25 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 
+import grey from '@material-ui/core/colors/grey'
+
 export const useStyles = makeStyles(() =>
   createStyles({
     input: {
       '& > label': {
-        fontSize: '0.9rem',
+        fontSize: '0.8rem',
       },
-      '& input': {
-        padding: '18px 14px',
+      '& > div': {
+        borderRadius: 0,
+        backgroundColor: grey[100],
+        '&:hover, &:focus, &:active': {
+          backgroundColor: grey[200],
+        },
       },
-    },
-    icon: {
-      '&:hover': {
-        background: 'none',
+      '& > div > input': {
+        padding: '16px 14px',
+      },
+      '& + p': {
+        height: 0,
       },
     },
   })

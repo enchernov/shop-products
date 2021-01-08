@@ -1,39 +1,42 @@
-import React, { FunctionComponent, useContext, useState } from 'react'
+import React, {
+  FunctionComponent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { Paper, Grid, Typography } from '@material-ui/core'
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import clsx from 'clsx'
+import { useSnackbar } from 'notistack'
 
 import { Button, Input, Link } from '@ui/index'
+import { IRegisterProps, IRegisterMutationProps } from '@interfaces/auth'
 import SocialAuth from '../SocialAuth'
 import { registerUser } from '@utils/auth'
-import * as ACTIONS from '@actions/index'
 import { AppContext } from '@providers/AppProvider'
 import REGISTER_USER from '@graphql/mutations/RegisterUser'
+import { errorMessage } from '@hooks/auth/errorMessage'
 
 import { useStyles } from './Register.styles'
-
-// import { useErrorMessage } from '@hooks/auth/useErrorMessage'
-
-interface IRegisterProps {
-  username: string
-  email: string
-  password: string
-  passwordConfirm: string
-}
 
 const Register: FunctionComponent = () => {
   const classes = useStyles()
   const router = useRouter()
   const { state, dispatch } = useContext(AppContext)
+  const { enqueueSnackbar } = useSnackbar()
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
   const [isPasswordConfirmVisible, setIsPasswordConfirmVisible] = useState<
     boolean
   >(false)
+  const [register] = useMutation<IRegisterMutationProps>(REGISTER_USER)
 
-  const [register] = useMutation<IRegisterProps>(REGISTER_USER)
+  useEffect(() => {
+    router.prefetch('/signin')
+  }, [])
 
   const handleIconPasswordClick = () => {
     setIsPasswordVisible((isPasswordVisible) => !isPasswordVisible)
@@ -68,20 +71,31 @@ const Register: FunctionComponent = () => {
       .required('Подтвердите пароль'),
   })
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = useCallback(async (values: IRegisterProps) => {
     try {
       const data = await registerUser(dispatch, register, values)
-      if (!data.user) return
-      await router.push('/profile')
+      if (!data.user) {
+        enqueueSnackbar(errorMessage(data), {
+          variant: 'error',
+        })
+      } else {
+        enqueueSnackbar('Успешная регистрация', { variant: 'success' })
+        enqueueSnackbar('Подтвердите email', {
+          variant: 'info',
+          autoHideDuration: 10000,
+        })
+        router.push('/signin')
+      }
     } catch (error) {
-      dispatch(ACTIONS.authError(error.message))
+      enqueueSnackbar(errorMessage(error), { variant: 'error' })
     }
-  }
+  }, [])
 
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: handleSubmit,
+    validateOnMount: true,
   })
 
   return (
@@ -101,9 +115,6 @@ const Register: FunctionComponent = () => {
             </Grid>
             <Grid item>
               <form onSubmit={formik.handleSubmit}>
-                {state.errorMessage && (
-                  <p className={classes.error}>{state.errorMessage}</p>
-                )}
                 <Input
                   id="username"
                   type="text"
@@ -198,16 +209,16 @@ const Register: FunctionComponent = () => {
                 />
                 <Button
                   type="submit"
-                  disabled={state.loading}
+                  disabled={!formik.isValid}
                   fullWidth
                   className={classes.button}
                 >
-                  Зарегистрироваться
+                  {!state.loading ? 'Зарегистрироваться' : 'Загрузка'}
                 </Button>
               </form>
             </Grid>
             <Grid item>
-              <Typography variant="h5" className={classes.serviceHeading}>
+              <Typography variant="h3" className={classes.serviceHeading}>
                 Или войдите с помощью сервисов
               </Typography>
             </Grid>

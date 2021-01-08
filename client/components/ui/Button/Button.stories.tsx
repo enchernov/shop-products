@@ -3,7 +3,8 @@ import { Story } from '@storybook/react'
 import { Meta } from '@storybook/react/types-6-0'
 import { action } from '@storybook/addon-actions'
 
-import Button, { IButtonProps } from './Button'
+import Button from './index'
+import { IButtonProps } from './Button'
 
 export default {
   title: 'ui/Button',
@@ -29,10 +30,8 @@ export default {
   },
 } as Meta
 
-const Template: Story<IButtonProps> = (children, { ...args }) => (
-  <Button onClick={action('clicked')} {...args}>
-    {children}
-  </Button>
+const Template: Story<IButtonProps> = (args) => (
+  <Button onClick={action('clicked')} {...args} />
 )
 
 export const Text = Template.bind({})

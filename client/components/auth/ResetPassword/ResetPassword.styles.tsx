@@ -19,13 +19,21 @@ export const useStyles = makeStyles((theme: Theme) =>
       padding: 20,
     },
     input: {
-      marginBottom: 20,
+      marginBottom: 30,
+    },
+    input_error: {
+      marginBottom: 8,
     },
     button: {
       padding: 15,
+      marginBottom: 20,
     },
     error: {
       color: theme.palette.error.main,
+      minHeight: 20,
+      margin: '0 0 10px 0',
+      width: '100%',
+      textAlign: 'center',
     },
   })
 )

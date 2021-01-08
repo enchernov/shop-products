@@ -1,23 +1,23 @@
-import React, { ChangeEvent, forwardRef, FunctionComponent, Ref } from 'react'
+import React, { forwardRef, FunctionComponent, Ref } from 'react'
 import { FormControlLabel, Checkbox, TextField } from '@material-ui/core'
-import clsx from 'clsx'
 
-import IconButton from '../IconButton'
+import { IconButton } from '@ui/index'
+import clsx from 'clsx'
 
 import { useStyles } from './Input.styles'
 
-type InputTypeType = 'text' | 'email' | 'password' | 'search' | 'checkbox'
-type IconType = 'search' | 'visibility' | 'visibilityOff'
+type InputTypeType = 'text' | 'email' | 'password' | 'checkbox' | 'file'
+type IconType = 'search' | 'visibility' | 'visibilityOff' | 'link'
 type VariantType = 'standard' | 'filled' | 'outlined'
 
 export interface IInputProps {
   className?: string
   disabled?: boolean
-  value?: string
-  id?: string
+  value?: any
+  id: string
   required?: boolean
-  label?: string
-  type?: InputTypeType
+  label: string
+  type: InputTypeType
   icon?: IconType
   name?: string
   variant?: VariantType
@@ -25,13 +25,12 @@ export interface IInputProps {
   helperText?: string
   fullWidth?: boolean
   checked?: boolean
-  onChange?: (e: ChangeEvent<any>) => void
+  onChange?: any
   onIconClick?: () => void
 }
 
 const defaultProps: Partial<IInputProps> = {
   disabled: false,
-  variant: 'outlined',
 }
 
 type DefaultProps = Readonly<typeof defaultProps>
@@ -62,6 +61,7 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
     ref: Ref<HTMLInputElement>
   ) => {
     const classes = useStyles()
+
     const classesInput = clsx(classes.input, className)
 
     const endAdornment = icon
@@ -71,7 +71,7 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
               icon={icon}
               disabled={disabled}
               onClick={onIconClick}
-              className={classes.icon}
+              disableFocusRipple={true}
             />
           ),
         }
@@ -97,7 +97,7 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
       <TextField
         ref={ref}
         className={classesInput}
-        helperText={error ? error : helperText}
+        helperText={helperText}
         id={id}
         name={name}
         required={required}
@@ -109,7 +109,6 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
         disabled={disabled}
         label={label}
         onChange={onChange}
-        color={error ? 'secondary' : 'primary'}
         fullWidth={fullWidth}
         {...props}
       />

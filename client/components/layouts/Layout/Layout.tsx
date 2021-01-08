@@ -1,16 +1,12 @@
-import React, { FunctionComponent, ReactNode } from 'react'
+import React, { FunctionComponent } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 import AuthLayout from '../AuthLayout'
 import GeneralLayout from '../GeneralLayout'
+import { ILayoutProps } from '@interfaces/layouts'
 
 import { useStyles } from './Layout.style'
-
-type ILayoutProps = {
-  children: ReactNode
-  title?: string
-}
 
 const Layout: FunctionComponent<ILayoutProps> = ({ children, title = '' }) => {
   const classes = useStyles()
@@ -19,11 +15,14 @@ const Layout: FunctionComponent<ILayoutProps> = ({ children, title = '' }) => {
   const changeLayout = () => {
     switch (router.pathname) {
       case '/':
+      case '/my-account':
       case '/profile':
+      case '/shop':
         return <GeneralLayout>{children}</GeneralLayout>
       case '/signin':
       case '/signup':
       case '/reset':
+      case '/social':
         return <AuthLayout>{children}</AuthLayout>
     }
   }

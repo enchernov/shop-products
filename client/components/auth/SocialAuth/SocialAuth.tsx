@@ -3,11 +3,11 @@ import { Grid } from '@material-ui/core'
 import clsx from 'clsx'
 
 import { SocialButton } from '@ui/index'
-import { useStyles } from './SocialAuth.styles'
 import { useStyles as useButtonStyles } from '@ui/SocialButton/SocialButton.styles'
 
-type ServiceType = 'facebook' | 'vk' | 'instagram' | 'google'
+import { useStyles } from './SocialAuth.styles'
 
+type ServiceType = 'facebook' | 'vk' | 'instagram' | 'google'
 const services: Array<ServiceType> = ['facebook', 'vk', 'instagram', 'google']
 
 const SocialAuth: FunctionComponent = (props) => {

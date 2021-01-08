@@ -1,0 +1,4 @@
+export const SET_CATEGORIES = 'SET_CATEGORIES'
+export const SET_PRODUCTS = 'SET_PRODUCTS'
+export const SET_SORTING = 'SET_SORTING'
+export const UPDATE_CART = 'UPDATE_CART'

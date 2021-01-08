@@ -1,10 +1,4 @@
-import React, {
-  FunctionComponent,
-  ElementType,
-  forwardRef,
-  Ref,
-  ReactNode,
-} from 'react'
+import React, { FunctionComponent, ElementType, forwardRef, Ref } from 'react'
 import {
   IconButton as MatIconButton,
   IconButtonProps,
@@ -16,13 +10,9 @@ import {
   Search,
   Visibility,
   VisibilityOff,
-  AccountCircle,
-  AddCircleOutlineOutlined,
-  Favorite,
   FavoriteBorder,
-  Edit,
-  ExpandMore,
-  PhotoCamera,
+  Link,
+  Photo,
 } from '@material-ui/icons'
 import clsx from 'clsx'
 
@@ -32,56 +22,41 @@ type IconType =
   | 'menu'
   | 'more'
   | 'search'
-  | 'account'
   | 'visibility'
   | 'visibilityOff'
-  | 'create'
   | 'favorite'
-  | 'favoriteOff'
-  | 'edit'
-  | 'expand'
+  | 'link'
   | 'photo'
 
 export interface IIconButtonProps extends IconButtonProps {
-  icon?: IconType
-  onClick?: (event: any) => void
+  icon: IconType
+  onClick?: () => void
   disabled?: boolean
-  children?: ReactNode
   className?: string
+  disableFocusRipple?: boolean
 }
-
-const defaultProps: Partial<IIconButtonProps> = {
-  disabled: false,
-}
-
-type DefaultProps = Readonly<typeof defaultProps>
-
-type IconButtonPropsType = IIconButtonProps & DefaultProps
 
 const iconButtonMap: Record<IconType, ElementType<SvgIconProps>> = {
   menu: Menu,
   more: MoreVert,
   search: Search,
-  account: AccountCircle,
   visibility: Visibility,
   visibilityOff: VisibilityOff,
-  create: AddCircleOutlineOutlined,
-  favorite: Favorite,
-  favoriteOff: FavoriteBorder,
-  edit: Edit,
-  expand: ExpandMore,
-  photo: PhotoCamera,
+  favorite: FavoriteBorder,
+  link: Link,
+  photo: Photo,
 }
 
-const IconButton: FunctionComponent<IconButtonPropsType> = forwardRef(
+const IconButton: FunctionComponent<IIconButtonProps> = forwardRef(
   (
-    { icon, onClick, disabled, children, className, ...props },
+    { icon, onClick, disabled, className, disableFocusRipple, ...props },
     ref: Ref<HTMLButtonElement>
   ) => {
     const classes = useStyles()
+
+    const IconComponent = iconButtonMap[icon]
+
     const classesIconButton = clsx(classes.iconButton, className)
-    const IconComponent = icon ? iconButtonMap[icon] : null
-    const Component = IconComponent ? <IconComponent /> : children
 
     return (
       <MatIconButton
@@ -90,14 +65,13 @@ const IconButton: FunctionComponent<IconButtonPropsType> = forwardRef(
         className={classesIconButton}
         onClick={onClick}
         disabled={disabled}
+        disableFocusRipple={disableFocusRipple}
         {...props}
       >
-        {Component}
+        <IconComponent />
       </MatIconButton>
     )
   }
 )
-
-IconButton.defaultProps = defaultProps
 
 export default IconButton
