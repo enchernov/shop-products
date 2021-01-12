@@ -52,13 +52,13 @@ export const logoutUser = async (dispatch) => {
   Cookies.remove('token')
 }
 
-export const updateUser = async (state, dispatch, update, values) => {
+export const updateUser = async (userId, dispatch, update, values) => {
   try {
     const { data } = await update({
       variables: {
         input: {
           where: {
-            id: state.user.id,
+            id: userId,
           },
           data: {
             ...values,
@@ -71,7 +71,9 @@ export const updateUser = async (state, dispatch, update, values) => {
         },
       },
     })
-    if (data.updateUser?.user) {
+    console.log('UPDATE_USER_DATA', data)
+    if (data?.updateUser?.user) {
+      dispatch(ACTIONS.requestAuth())
       dispatch(ACTIONS.updateUserSuccess(data.updateUser.user))
       return data.updateUser
     }

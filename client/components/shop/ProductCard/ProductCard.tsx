@@ -1,11 +1,11 @@
-import React, { FunctionComponent, useContext, useState } from 'react'
+import React, { FunctionComponent, useContext, useMemo, useState } from 'react'
 import { Paper, Typography, Grid } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 import { useSnackbar } from 'notistack'
 
 import { IconButton, Link, Button } from '@ui/index'
 import { IProductProps, ICategoryProps } from '@interfaces/shop'
-import { addToCart, removeFromCart } from '@utils/shop'
+import { addToCart, removeFromCart, toggleWishlist } from '@utils/shop'
 import { ShopContext } from '@providers/ShopProvider'
 
 import { useStyles } from './ProductCard.styles'
@@ -17,7 +17,7 @@ const ProductCard: FunctionComponent<IProductProps> = ({
   price,
   rating,
   id,
-}) => {
+}: IProductProps) => {
   const classes = useStyles()
 
   const { state, dispatch } = useContext(ShopContext)
@@ -36,9 +36,19 @@ const ProductCard: FunctionComponent<IProductProps> = ({
     setElevation(1)
   }
 
+  const toggleWish = async () =>
+    await toggleWishlist(dispatch, id, state.wishlist)
+
+  const inWishlist = useMemo(() => {
+    return (
+      Array.from(state.wishlist)
+        .map((x) => x.id)
+        .indexOf(id) !== -1
+    )
+  }, [state, id])
+
   const rfc = async () => {
     try {
-      // const data = await updateCart(dispatch, updateUser, id, state.user)
       const data = await removeFromCart(dispatch, id, state.cart)
       if (!data) return
     } catch (error) {
@@ -48,7 +58,6 @@ const ProductCard: FunctionComponent<IProductProps> = ({
 
   const buy = async () => {
     try {
-      // const data = await updateCart(dispatch, updateUser, id, state.user)
       const data = await addToCart(dispatch, id, state.cart)
       if (data) enqueueSnackbar('Товар в корзине', { variant: 'success' })
       else enqueueSnackbar('Возникла ошибка', { variant: 'error' })
@@ -73,24 +82,23 @@ const ProductCard: FunctionComponent<IProductProps> = ({
         className={classes.slideContainer}
       >
         <Grid item className={classes.iconAnimation}>
-          <IconButton icon={'favorite'} className={classes.icon} />
+          <IconButton
+            icon={inWishlist ? 'favoriteFill' : 'favorite'}
+            color={inWishlist ? 'secondary' : 'default'}
+            className={classes.icon}
+            onClick={toggleWish}
+          />
         </Grid>
         <Grid item className={classes.iconAnimation}>
           <IconButton icon={'search'} className={classes.icon} />
         </Grid>
       </Grid>
-
-      <Grid
-        container
-        direction={'column'}
-        justify={'space-between'}
-        spacing={0}
-      >
-        <Grid item>
+      <Grid container direction={'column'} justify={'space-between'}>
+        <Grid item xs={12} className={classes.imageContainer}>
           <img src={image.url} alt={name} className={classes.image} />
         </Grid>
         <Grid item>
-          <Grid container direction={'column'} spacing={1}>
+          <Grid container direction={'column'} spacing={2}>
             <Grid item>
               <Grid
                 container
@@ -99,7 +107,7 @@ const ProductCard: FunctionComponent<IProductProps> = ({
                 spacing={1}
               >
                 {categories.map((category: ICategoryProps, index: number) => (
-                  <Grid item className={classes.category} key={index}>
+                  <Grid item key={index}>
                     <Link
                       href={`/category/${category.link}`}
                       className={classes.link}

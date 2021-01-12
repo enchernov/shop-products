@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-const PRODUCTS = gql`
-  query {
-    products {
+const PRODUCT = gql`
+  query product($id: String!) {
+    product(id: $id) {
       id
       name
       price
@@ -19,4 +19,4 @@ const PRODUCTS = gql`
   }
 `
 
-export default PRODUCTS
+export default PRODUCT

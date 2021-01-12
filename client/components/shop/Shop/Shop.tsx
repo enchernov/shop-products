@@ -37,7 +37,7 @@ const Shop: FunctionComponent = () => {
               </Grid>
               <Grid item>
                 <Typography variant={'body2'}>
-                  {state.products.length} результатов
+                  Результатов:&nbsp;{state.products.length}
                 </Typography>
               </Grid>
             </Grid>

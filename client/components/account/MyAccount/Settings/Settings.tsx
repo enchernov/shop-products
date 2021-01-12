@@ -2,6 +2,7 @@ import React, {
   FunctionComponent,
   useCallback,
   useContext,
+  useEffect,
   useState,
 } from 'react'
 import { useMutation } from '@apollo/client'
@@ -12,13 +13,41 @@ import * as yup from 'yup'
 import { useSnackbar } from 'notistack'
 
 import { Button, Input } from '@ui/index'
-import { IUpdateMutationProps, IUpdateProps } from '@interfaces/auth'
+import { IUpdateMutationProps } from '@interfaces/auth'
 import { updateUser } from '@utils/auth'
 import { AppContext } from '@providers/AppProvider'
 import UPDATE_USER from '@graphql/mutations/UpdateUser'
 import { errorMessage } from '@hooks/auth/errorMessage'
 
 import { useStyles } from './Settings.styles'
+import * as ACTIONS from '@actions/auth'
+
+const validationSchema = yup.object({
+  username: yup.string().required('Поле не может быть пустым'),
+  email: yup
+    .string()
+    .email('Введите корректный email')
+    .required('Поле не может быть пустым'),
+  password: yup
+    .string()
+    .min(6, 'Минимальная длина пароля - 6 символов')
+    .required('Введите ваш пароль'),
+  newPassword: yup.string().min(6, 'Минимальная длина пароля - 6 символов'),
+  newPasswordConfirm: yup
+    .string()
+    .min(6, 'Минимальная длина пароля - 6 символов')
+    .oneOf([yup.ref('newPassword')], 'Пароли должны совпадать'),
+})
+
+const formInitialValues = (state) => {
+  return {
+    username: state?.user?.username || '',
+    email: state?.user?.email || '',
+    password: '',
+    newPassword: '',
+    newPasswordConfirm: '',
+  }
+}
 
 const Settings: FunctionComponent = () => {
   const { state, dispatch } = useContext(AppContext)
@@ -49,56 +78,42 @@ const Settings: FunctionComponent = () => {
     )
   }
 
-  const validationSchema = yup.object({
-    username: yup.string().required('Поле не может быть пустым'),
-    email: yup
-      .string()
-      .email('Введите корректный email')
-      .required('Поле не может быть пустым'),
-    password: yup
-      .string()
-      .min(6, 'Минимальная длина пароля - 6 символов')
-      .required('Введите ваш пароль'),
-    newPassword: yup.string().min(6, 'Минимальная длина пароля - 6 символов'),
-    newPasswordConfirm: yup
-      .string()
-      .min(6, 'Минимальная длина пароля - 6 символов')
-      .oneOf([yup.ref('newPassword')], 'Пароли должны совпадать'),
-  })
-
-  const initialValues: IUpdateProps = {
-    username: state.user?.username || '',
-    email: state.user?.email || '',
-    password: '',
-    newPassword: '',
-    newPasswordConfirm: '',
-  }
-
-  const handleSubmit = useCallback(async (values) => {
-    try {
-      const data = await updateUser(state, dispatch, update, values)
-      if (!data.user) {
-        enqueueSnackbar(errorMessage(data), {
+  const handleSubmit = useCallback(
+    async (values) => {
+      console.log('FORM SUBMITTED')
+      try {
+        const data = await updateUser(state?.user?.id, dispatch, update, values)
+        console.log('SETTINGS_DATA', data)
+        if (!data.user) {
+          enqueueSnackbar(errorMessage(data), {
+            variant: 'error',
+          })
+        } else {
+          dispatch(ACTIONS.updateUserSuccess(data.user))
+          enqueueSnackbar('Вы успешно обновились', {
+            variant: 'success',
+          })
+        }
+      } catch (error) {
+        enqueueSnackbar(errorMessage(error), {
           variant: 'error',
         })
-      } else {
-        enqueueSnackbar('Вы успешно обновились', {
-          variant: 'success',
-        })
       }
-    } catch (error) {
-      enqueueSnackbar(errorMessage(error), {
-        variant: 'error',
-      })
-    }
-  }, [])
+    },
+    [state, dispatch, update, enqueueSnackbar]
+  )
 
   const formik = useFormik({
-    initialValues: initialValues,
+    initialValues: formInitialValues(state),
     validationSchema: validationSchema,
     onSubmit: handleSubmit,
-    validateOnMount: true,
+    validateOnMount: false,
   })
+
+  useEffect(() => {
+    formik.initialValues = formInitialValues(state)
+  }, [formik, state])
+
   return (
     <form onSubmit={formik.handleSubmit} className={classes.form}>
       <Input
@@ -224,4 +239,4 @@ const Settings: FunctionComponent = () => {
   )
 }
 
-export default Settings
+export default React.memo(Settings)

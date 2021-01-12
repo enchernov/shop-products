@@ -10,6 +10,11 @@ import PRODUCTS from '@graphql/queries/Products'
 import * as ACTIONS from '@actions/shop'
 import { ShopContext } from '@providers/ShopProvider'
 
+import { GetStaticProps } from 'next'
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  return {}
+}
 const ShopPage: NextPage = () => {
   const { state, dispatch } = useContext(ShopContext)
   console.log(state)

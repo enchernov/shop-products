@@ -52,16 +52,16 @@ const SortingSelector: FunctionComponent = () => {
         onChange={handleChange}
       >
         <MenuItem value={'newest'} className={classes.menuItem}>
-          Новинки
+          Новинки &#128142;
         </MenuItem>
         <MenuItem value={'lowToHigh'} className={classes.menuItem}>
-          По цене &#8593;
+          По цене &#128070;
         </MenuItem>
         <MenuItem value={'highToLow'} className={classes.menuItem}>
-          По цене &#8595;
+          По цене &#128071;
         </MenuItem>
         <MenuItem value={'rating'} className={classes.menuItem}>
-          По рейтингу
+          По рейтингу &#10024;
         </MenuItem>
       </Select>
     </FormControl>

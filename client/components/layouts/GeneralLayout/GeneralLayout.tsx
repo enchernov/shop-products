@@ -2,6 +2,7 @@ import React, { FunctionComponent, useContext } from 'react'
 import { Grid } from '@material-ui/core'
 import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
+import clsx from 'clsx'
 
 import { Link } from '@ui/index'
 import { logoutUser } from '@utils/auth'

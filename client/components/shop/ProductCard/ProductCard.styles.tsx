@@ -1,5 +1,4 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import grey from '@material-ui/core/colors/grey'
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,22 +20,22 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
       },
     },
-    category: {
-      color: grey[500],
-    },
     name: {
       textDecoration: 'none',
-      color: grey[900],
-      fontWeight: 500,
+      fontWeight: 400,
       '&:hover': {
         color: theme.palette.secondary.main,
       },
     },
+    imageContainer: {
+      height: 193,
+    },
     image: {
       width: '100%',
+      height: '100%',
     },
     link: {
-      color: grey[500],
+      color: '#212121',
       transition: '.1s ease-in-out',
       '&:hover': {
         color: theme.palette.secondary.main,
@@ -57,10 +56,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     icon: {
-      color: grey[600],
+      // color: grey[600],
       transition: '.2s ease-in-out',
       '&:hover': {
-        color: theme.palette.primary.main,
+        color: theme.palette.secondary.main,
       },
       cursor: 'pointer',
     },

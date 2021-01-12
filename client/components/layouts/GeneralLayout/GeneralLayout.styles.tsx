@@ -9,9 +9,10 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     logoutLink: {
       cursor: 'pointer',
-      color: theme.palette.secondary.main,
       textDecoration: 'none',
+      color: '#212121',
       '&:hover': {
+        color: theme.palette.secondary.main,
         textDecoration: 'underline',
       },
     },

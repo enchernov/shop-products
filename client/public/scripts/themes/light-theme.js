@@ -67,7 +67,7 @@ export default createMuiTheme({
     },
     h4: {
       fontWeight: '400',
-      fontSize: '1rem',
+      fontSize: '1.1rem',
       color: grey[900],
     },
   },

@@ -21,6 +21,8 @@ export interface IProductProps {
   price: number
   rating: number
   id: string
+  published_at: string
+  count?: number
 }
 
 export interface IShopProps {
@@ -28,4 +30,10 @@ export interface IShopProps {
   products: Array<IProductProps>
   sorting: SortingType
   cart: Array<any>
+  wishlist: Array<any>
+}
+
+export interface ICartItem {
+  id: string
+  count: number
 }

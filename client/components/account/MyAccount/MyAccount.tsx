@@ -11,6 +11,7 @@ import { Breadcrumbs, Divider, TabPanel } from '@ui/index'
 import { AppContext } from '@providers/AppProvider'
 import Dashboard from './Dashboard'
 import Settings from './Settings'
+import Cart from './Cart'
 
 import { useStyles } from './MyAccount.styles'
 
@@ -61,10 +62,11 @@ const MyAccount: FunctionComponent = () => {
             label={state.user?.username || <Skeleton width={100} />}
             {...a11yProps(0)}
           />
-          <Tab label="Заказы" {...a11yProps(1)} />
-          <Tab label="Желания" {...a11yProps(2)} />
-          <Tab label="Адреса" {...a11yProps(3)} />
-          <Tab label="Настройки" {...a11yProps(4)} />
+          <Tab label="Корзина" {...a11yProps(1)} />
+          <Tab label="Заказы" {...a11yProps(2)} />
+          <Tab label="Желания" {...a11yProps(3)} />
+          <Tab label="Адреса" {...a11yProps(4)} />
+          <Tab label="Настройки" {...a11yProps(5)} />
         </Tabs>
         <TabPanel value={value} index={0}>
           <Grid container spacing={1} direction={'column'}>
@@ -86,15 +88,30 @@ const MyAccount: FunctionComponent = () => {
           </Grid>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Заказы
+          <Grid
+            container
+            direction={'column'}
+            spacing={4}
+            alignItems={'center'}
+          >
+            <Grid item>
+              <Typography variant="h1">Корзина</Typography>
+            </Grid>
+            <Grid item>
+              <Cart />
+            </Grid>
+          </Grid>
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Желания
+          Заказы
         </TabPanel>
         <TabPanel value={value} index={3}>
-          Адреса
+          Желания
         </TabPanel>
         <TabPanel value={value} index={4}>
+          Адреса
+        </TabPanel>
+        <TabPanel value={value} index={5}>
           <Grid
             container
             direction={'column'}

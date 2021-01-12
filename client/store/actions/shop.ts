@@ -27,3 +27,10 @@ export const updateCart = (value: any) => {
     payload: value,
   }
 }
+
+export const updateWishlist = (value: any) => {
+  return {
+    type: ACTION_TYPES.UPDATE_WISHLIST,
+    payload: value,
+  }
+}

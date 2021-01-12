@@ -11,6 +11,7 @@ import {
   Visibility,
   VisibilityOff,
   FavoriteBorder,
+  Favorite,
   Link,
   Photo,
 } from '@material-ui/icons'
@@ -25,6 +26,7 @@ type IconType =
   | 'visibility'
   | 'visibilityOff'
   | 'favorite'
+  | 'favoriteFill'
   | 'link'
   | 'photo'
 
@@ -43,6 +45,7 @@ const iconButtonMap: Record<IconType, ElementType<SvgIconProps>> = {
   visibility: Visibility,
   visibilityOff: VisibilityOff,
   favorite: FavoriteBorder,
+  favoriteFill: Favorite,
   link: Link,
   photo: Photo,
 }
