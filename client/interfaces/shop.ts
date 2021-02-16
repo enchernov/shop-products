@@ -1,4 +1,4 @@
-export type SortingType = 'rating' | 'lowToHigh' | 'highToLow' | 'newest'
+export type SortingType = string
 
 export type CategoryType =
   | 'Продукты'
@@ -23,6 +23,10 @@ export interface IProductProps {
   id: string
   published_at: string
   count?: number
+}
+
+export interface IProductCardProps {
+  hit: IProductProps
 }
 
 export interface IShopProps {

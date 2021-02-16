@@ -9,7 +9,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         alignItems: 'flex-start',
       },
       '& a': {
-        color: '#212121',
+        color: theme.palette.primary.contrastText,
         '&:hover': {
           color: theme.palette.secondary.main,
         },

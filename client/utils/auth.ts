@@ -49,7 +49,7 @@ export const loginUser = async (dispatch, login, payload) => {
 
 export const logoutUser = async (dispatch) => {
   dispatch(ACTIONS.logout())
-  Cookies.remove('token')
+  Object.keys(Cookies.get()).forEach((value: string) => Cookies.remove(value))
 }
 
 export const updateUser = async (userId, dispatch, update, values) => {
@@ -150,6 +150,29 @@ export const confirmEmailUser = async (
     return data.errors[0]
   } catch (error) {
     dispatch(ACTIONS.authError())
+    return error
+  }
+}
+
+export const delUser = async (dispatch, deleteUser, payload) => {
+  try {
+    dispatch(ACTIONS.requestAuth())
+    const { data } = await deleteUser({
+      variables: {
+        input: {
+          where: { id: payload },
+        },
+      },
+    })
+    if (data) {
+      console.log(data)
+    }
+    if (data.deleteUser?.user) {
+      return data.deleteUser
+    }
+    return data.errors[0]
+  } catch (error) {
+    // dispatch(ACTIONS.authError())
     return error
   }
 }

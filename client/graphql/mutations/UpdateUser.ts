@@ -7,8 +7,10 @@ const UPDATE_USER = gql`
         id
         username
         email
+        confirmed
         avatar {
           url
+          id
         }
       }
     }

@@ -1,31 +1,31 @@
-import React, { FunctionComponent, useContext, useMemo, useState } from 'react'
-import { Paper, Typography, Grid } from '@material-ui/core'
+import React, { FunctionComponent, useContext, useState } from 'react'
+import { Paper, Typography, Grid, Tooltip } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 import { useSnackbar } from 'notistack'
 
 import { IconButton, Link, Button } from '@ui/index'
-import { IProductProps, ICategoryProps } from '@interfaces/shop'
-import { addToCart, removeFromCart, toggleWishlist } from '@utils/shop'
+import {
+  IProductProps,
+  ICategoryProps,
+  IProductCardProps,
+} from '@interfaces/shop'
+import {
+  addToCart,
+  inWishlist,
+  removeFromCart,
+  toggleWishlist,
+} from '@utils/shop'
 import { ShopContext } from '@providers/ShopProvider'
 
 import { useStyles } from './ProductCard.styles'
 
-const ProductCard: FunctionComponent<IProductProps> = ({
-  name,
-  image,
-  categories,
-  price,
-  rating,
-  id,
-}: IProductProps) => {
+const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
+  const { name, image, categories, price, rating, id }: IProductProps = hit
   const classes = useStyles()
 
   const { state, dispatch } = useContext(ShopContext)
 
   const { enqueueSnackbar } = useSnackbar()
-
-  // const [updateUser] = useMutation(UPDATE_USER)
-  // const [updateCart] = useMutation(UPDATE_CART)
 
   const [elevation, setElevation] = useState<number>(1)
 
@@ -39,13 +39,7 @@ const ProductCard: FunctionComponent<IProductProps> = ({
   const toggleWish = async () =>
     await toggleWishlist(dispatch, id, state.wishlist)
 
-  const inWishlist = useMemo(() => {
-    return (
-      Array.from(state.wishlist)
-        .map((x) => x.id)
-        .indexOf(id) !== -1
-    )
-  }, [state, id])
+  const inList = inWishlist(state.wishlist, id)
 
   const rfc = async () => {
     try {
@@ -66,6 +60,8 @@ const ProductCard: FunctionComponent<IProductProps> = ({
     }
   }
 
+  // return JSON.stringify(hit)
+
   return (
     <Paper
       className={classes.root}
@@ -82,18 +78,30 @@ const ProductCard: FunctionComponent<IProductProps> = ({
         className={classes.slideContainer}
       >
         <Grid item className={classes.iconAnimation}>
-          <IconButton
-            icon={inWishlist ? 'favoriteFill' : 'favorite'}
-            color={inWishlist ? 'secondary' : 'default'}
-            className={classes.icon}
-            onClick={toggleWish}
-          />
+          <Tooltip
+            title={inList ? 'Удалить из избранного' : 'Добавить в избранное'}
+            placement={'left'}
+          >
+            <IconButton
+              icon={inList ? 'favoriteFill' : 'favorite'}
+              color={inList ? 'secondary' : 'default'}
+              className={classes.icon}
+              onClick={toggleWish}
+            />
+          </Tooltip>
         </Grid>
         <Grid item className={classes.iconAnimation}>
-          <IconButton icon={'search'} className={classes.icon} />
+          <Tooltip title={'Подробнее'} placement={'left'}>
+            <IconButton icon={'search'} className={classes.icon} />
+          </Tooltip>
         </Grid>
       </Grid>
-      <Grid container direction={'column'} justify={'space-between'}>
+      <Grid
+        container
+        direction={'column'}
+        justify={'space-between'}
+        spacing={2}
+      >
         <Grid item xs={12} className={classes.imageContainer}>
           <img src={image.url} alt={name} className={classes.image} />
         </Grid>

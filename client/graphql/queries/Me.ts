@@ -9,6 +9,7 @@ const ME = gql`
       confirmed
       avatar {
         url
+        id
       }
       #      cart {
       #        products {

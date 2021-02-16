@@ -4,10 +4,10 @@ export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     link: {
       textDecoration: 'none',
-      color: '#212121',
+      color: theme.palette.primary.contrastText,
       '&:hover': {
         color: theme.palette.secondary.main,
-        textDecoration: 'underline',
+        // textDecoration: 'underline',
       },
     },
   })

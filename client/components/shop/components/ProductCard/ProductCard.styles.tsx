@@ -7,6 +7,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       padding: 20,
       width: 233,
       position: 'relative',
+      backgroundColor: theme.palette.background.paper,
       '&:hover': {
         '& $iconAnimation': {
           opacity: 1,
@@ -35,7 +36,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       height: '100%',
     },
     link: {
-      color: '#212121',
+      color: theme.palette.primary.contrastText,
       transition: '.1s ease-in-out',
       '&:hover': {
         color: theme.palette.secondary.main,

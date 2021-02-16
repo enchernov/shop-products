@@ -1,41 +1,46 @@
 import React, { forwardRef, FunctionComponent, Ref } from 'react'
-import { FormControlLabel, Checkbox, TextField } from '@material-ui/core'
+import {
+  FormControlLabel,
+  Checkbox,
+  TextField,
+  TextFieldProps,
+} from '@material-ui/core'
 
 import { IconButton } from '@ui/index'
 import clsx from 'clsx'
 
 import { useStyles } from './Input.styles'
 
-type InputTypeType = 'text' | 'email' | 'password' | 'checkbox' | 'file'
-type IconType = 'search' | 'visibility' | 'visibilityOff' | 'link'
-type VariantType = 'standard' | 'filled' | 'outlined'
+import { IconType } from '@ui/IconButton/IconButton'
+
+// type VariantType = 'standard' | 'filled' | 'outlined'
 
 export interface IInputProps {
-  className?: string
-  disabled?: boolean
-  value?: any
-  id: string
-  required?: boolean
-  label: string
-  type: InputTypeType
+  // className?: string
+  // disabled?: boolean
+  // value?: any
+  // id: string
+  // required?: boolean
+  // label: string
   icon?: IconType
-  name?: string
-  variant?: VariantType
+  // name?: string
+  // variant?: VariantType
   error?: boolean
-  helperText?: string
+  // helperText?: string
   fullWidth?: boolean
   checked?: boolean
-  onChange?: any
+  // onChange?: any
   onIconClick?: () => void
+  // type: string
 }
 
-const defaultProps: Partial<IInputProps> = {
+const defaultProps: Partial<IInputProps & TextFieldProps> = {
   disabled: false,
 }
 
 type DefaultProps = Readonly<typeof defaultProps>
 
-type InputPropsType = IInputProps & DefaultProps
+type InputPropsType = IInputProps & DefaultProps & TextFieldProps
 
 const Input: FunctionComponent<InputPropsType> = forwardRef(
   (
@@ -44,17 +49,10 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
       disabled,
       onChange,
       onIconClick,
-      value,
-      id,
       label,
       type,
       icon,
       name,
-      variant,
-      error,
-      helperText,
-      required,
-      fullWidth,
       checked,
       ...props
     },
@@ -85,7 +83,7 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
               checked={checked}
               onChange={onChange}
               name={name}
-              color="primary"
+              {...props}
             />
           }
           label={label}
@@ -97,19 +95,19 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
       <TextField
         ref={ref}
         className={classesInput}
-        helperText={helperText}
-        id={id}
+        // helperText={helperText}
+        // id={id}
         name={name}
-        required={required}
+        // required={required}
         type={type}
-        variant={variant}
-        value={value}
+        // variant={variant}
+        // value={value}
         InputProps={endAdornment}
-        error={error}
+        // error={error}
         disabled={disabled}
         label={label}
         onChange={onChange}
-        fullWidth={fullWidth}
+        // fullWidth={fullWidth}
         {...props}
       />
     )

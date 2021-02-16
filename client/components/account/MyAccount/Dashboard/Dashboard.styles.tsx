@@ -8,9 +8,18 @@ export const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.primary.main,
       fontSize: 48,
       fontWeight: 500,
+      color: '#fafafa',
     },
     input: {
       display: 'none',
+    },
+    badge: {
+      '& span': {
+        borderColor: theme.palette.background.default,
+      },
+    },
+    label: {
+      cursor: 'pointer',
     },
     icon: {
       padding: 4,

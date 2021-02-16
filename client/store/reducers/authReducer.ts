@@ -10,7 +10,10 @@ export const initialState: IAppProps = {
   user: null,
   loading: false,
   token: '',
-  avatar: '',
+  avatar: {
+    url: '',
+    id: '',
+  },
 }
 
 export const authReducer: Reducer<IAppProps, IActionsProps> = (
@@ -51,6 +54,8 @@ export const authReducer: Reducer<IAppProps, IActionsProps> = (
         ...state,
         user: null,
         token: null,
+        isAuthenticated: false,
+        loading: false,
       }
     }
     case ACTION_TYPES.UPDATE_USER_SUCCESS: {

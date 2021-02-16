@@ -1,48 +1,50 @@
 import Cookies from 'js-cookie'
 
 import { updateCart, updateWishlist } from '@actions/shop'
-import { IProductProps, SortingType } from '@interfaces/shop'
+import { ICartItem, IProductProps, SortingType } from '@interfaces/shop'
 
-// export const updateCart = async (dispatch, updateUser, payload, user) => {
-//   console.log('SHOP ACTIONS', 'user:', user, 'payload:', payload)
-//   // const formCart = (u, p) => {
-//   //   let cart = []
-//   //   if (u?.cart) {
-//   //     if (p in u?.cart) {
-//   //       u.cart[p].count += 1
-//   //     } else {
-//   //       u.cart.push(p)
-//   //     }
-//   //     cart = u.cart
-//   //   } else {
-//   //     cart.push(p)
-//   //   }
-//   //   return cart
-//   // }
-//   try {
-//     const { data } = await updateUser({
-//       variables: {
-//         input: {
-//           where: {
-//             id: user.id,
-//           },
-//           data: {
-//             // cart: formCart(user, payload),
-//             cart: [payload],
-//           },
-//         },
-//       },
-//     })
-//     console.log('SHOP ACTIONS', 'updated user:', data)
-//     if (data?.updateUser?.user) {
-//       dispatch(ACTIONS.authSuccess(data.updateUser))
-//       return data.updateUser.user
-//     }
-//     return
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
+import * as ACTIONS from '@actions/shop'
+
+// === SHOP
+
+export const fetchShop = async (
+  dispatch,
+  state,
+  categoriesQuery,
+  productsQuery
+) => {
+  try {
+    const {
+      data: categoriesData,
+      error: categoriesError,
+      loading: categoriesLoading,
+    } = categoriesQuery
+    const {
+      data: productsData,
+      error: productsError,
+      loading: productsLoading,
+    } = productsQuery
+
+    if (
+      !categoriesLoading &&
+      !categoriesError &&
+      categoriesData?.categories &&
+      state?.categories !== categoriesData.categories
+    ) {
+      await dispatch(ACTIONS.setCategories(categoriesData.categories))
+    }
+    if (
+      !productsLoading &&
+      !productsError &&
+      productsData?.products &&
+      state?.products !== productsData.products
+    ) {
+      await dispatch(ACTIONS.setProducts(productsData.products))
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 // === CART
 
@@ -71,21 +73,23 @@ export const addToCart = async (dispatch, id, cart) => {
   return newCart
 }
 
-export const removeFromCart = async (dispatch, id, cart) => {
-  const candidate = cart.find((x) => x.id === id)
-  const idx = cart.indexOf(candidate)
-  if (idx !== -1) {
-    if (cart[idx].count > 1) {
-      cart[idx].count -= 1
-    } else {
-      cart.shift(candidate)
-    }
-    try {
-      dispatch(updateCart(cart))
-      Cookies.set('cart', JSON.stringify(cart))
-    } catch (error) {
-      return
-    }
+export const removeFromCart = async (
+  dispatch,
+  id: string,
+  cart: Array<ICartItem>
+) => {
+  const candidateIndex = cart.findIndex((x) => x.id === id)
+  if (candidateIndex === -1) return cart
+  if (cart[candidateIndex].count > 1) {
+    cart[candidateIndex].count -= 1
+  } else {
+    cart.splice(candidateIndex, 1)
+  }
+  try {
+    dispatch(updateCart(cart))
+    Cookies.set('cart', JSON.stringify(cart))
+  } catch (error) {
+    return cart
   }
   return cart
 }
@@ -98,6 +102,59 @@ export const clearCart = async (dispatch) => {
     return
   }
   return []
+}
+
+export const filterCart = async (
+  dispatch,
+  id: string,
+  cart: Array<ICartItem>
+) => {
+  cart = cart.filter((x: ICartItem) => x.id !== id)
+  try {
+    dispatch(updateCart(cart))
+    Cookies.set('cart', JSON.stringify(cart))
+  } catch (error) {
+    return
+  }
+  return cart
+}
+
+export const formCart = (
+  cart: Array<ICartItem>,
+  products: Array<IProductProps>
+) => {
+  return cart.length
+    ? Array.from(cart).map((cartItem: ICartItem) => {
+        const candidate = Array.from(products).find(
+          (product: IProductProps) => product.id === cartItem.id
+        )
+        if (candidate) {
+          return {
+            ...candidate,
+            count: cartItem.count,
+          }
+        }
+        return
+      })
+    : []
+}
+
+export const updateCount = (
+  dispatch,
+  cart: Array<ICartItem>,
+  id: string,
+  count: number
+) => {
+  const candidateIndex = cart.findIndex((x: ICartItem) => x.id === id)
+  if (candidateIndex === -1) return cart
+  cart[candidateIndex].count = count
+  try {
+    dispatch(updateCart(cart))
+    Cookies.set('cart', JSON.stringify(cart))
+  } catch (error) {
+    return cart
+  }
+  return cart
 }
 
 // === PRODUCTS
@@ -155,10 +212,29 @@ export const toggleWishlist = async (dispatch, id, wishlist) => {
     })
   }
   try {
-    dispatch(updateWishlist(newWishlist))
+    await dispatch(updateWishlist(newWishlist))
     Cookies.set('wishlist', JSON.stringify(newWishlist))
   } catch (error) {
     return
   }
   return newWishlist
+}
+
+export const inWishlist = (list, id) => {
+  return list.length
+    ? Array.from(list)
+        .map((x: any) => x.id)
+        .indexOf(id) !== -1
+    : false
+}
+
+export const formWishlist = (list, products) => {
+  return list.length
+    ? Array.from(list).map((item: any) => {
+        const candidate = Array.from(products).find(
+          (product: any) => product.id === item.id
+        )
+        return candidate ? candidate : undefined
+      })
+    : []
 }

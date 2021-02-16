@@ -14,12 +14,16 @@ import {
   Favorite,
   Link,
   Photo,
+  DeleteOutline,
+  Add,
+  Remove,
+  Clear,
 } from '@material-ui/icons'
 import clsx from 'clsx'
 
 import { useStyles } from './IconButton.styles'
 
-type IconType =
+export type IconType =
   | 'menu'
   | 'more'
   | 'search'
@@ -29,6 +33,10 @@ type IconType =
   | 'favoriteFill'
   | 'link'
   | 'photo'
+  | 'delete'
+  | 'plus'
+  | 'minus'
+  | 'cross'
 
 export interface IIconButtonProps extends IconButtonProps {
   icon: IconType
@@ -48,6 +56,10 @@ const iconButtonMap: Record<IconType, ElementType<SvgIconProps>> = {
   favoriteFill: Favorite,
   link: Link,
   photo: Photo,
+  delete: DeleteOutline,
+  plus: Add,
+  minus: Remove,
+  cross: Clear,
 }
 
 const IconButton: FunctionComponent<IIconButtonProps> = forwardRef(

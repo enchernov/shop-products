@@ -1,5 +1,6 @@
 import * as ACTION_TYPES from '../types/auth'
 import { IUserDataProps } from '@interfaces/auth'
+import { IAvatarProps } from '@ui/Avatar/Avatar'
 
 export const requestAuth = () => {
   return {
@@ -38,7 +39,7 @@ export const updateUserSuccess = (value: IUserDataProps) => {
   }
 }
 
-export const loadAvatar = (value: string) => {
+export const loadAvatar = (value: IAvatarProps) => {
   return {
     type: ACTION_TYPES.LOAD_AVATAR,
     payload: value,

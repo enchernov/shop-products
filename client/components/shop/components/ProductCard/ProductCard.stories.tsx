@@ -53,6 +53,6 @@ export default {
   },
 } as Meta
 
-const Template: Story<IProductProps> = (args) => <ProductCard {...args} />
+const Template: Story<IProductProps> = (args) => <ProductCard hit={args} />
 export const Default = Template.bind({})
 Default.args = {}

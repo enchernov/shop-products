@@ -3,6 +3,12 @@ export interface IUserDataProps {
   username: string
   email: string
   avatar: any
+  confirmed: boolean
+}
+
+type IAvatarProps = {
+  url: string
+  id: string
 }
 
 export interface IAppProps {
@@ -10,7 +16,7 @@ export interface IAppProps {
   user: IUserDataProps | null
   loading: boolean
   token: string | null
-  avatar: string
+  avatar: IAvatarProps
 }
 
 export interface IRegisterProps {

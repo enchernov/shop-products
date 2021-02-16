@@ -20,7 +20,11 @@ const SocialAuth: FunctionComponent = (props) => {
           <SocialButton
             icon={service}
             key={service}
-            className={clsx(classes[service], buttonClasses[service])}
+            className={clsx(
+              classes[service],
+              buttonClasses[service],
+              classes.item
+            )}
             href={`${process.env.STRAPI_API_URL}/connect/${service}`}
           />
         </Grid>

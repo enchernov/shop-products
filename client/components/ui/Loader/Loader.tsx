@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { CircularProgress, Grid } from '@material-ui/core'
+import { Link } from '@ui/index'
 
 import { useStyles } from './Loader.styles'
 
@@ -15,7 +16,9 @@ const Loader: FunctionComponent = () => {
       className={classes.loaderLayout}
     >
       <Grid item>
-        <img src={'/images/foodMarket.png'} alt={'FoodMarket'} width={234} />
+        <Link href={'/'}>
+          <img src={'/images/foodMarket.png'} alt={'FoodMarket'} width={234} />
+        </Link>
       </Grid>
       <Grid item>
         <CircularProgress />

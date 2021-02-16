@@ -14,7 +14,7 @@ import { useSnackbar } from 'notistack'
 
 import { Button, Input } from '@ui/index'
 import { IUpdateMutationProps } from '@interfaces/auth'
-import { updateUser } from '@utils/auth'
+import { logoutUser, updateUser } from '@utils/auth'
 import { AppContext } from '@providers/AppProvider'
 import UPDATE_USER from '@graphql/mutations/UpdateUser'
 import { errorMessage } from '@hooks/auth/errorMessage'
@@ -80,7 +80,7 @@ const Settings: FunctionComponent = () => {
 
   const handleSubmit = useCallback(
     async (values) => {
-      console.log('FORM SUBMITTED')
+      enqueueSnackbar('Пожалуйста, подождите', { variant: 'info' })
       try {
         const data = await updateUser(state?.user?.id, dispatch, update, values)
         console.log('SETTINGS_DATA', data)
@@ -93,6 +93,7 @@ const Settings: FunctionComponent = () => {
           enqueueSnackbar('Вы успешно обновились', {
             variant: 'success',
           })
+          !data.user?.confirmed && (await logoutUser(dispatch))
         }
       } catch (error) {
         enqueueSnackbar(errorMessage(error), {
@@ -131,9 +132,9 @@ const Settings: FunctionComponent = () => {
         value={formik.values.username}
         onChange={formik.handleChange}
         error={formik.touched.username && Boolean(formik.errors.username)}
-        helperText={
-          formik.touched.username ? formik.errors.username : undefined
-        }
+        // helperText={
+        //   formik.touched.username ? formik.errors.username : undefined
+        // }
       />
       <Input
         id="email"
@@ -150,7 +151,7 @@ const Settings: FunctionComponent = () => {
         value={formik.values.email}
         onChange={formik.handleChange}
         error={formik.touched.email && Boolean(formik.errors.email)}
-        helperText={formik.touched.email ? formik.errors.email : undefined}
+        // helperText={formik.touched.email ? formik.errors.email : undefined}
       />
       <Typography variant="h4" className={classes.passwordLabel}>
         Новый пароль

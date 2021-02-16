@@ -12,7 +12,7 @@ const wishlist = Cookies.get('wishlist')
 export const initialState: IShopProps = {
   categories: [],
   products: [],
-  sorting: 'newest',
+  sorting: 'products_publishing_date',
   cart: cart?.length ? JSON.parse(cart) : [],
   wishlist: wishlist?.length ? JSON.parse(wishlist) : [],
 }
