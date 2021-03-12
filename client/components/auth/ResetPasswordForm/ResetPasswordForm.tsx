@@ -34,7 +34,7 @@ const ResetPasswordForm: FunctionComponent = () => {
 
   useEffect(() => {
     router.prefetch('/signin')
-  }, [])
+  }, [router])
 
   const handleIconPasswordClick = () => {
     setIsPasswordVisible((isPasswordVisible) => !isPasswordVisible)
@@ -63,30 +63,33 @@ const ResetPasswordForm: FunctionComponent = () => {
       .required('Подтвердите пароль'),
   })
 
-  const handleSubmit = useCallback(async (values: IResetPasswordProps) => {
-    try {
-      const data = await resetPasswordUser(
-        dispatch,
-        resetPassword,
-        values,
-        code
-      )
-      if (!data.user) {
-        enqueueSnackbar(errorMessage(data), {
+  const handleSubmit = useCallback(
+    async (values: IResetPasswordProps) => {
+      try {
+        const data = await resetPasswordUser(
+          dispatch,
+          resetPassword,
+          values,
+          code
+        )
+        if (!data.user) {
+          enqueueSnackbar(errorMessage(data), {
+            variant: 'error',
+          })
+        } else {
+          enqueueSnackbar('Вы успешно обновили пароль', {
+            variant: 'success',
+          })
+          router.push('/signin')
+        }
+      } catch (error) {
+        enqueueSnackbar(errorMessage(error), {
           variant: 'error',
         })
-      } else {
-        enqueueSnackbar('Вы успешно обновили пароль', {
-          variant: 'success',
-        })
-        router.push('/signin')
       }
-    } catch (error) {
-      enqueueSnackbar(errorMessage(error), {
-        variant: 'error',
-      })
-    }
-  }, [])
+    },
+    [code, dispatch, enqueueSnackbar, resetPassword, router]
+  )
 
   const formik = useFormik({
     initialValues: initialValues,

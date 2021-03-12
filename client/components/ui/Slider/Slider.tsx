@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ElementType, forwardRef, Ref } from 'react'
+import React, { FunctionComponent } from 'react'
 import { Slider as MuiSlider, SliderProps } from '@material-ui/core'
 import clsx from 'clsx'
 

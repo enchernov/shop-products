@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useState } from 'react'
+import React, { FunctionComponent, useContext } from 'react'
 import { Paper, Typography, Grid, Tooltip } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 import { useSnackbar } from 'notistack'

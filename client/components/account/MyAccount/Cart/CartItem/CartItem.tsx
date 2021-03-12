@@ -52,16 +52,12 @@ const CartItem: FunctionComponent<IProductProps> = ({
         }
       }
     },
-    [state.cart, dispatch, id, count]
+    [state.cart, dispatch, id, count, available]
   )
 
   return (
     <Paper square={true} className={classes.root}>
-      <Grid
-        container
-        justify={'space-between'}
-        alignItems={'center'}
-      >
+      <Grid container justify={'space-between'} alignItems={'center'}>
         <Grid item>
           <img src={image.url} alt={name} className={classes.image} />
         </Grid>

@@ -33,7 +33,7 @@ const ShopProvider: FunctionComponent<IContextProviderProps<IShopProps>> = ({
 
   useEffect(() => {
     fetchShop(dispatch, state, categoriesQuery, productsQuery)
-  }, [categoriesQuery.data, productsQuery.data])
+  }, [categoriesQuery, productsQuery, state])
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>
 }
 

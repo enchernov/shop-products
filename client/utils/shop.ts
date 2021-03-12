@@ -1,13 +1,7 @@
 import Cookies from 'js-cookie'
 
 import { updateCart, updateWishlist } from '@actions/shop'
-import {
-  CategoryType,
-  ICartItem,
-  ICategoryProps,
-  IProductProps,
-  SortingType,
-} from '@interfaces/shop'
+import { ICartItem, IProductProps, SortingType } from '@interfaces/shop'
 
 import * as ACTIONS from '@actions/shop'
 

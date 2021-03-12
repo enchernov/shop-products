@@ -67,7 +67,7 @@ const ProviderPage: NextPage = () => {
       })
       router.push('/signin')
     }
-  }, [router])
+  }, [router, dispatch, enqueueSnackbar, provider])
   return <Loader />
 }
 

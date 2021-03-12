@@ -36,7 +36,7 @@ const Register: FunctionComponent = () => {
 
   useEffect(() => {
     router.prefetch('/signin')
-  }, [])
+  }, [router])
 
   const handleIconPasswordClick = () => {
     setIsPasswordVisible((isPasswordVisible) => !isPasswordVisible)
@@ -71,25 +71,28 @@ const Register: FunctionComponent = () => {
       .required('Подтвердите пароль'),
   })
 
-  const handleSubmit = useCallback(async (values: IRegisterProps) => {
-    try {
-      const data = await registerUser(dispatch, register, values)
-      if (!data.user) {
-        enqueueSnackbar(errorMessage(data), {
-          variant: 'error',
-        })
-      } else {
-        enqueueSnackbar('Успешная регистрация', { variant: 'success' })
-        enqueueSnackbar('Подтвердите email', {
-          variant: 'info',
-          autoHideDuration: 10000,
-        })
-        router.push('/signin')
+  const handleSubmit = useCallback(
+    async (values: IRegisterProps) => {
+      try {
+        const data = await registerUser(dispatch, register, values)
+        if (!data.user) {
+          enqueueSnackbar(errorMessage(data), {
+            variant: 'error',
+          })
+        } else {
+          enqueueSnackbar('Успешная регистрация', { variant: 'success' })
+          enqueueSnackbar('Подтвердите email', {
+            variant: 'info',
+            autoHideDuration: 10000,
+          })
+          router.push('/signin')
+        }
+      } catch (error) {
+        enqueueSnackbar(errorMessage(error), { variant: 'error' })
       }
-    } catch (error) {
-      enqueueSnackbar(errorMessage(error), { variant: 'error' })
-    }
-  }, [])
+    },
+    [dispatch, enqueueSnackbar, register, router]
+  )
 
   const formik = useFormik({
     initialValues: initialValues,

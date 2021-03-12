@@ -49,30 +49,44 @@ const ForgotPasswordForm: FunctionComponent<IForgotProps> = ({
       .required('Email обязателен для заполнения'),
   })
 
-  const handleSubmit = useCallback(async (values: IForgotPasswordProps) => {
-    console.log(captchaToken)
-    if (captchaToken.length) {
-      try {
-        const data = await forgotPasswordUser(dispatch, forgotPassword, values)
-        if (!data.ok) {
-          enqueueSnackbar(errorMessage(data), {
+  const handleSubmit = useCallback(
+    async (values: IForgotPasswordProps) => {
+      console.log(captchaToken)
+      if (captchaToken.length) {
+        try {
+          const data = await forgotPasswordUser(
+            dispatch,
+            forgotPassword,
+            values
+          )
+          if (!data.ok) {
+            enqueueSnackbar(errorMessage(data), {
+              variant: 'error',
+            })
+          } else {
+            setEmailData(data.ok)
+            setFormikEmailData(values.email)
+          }
+        } catch (error) {
+          enqueueSnackbar(errorMessage(error), {
             variant: 'error',
           })
-        } else {
-          setEmailData(data.ok)
-          setFormikEmailData(values.email)
         }
-      } catch (error) {
-        enqueueSnackbar(errorMessage(error), {
+      } else {
+        enqueueSnackbar('Введите капчу', {
           variant: 'error',
         })
       }
-    } else {
-      enqueueSnackbar('Введите капчу', {
-        variant: 'error',
-      })
-    }
-  }, [])
+    },
+    [
+      setEmailData,
+      setFormikEmailData,
+      captchaToken,
+      dispatch,
+      enqueueSnackbar,
+      forgotPassword,
+    ]
+  )
 
   const handleCaptcha = (value) => {
     setCaptchaToken(value)

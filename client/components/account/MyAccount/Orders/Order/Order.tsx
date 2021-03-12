@@ -13,7 +13,7 @@ const Order: FunctionComponent<IOrderComponentProps> = ({ order }) => {
   const products = JSON.parse(order.products) || []
   const [date, time] = createdAt.split('T')
   const [year, month, day] = date.split('-')
-  const [hour, minute, rest] = time.split(':')
+  const [hour, minute, tail] = time.split(':')
   const classes = useStyles()
   return (
     <Paper className={classes.root} square={true}>

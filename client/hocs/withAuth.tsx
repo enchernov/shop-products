@@ -16,7 +16,6 @@ const withAuth = (Component: any) => {
     const router = useRouter()
 
     const { data, loading, error } = useQuery(ME)
-    // console.log(data, loading, state)
 
     useEffect(() => {
       const syncLogout = (event) => {
@@ -27,28 +26,18 @@ const withAuth = (Component: any) => {
       }
       window.addEventListener('storage', syncLogout)
       if (!loading && data) {
-        // console.log('ME: ', data.me)
-        // console.log('SELF: ', data.self)
         dispatch(ACTIONS.authSuccess({ user: { ...data.me, ...data.self } }))
       }
-      //
-      // if (!loading && !state.isAuthenticated && !state.user) {
-      //   enqueueSnackbar('Вы не авторизованы', { variant: 'error' })
-      //   syncLogout({ key: 'logout' })
-      // }
 
       if (error) {
         enqueueSnackbar('Вы не авторизованы', { variant: 'error' })
         syncLogout({ key: 'logout' })
       }
-      // if (!loading && !state.token && !state.loading) {
-      //   syncLogout({ key: 'logout' })
-      // }
       return () => {
         window.removeEventListener('storage', syncLogout)
         window.localStorage.removeItem('logout')
       }
-    }, [data, loading, error])
+    }, [data, loading, error, dispatch, enqueueSnackbar, router])
 
     if (state.token) {
       return <Component {...props} />
