@@ -1,7 +1,13 @@
 import Cookies from 'js-cookie'
 
 import { updateCart, updateWishlist } from '@actions/shop'
-import { ICartItem, IProductProps, SortingType } from '@interfaces/shop'
+import {
+  CategoryType,
+  ICartItem,
+  ICategoryProps,
+  IProductProps,
+  SortingType,
+} from '@interfaces/shop'
 
 import * as ACTIONS from '@actions/shop'
 
@@ -155,6 +161,13 @@ export const updateCount = (
     return cart
   }
   return cart
+}
+
+export const getTotal = (cart: Array<IProductProps>) => {
+  return cart.reduce(
+    (subtotal: number, item) => subtotal + item.price * item.count,
+    0
+  )
 }
 
 // === PRODUCTS

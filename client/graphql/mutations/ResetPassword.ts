@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 const RESET_PASSWORD = gql`
-  mutation ResetPassword(
+  mutation resetPassword(
     $password: String!
     $passwordConfirmation: String!
     $code: String!

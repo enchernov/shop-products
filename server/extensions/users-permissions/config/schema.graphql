@@ -1,8 +1,31 @@
 module.exports = {
-  definition: `
-    extend type UsersPermissionsMe {
-      avatar: UploadFile
-    }
+  // definition: `
+  //   extend type UsersPermissionsMe {
+  //     avatar: UploadFile
+  //     orders(sort: String, limit: Int, start: Int, where: JSON): [Orders]
+  //   }
+  // `,
+  query: `
+    self: UsersPermissionsUser
   `,
+  resolver: {
+    Query: {
+      self: {
+        resolver: 'plugins::users-permissions.user.me'
+      },
+    },
+  }
+  // resolver: {
+  //   UsersPermissionsMe: {
+  //     orders: async (x) => {
+  //       console.log(x)
+  //       const user = await strapi.plugins['users-permissions'].services.user.fetch({
+  //         id: x.id,
+  //       });
+  //       console.log(user['orders'])
+  //       return {...x, orders: [...user['orders']]}
+  //     }
+  //   },
+  // },
 };
 // module.exports = {};       cart(sort: String, limit: Int, start: Int, where: JSON): [Product]

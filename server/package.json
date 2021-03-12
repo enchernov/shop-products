@@ -27,7 +27,8 @@
     "strapi-plugin-users-permissions": "latest",
     "strapi-provider-email-sendgrid": "latest",
     "strapi-provider-upload-cloudinary": "latest",
-    "strapi-utils": "latest"
+    "strapi-utils": "latest",
+    "stripe": "^8.137.0"
   },
   "author": {
     "name": "A Strapi developer"

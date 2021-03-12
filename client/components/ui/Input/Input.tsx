@@ -23,12 +23,14 @@ export interface IInputProps {
   // required?: boolean
   // label: string
   icon?: IconType
+  iconColor?: 'inherit' | 'primary' | 'secondary' | 'default' | undefined
   // name?: string
   // variant?: VariantType
   error?: boolean
   // helperText?: string
   fullWidth?: boolean
   checked?: boolean
+  iconDisabled?: boolean
   // onChange?: any
   onIconClick?: () => void
   // type: string
@@ -54,6 +56,8 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
       icon,
       name,
       checked,
+      iconDisabled,
+      iconColor,
       ...props
     },
     ref: Ref<HTMLInputElement>
@@ -67,9 +71,10 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
           endAdornment: (
             <IconButton
               icon={icon}
-              disabled={disabled}
+              disabled={disabled || iconDisabled}
               onClick={onIconClick}
               disableFocusRipple={true}
+              color={iconColor}
             />
           ),
         }

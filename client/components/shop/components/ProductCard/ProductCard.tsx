@@ -27,24 +27,18 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
 
   const { enqueueSnackbar } = useSnackbar()
 
-  const [elevation, setElevation] = useState<number>(1)
-
-  const handleMouseEnter = () => {
-    setElevation(4)
-  }
-  const handleMouseLeave = () => {
-    setElevation(1)
-  }
-
   const toggleWish = async () =>
     await toggleWishlist(dispatch, id, state.wishlist)
 
   const inList = inWishlist(state.wishlist, id)
+  const inCart = inWishlist(state.cart, id)
 
   const rfc = async () => {
     try {
       const data = await removeFromCart(dispatch, id, state.cart)
-      if (!data) return
+      if (data)
+        enqueueSnackbar('Товар больше не в корзине', { variant: 'info' })
+      else enqueueSnackbar('Возникла ошибка', { variant: 'error' })
     } catch (error) {
       console.log(error)
     }
@@ -63,14 +57,7 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
   // return JSON.stringify(hit)
 
   return (
-    <Paper
-      className={classes.root}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      elevation={elevation}
-      square={true}
-      onDoubleClick={rfc}
-    >
+    <Paper className={classes.root} square={true}>
       <Grid
         container
         direction={'column'}
@@ -151,13 +138,13 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
                     className={classes.rating}
                   />
                   <Button
-                    icon={'cart'}
-                    color={'primary'}
+                    icon={inCart ? 'cartRemove' : 'cart'}
+                    color={inCart ? 'secondary' : 'primary'}
                     variant={'text'}
                     className={classes.cartButton}
-                    onClick={buy}
+                    onClick={inCart ? rfc : buy}
                   >
-                    В корзину
+                    {inCart ? 'Из корзины' : 'В корзину'}
                   </Button>
                 </Grid>
               </Grid>

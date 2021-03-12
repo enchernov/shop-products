@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connectMenu } from 'react-instantsearch-dom'
 import { Grid, Typography } from '@material-ui/core'
 import { CategoryOutlined } from '@material-ui/icons'
@@ -10,7 +10,7 @@ const Menu = connectMenu(({ items, refine, createURL }) => {
   const classes = useStyles()
   const showX = items.some((x) => x.isRefined)
   return (
-    <>
+    <Grid container direction={'column'} spacing={3}>
       <Grid item>
         <Grid container justify={'space-between'} alignItems={'center'}>
           <Grid item>
@@ -53,7 +53,7 @@ const Menu = connectMenu(({ items, refine, createURL }) => {
           <Divider className={classes.categoryDivider} />
         </Grid>
       ))}
-    </>
+    </Grid>
   )
 })
 export default Menu

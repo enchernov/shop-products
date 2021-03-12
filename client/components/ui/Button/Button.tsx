@@ -10,14 +10,18 @@ import {
   ButtonProps,
   SvgIconProps,
 } from '@material-ui/core'
-import { Edit, AddSharp, ShoppingCart } from '@material-ui/icons'
+import {
+  Edit,
+  AddSharp,
+  ShoppingCart,
+  RemoveShoppingCart,
+} from '@material-ui/icons'
 import clsx from 'clsx'
-
 import { Link } from '@ui/index'
 
 import { useStyles } from './Button.styles'
 
-type IconType = 'create' | 'edit' | 'cart'
+type IconType = 'create' | 'edit' | 'cart' | 'cartRemove'
 
 export interface IButtonProps extends ButtonProps {
   children: ReactNode
@@ -41,6 +45,7 @@ const iconButtonMap: Record<IconType, ElementType<SvgIconProps>> = {
   create: AddSharp,
   edit: Edit,
   cart: ShoppingCart,
+  cartRemove: RemoveShoppingCart,
 }
 
 const noop = () => {}

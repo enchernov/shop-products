@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useEffect } from 'react'
+import React, { FunctionComponent, useContext } from 'react'
 import { Select, MenuItem, FormControl } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { connectSortBy } from 'react-instantsearch-dom'
@@ -53,8 +53,8 @@ const SortingSelector: FunctionComponent = connectSortBy(
     return (
       <FormControl>
         <Select
-          disableUnderline
           classes={{ root: classes.select }}
+          disableUnderline
           MenuProps={menuProps}
           IconComponent={iconComponent}
           value={state.sorting}
@@ -65,10 +65,6 @@ const SortingSelector: FunctionComponent = connectSortBy(
               key={item.value}
               value={item.value}
               className={classes.menuItem}
-              // onClick={(event) => {
-              //   event.preventDefault()
-              //   refine(item.value)
-              // }}
             >
               {item.label}
             </MenuItem>

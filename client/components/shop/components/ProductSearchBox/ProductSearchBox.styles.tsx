@@ -18,16 +18,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 0,
       borderColor: 'rgba(0,0,0,0.14)',
       padding: '14px 16px 15px 24px',
-      // paddingLeft: 24,
-      // paddingTop: 14,
-      // paddingBottom: 15,
-      // boxShadow: 'none',
-      // boxShadow: '0px 5px 8px -3px rgba(0,0,0,0.14)',
       backgroundColor: theme.palette.background.paper,
       '&:focus': {
         outline: 'none',
         borderColor: green[100],
-        // borderColor: green[100],
       },
     },
     icon: {

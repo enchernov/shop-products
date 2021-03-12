@@ -164,11 +164,35 @@ export const delUser = async (dispatch, deleteUser, payload) => {
         },
       },
     })
+    if (data.deleteUser?.user) {
+      return data.deleteUser
+    }
+    return data.errors[0]
+  } catch (error) {
+    // dispatch(ACTIONS.authError())
+    return error
+  }
+}
+
+export const updUser = async (dispatch, updateUser, id, payload) => {
+  try {
+    dispatch(ACTIONS.requestAuth())
+    const { data } = await updateUser({
+      variables: {
+        input: {
+          where: { id },
+          data: {
+            ...payload,
+          },
+        },
+      },
+    })
     if (data) {
       console.log(data)
     }
-    if (data.deleteUser?.user) {
-      return data.deleteUser
+    if (data.updateUser?.user) {
+      dispatch(ACTIONS.updateUserSuccess(data.updateUser.user))
+      return data.updateUser
     }
     return data.errors[0]
   } catch (error) {

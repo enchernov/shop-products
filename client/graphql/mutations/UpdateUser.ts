@@ -8,9 +8,20 @@ const UPDATE_USER = gql`
         username
         email
         confirmed
+        addresses {
+          id
+          address
+        }
         avatar {
           url
           id
+        }
+        orders {
+          id
+          total
+          products
+          createdAt
+          address
         }
       }
     }

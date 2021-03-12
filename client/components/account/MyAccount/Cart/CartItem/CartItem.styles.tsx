@@ -4,6 +4,7 @@ export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: 20,
+      width: 550,
     },
     image: {
       width: 150,

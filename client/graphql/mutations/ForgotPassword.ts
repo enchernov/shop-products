@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 const FORGOT_PASSWORD = gql`
-  mutation ForgotPassword($email: String!) {
+  mutation forgotPassword($email: String!) {
     forgotPassword(email: $email) {
       ok
     }

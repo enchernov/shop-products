@@ -28,6 +28,7 @@ const CartItem: FunctionComponent<IProductProps> = ({
   price,
   id,
   count,
+  available,
 }: IProductProps) => {
   const classes = useStyles()
 
@@ -44,9 +45,11 @@ const CartItem: FunctionComponent<IProductProps> = ({
 
   const changeCount = useCallback(
     (value: number) => {
-      setItemCount(value)
-      if (value !== count && value > 0) {
-        updateCount(dispatch, state.cart, id, value)
+      if (value > 0 && value <= available) {
+        setItemCount(value)
+        if (value !== count) {
+          updateCount(dispatch, state.cart, id, value)
+        }
       }
     },
     [state.cart, dispatch, id, count]
@@ -58,7 +61,6 @@ const CartItem: FunctionComponent<IProductProps> = ({
         container
         justify={'space-between'}
         alignItems={'center'}
-        spacing={8}
       >
         <Grid item>
           <img src={image.url} alt={name} className={classes.image} />
@@ -85,11 +87,9 @@ const CartItem: FunctionComponent<IProductProps> = ({
               >
                 <Grid item>
                   <ButtonGroup>
-                    {/*<Button onClick={() => changeCount(+itemCount - 1)}>*/}
-                    {/*  -*/}
-                    {/*</Button>*/}
                     <IconButton
                       icon={'minus'}
+                      disabled={itemCount <= 1}
                       onClick={() =>
                         itemCount > 1 && changeCount(+itemCount - 1)
                       }
@@ -107,11 +107,11 @@ const CartItem: FunctionComponent<IProductProps> = ({
                     />
                     <IconButton
                       icon={'plus'}
-                      onClick={() => changeCount(+itemCount + 1)}
+                      disabled={itemCount === available}
+                      onClick={() =>
+                        itemCount < available && changeCount(+itemCount + 1)
+                      }
                     />
-                    {/*<Button onClick={() => changeCount(+itemCount + 1)}>*/}
-                    {/*  +*/}
-                    {/*</Button>*/}
                   </ButtonGroup>
                 </Grid>
                 <Grid item>

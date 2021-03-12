@@ -21,5 +21,6 @@ export const useStyles = makeStyles((theme: Theme) =>
     activeIcon: {
       color: theme.palette.secondary.main,
     },
+    hits: {},
   })
 )

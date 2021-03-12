@@ -6,7 +6,15 @@ import React, {
   useState,
 } from 'react'
 import { useMutation } from '@apollo/client'
-import { Typography } from '@material-ui/core'
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Grid,
+  Typography,
+} from '@material-ui/core'
 import clsx from 'clsx'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
@@ -14,13 +22,14 @@ import { useSnackbar } from 'notistack'
 
 import { Button, Input } from '@ui/index'
 import { IUpdateMutationProps } from '@interfaces/auth'
-import { logoutUser, updateUser } from '@utils/auth'
+import { delUser, logoutUser, updateUser } from '@utils/auth'
 import { AppContext } from '@providers/AppProvider'
 import UPDATE_USER from '@graphql/mutations/UpdateUser'
 import { errorMessage } from '@hooks/auth/errorMessage'
 
 import { useStyles } from './Settings.styles'
 import * as ACTIONS from '@actions/auth'
+import DELETE_USER from '@graphql/mutations/DeleteUser'
 
 const validationSchema = yup.object({
   username: yup.string().required('Поле не может быть пустым'),
@@ -83,7 +92,6 @@ const Settings: FunctionComponent = () => {
       enqueueSnackbar('Пожалуйста, подождите', { variant: 'info' })
       try {
         const data = await updateUser(state?.user?.id, dispatch, update, values)
-        console.log('SETTINGS_DATA', data)
         if (!data.user) {
           enqueueSnackbar(errorMessage(data), {
             variant: 'error',
@@ -114,129 +122,189 @@ const Settings: FunctionComponent = () => {
   useEffect(() => {
     formik.initialValues = formInitialValues(state)
   }, [formik, state])
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false)
+
+  const handleDialog = () => setDialogOpen((prevState: boolean) => !prevState)
+
+  const [deleteUser] = useMutation(DELETE_USER)
+
+  const confirmDelete = async () => {
+    try {
+      handleDialog()
+      const data = await delUser(dispatch, deleteUser, state?.user?.id)
+      if (!data.user) {
+        return
+      } else {
+        await logoutUser(dispatch)
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   return (
-    <form onSubmit={formik.handleSubmit} className={classes.form}>
-      <Input
-        id="username"
-        type="text"
-        label="Введите логин"
-        name="username"
-        variant="outlined"
-        fullWidth
-        className={
-          formik.touched.username && Boolean(formik.errors.username)
-            ? clsx(classes.input, classes.input_error)
-            : classes.input
-        }
-        value={formik.values.username}
-        onChange={formik.handleChange}
-        error={formik.touched.username && Boolean(formik.errors.username)}
-        // helperText={
-        //   formik.touched.username ? formik.errors.username : undefined
-        // }
-      />
-      <Input
-        id="email"
-        type="email"
-        label="Введите email"
-        name="email"
-        variant="outlined"
-        fullWidth
-        className={
-          formik.touched.email && Boolean(formik.errors.email)
-            ? clsx(classes.input, classes.input_error)
-            : classes.input
-        }
-        value={formik.values.email}
-        onChange={formik.handleChange}
-        error={formik.touched.email && Boolean(formik.errors.email)}
-        // helperText={formik.touched.email ? formik.errors.email : undefined}
-      />
-      <Typography variant="h4" className={classes.passwordLabel}>
-        Новый пароль
-      </Typography>
-      <Input
-        id="newPassword"
-        type={isNewPasswordVisible ? 'text' : 'password'}
-        label="Введите новый пароль"
-        name="newPassword"
-        variant="outlined"
-        icon={isNewPasswordVisible ? 'visibilityOff' : 'visibility'}
-        onIconClick={handleIconNewPasswordClick}
-        fullWidth
-        className={
-          formik.touched.newPassword && Boolean(formik.errors.newPassword)
-            ? clsx(classes.input, classes.input_error)
-            : classes.input
-        }
-        value={formik.values.newPassword}
-        onChange={formik.handleChange}
-        error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
-        helperText={
-          formik.touched.newPassword ? formik.errors.newPassword : undefined
-        }
-      />
-      <Input
-        id="newPasswordConfirm"
-        type={isNewPasswordConfirmVisible ? 'text' : 'password'}
-        label="Повторите новый пароль"
-        name="newPasswordConfirm"
-        variant="outlined"
-        icon={isNewPasswordConfirmVisible ? 'visibilityOff' : 'visibility'}
-        onIconClick={handleIconConfirmNewPasswordClick}
-        fullWidth
-        className={
-          formik.touched.newPasswordConfirm &&
-          Boolean(formik.errors.newPasswordConfirm)
-            ? clsx(classes.input, classes.input_error)
-            : classes.input
-        }
-        value={formik.values.newPasswordConfirm}
-        onChange={formik.handleChange}
-        error={
-          formik.touched.newPasswordConfirm &&
-          Boolean(formik.errors.newPasswordConfirm)
-        }
-        helperText={
-          formik.touched.newPasswordConfirm
-            ? formik.errors.newPasswordConfirm
-            : undefined
-        }
-      />
-      <Typography variant="h4" className={classes.passwordLabel}>
-        Старый пароль
-      </Typography>
-      <Input
-        id="password"
-        type={isPasswordVisible ? 'text' : 'password'}
-        label="Введите старый пароль"
-        name="password"
-        variant="outlined"
-        icon={isPasswordVisible ? 'visibilityOff' : 'visibility'}
-        onIconClick={handleIconPasswordClick}
-        fullWidth
-        className={
-          formik.touched.password && Boolean(formik.errors.password)
-            ? clsx(classes.input, classes.input_error)
-            : classes.input
-        }
-        value={formik.values.password}
-        onChange={formik.handleChange}
-        error={formik.touched.password && Boolean(formik.errors.password)}
-        helperText={
-          formik.touched.password ? formik.errors.password : undefined
-        }
-      />
-      <Button
-        type="submit"
-        fullWidth
-        className={classes.button}
-        disabled={!formik.isValid}
-      >
-        Сохранить
-      </Button>
-    </form>
+    <Grid container direction={'column'} spacing={4} alignItems={'center'}>
+      <Grid item>
+        <Typography variant="h2">Настройки аккаунта</Typography>
+      </Grid>
+      <Grid item>
+        <form onSubmit={formik.handleSubmit} className={classes.form}>
+          <Input
+            id="username"
+            type="text"
+            label="Введите логин"
+            name="username"
+            variant="outlined"
+            fullWidth
+            className={
+              formik.touched.username && Boolean(formik.errors.username)
+                ? clsx(classes.input, classes.input_error)
+                : classes.input
+            }
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            error={formik.touched.username && Boolean(formik.errors.username)}
+          />
+          <Input
+            id="email"
+            type="email"
+            label="Введите email"
+            name="email"
+            variant="outlined"
+            fullWidth
+            className={
+              formik.touched.email && Boolean(formik.errors.email)
+                ? clsx(classes.input, classes.input_error)
+                : classes.input
+            }
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+          />
+          <Typography variant="h4" className={classes.passwordLabel}>
+            Новый пароль
+          </Typography>
+          <Input
+            id="newPassword"
+            type={isNewPasswordVisible ? 'text' : 'password'}
+            label="Введите новый пароль"
+            name="newPassword"
+            variant="outlined"
+            icon={isNewPasswordVisible ? 'visibilityOff' : 'visibility'}
+            onIconClick={handleIconNewPasswordClick}
+            fullWidth
+            className={
+              formik.touched.newPassword && Boolean(formik.errors.newPassword)
+                ? clsx(classes.input, classes.input_error)
+                : classes.input
+            }
+            value={formik.values.newPassword}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.newPassword && Boolean(formik.errors.newPassword)
+            }
+            helperText={
+              formik.touched.newPassword ? formik.errors.newPassword : undefined
+            }
+          />
+          <Input
+            id="newPasswordConfirm"
+            type={isNewPasswordConfirmVisible ? 'text' : 'password'}
+            label="Повторите новый пароль"
+            name="newPasswordConfirm"
+            variant="outlined"
+            icon={isNewPasswordConfirmVisible ? 'visibilityOff' : 'visibility'}
+            onIconClick={handleIconConfirmNewPasswordClick}
+            fullWidth
+            className={
+              formik.touched.newPasswordConfirm &&
+              Boolean(formik.errors.newPasswordConfirm)
+                ? clsx(classes.input, classes.input_error)
+                : classes.input
+            }
+            value={formik.values.newPasswordConfirm}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.newPasswordConfirm &&
+              Boolean(formik.errors.newPasswordConfirm)
+            }
+            helperText={
+              formik.touched.newPasswordConfirm
+                ? formik.errors.newPasswordConfirm
+                : undefined
+            }
+          />
+          <Typography variant="h4" className={classes.passwordLabel}>
+            Старый пароль
+          </Typography>
+          <Input
+            id="password"
+            type={isPasswordVisible ? 'text' : 'password'}
+            label="Введите старый пароль"
+            name="password"
+            variant="outlined"
+            icon={isPasswordVisible ? 'visibilityOff' : 'visibility'}
+            onIconClick={handleIconPasswordClick}
+            fullWidth
+            className={
+              formik.touched.password && Boolean(formik.errors.password)
+                ? clsx(classes.input, classes.input_error)
+                : classes.input
+            }
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={
+              formik.touched.password ? formik.errors.password : undefined
+            }
+          />
+          <Button
+            type="submit"
+            fullWidth
+            className={classes.button}
+            disabled={!formik.isValid}
+          >
+            Сохранить
+          </Button>
+        </form>
+      </Grid>
+      <Grid item>
+        <Button color={'secondary'} variant={'outlined'} onClick={handleDialog}>
+          Удалить аккаунт
+        </Button>
+        <Dialog
+          open={dialogOpen}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            Вы собираетесь удалить аккаунт {state.user?.username}?
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText
+              id="alert-dialog-description"
+              color={'textPrimary'}
+            >
+              Если вы не уверены в том, что хотите&nbsp;
+              <b>удалить аккаунт &nbsp;{state.user?.username}</b>, нажмите
+              кнопку ОТМЕНА
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDialog} color="primary" autoFocus>
+              Отмена
+            </Button>
+            <Button
+              onClick={confirmDelete}
+              color="secondary"
+              variant={'outlined'}
+            >
+              Подвердить
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Grid>
+    </Grid>
   )
 }
 

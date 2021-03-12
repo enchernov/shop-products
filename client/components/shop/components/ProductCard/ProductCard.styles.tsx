@@ -8,7 +8,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       width: 233,
       position: 'relative',
       backgroundColor: theme.palette.background.paper,
+      boxShadow: theme.shadows['1'],
       '&:hover': {
+        boxShadow: theme.shadows['4'],
         '& $iconAnimation': {
           opacity: 1,
           transform: 'translateX(0)',
@@ -29,7 +31,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     imageContainer: {
-      height: 193,
+      height: 180,
     },
     image: {
       width: '100%',
@@ -73,6 +75,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       transition: '.2s ease-in-out',
     },
     cartButton: {
+      // color: theme.palette.primary.main,
       display: 'none',
       transition: '.2s ease-in-out',
     },

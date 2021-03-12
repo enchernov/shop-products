@@ -3,37 +3,27 @@ import React, {
   useContext,
   useState,
   ChangeEvent,
+  useEffect,
 } from 'react'
-import {
-  Typography,
-  Grid,
-  Tabs,
-  Tab,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-} from '@material-ui/core'
+import { Typography, Grid, Tabs, Tab } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
 
-import { Breadcrumbs, Button, Divider, TabPanel } from '@ui/index'
+import { Breadcrumbs, Divider, TabPanel } from '@ui/index'
 import { AppContext } from '@providers/AppProvider'
 import Dashboard from './Dashboard'
 import Settings from './Settings'
 import Cart from './Cart'
 
 import { useStyles } from './MyAccount.styles'
-import { useMutation } from '@apollo/client'
-import DELETE_USER from '@graphql/mutations/DeleteUser'
-import { delUser, logoutUser } from '@utils/auth'
 import Wishlist from '@components/account/MyAccount/Wishlist'
+import Orders from '@components/account/MyAccount/Orders'
+import Addresses from '@components/account/MyAccount/Addresses'
+import { useRouter } from 'next/router'
 
 const MyAccount: FunctionComponent = () => {
   const classes = useStyles()
-  const { state, dispatch } = useContext(AppContext)
-
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false)
+  const { state } = useContext(AppContext)
+  const router = useRouter()
 
   function a11yProps(index: any) {
     return {
@@ -44,27 +34,15 @@ const MyAccount: FunctionComponent = () => {
 
   const [value, setValue] = useState<number>(0)
 
+  useEffect(() => {
+    const p = router.query?.panel
+    if (p && +p >= 0 && +p <= 5) setValue(+p)
+  }, [router])
+
   const handleChange = (_: ChangeEvent<unknown>, newValue: number) => {
     setValue(newValue)
   }
 
-  const handleDialog = () => setDialogOpen((prevState: boolean) => !prevState)
-
-  const [deleteUser] = useMutation(DELETE_USER)
-
-  const confirmDelete = async () => {
-    try {
-      handleDialog()
-      const data = await delUser(dispatch, deleteUser, state?.user?.id)
-      if (!data.user) {
-        console.log('some problems')
-      } else {
-        await logoutUser(dispatch)
-      }
-    } catch (e) {
-      console.log(e)
-    }
-  }
   return (
     <>
       <Grid
@@ -105,95 +83,19 @@ const MyAccount: FunctionComponent = () => {
           <Dashboard />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Grid
-            container
-            direction={'column'}
-            spacing={4}
-            alignItems={'center'}
-          >
-            <Grid item>
-              <Typography variant="h1">Корзина</Typography>
-            </Grid>
-            <Grid item>
-              <Cart />
-            </Grid>
-          </Grid>
+          <Cart />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Заказы
+          <Orders />
         </TabPanel>
         <TabPanel value={value} index={3}>
-          <Grid
-            container
-            direction={'column'}
-            spacing={4}
-            alignItems={'center'}
-          >
-            <Grid item>
-              <Typography variant="h1">Избранные товары</Typography>
-            </Grid>
-            <Grid item>
-              <Wishlist />
-            </Grid>
-          </Grid>
+          <Wishlist />
         </TabPanel>
         <TabPanel value={value} index={4}>
-          Адреса
+          <Addresses />
         </TabPanel>
         <TabPanel value={value} index={5}>
-          <Grid
-            container
-            direction={'column'}
-            spacing={4}
-            alignItems={'center'}
-          >
-            <Grid item>
-              <Typography variant="h2">Настройки аккаунта</Typography>
-            </Grid>
-            <Grid item>
-              <Settings />
-            </Grid>
-            <Grid item>
-              <Button
-                color={'secondary'}
-                variant={'outlined'}
-                onClick={handleDialog}
-              >
-                Удалить аккаунт
-              </Button>
-              <Dialog
-                open={dialogOpen}
-                // onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogTitle id="alert-dialog-title">
-                  Вы собираетесь удалить аккаунт {state.user?.username}?
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText
-                    id="alert-dialog-description"
-                    color={'textPrimary'}
-                  >
-                    Если вы не уверены в том, что хотите удалить аккаунт
-                    <b>&nbsp;{state.user?.username}</b>, нажмите кнопку ОТМЕНА
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleDialog} color="default" autoFocus>
-                    Отмена
-                  </Button>
-                  <Button
-                    onClick={confirmDelete}
-                    color="secondary"
-                    variant={'outlined'}
-                  >
-                    Подвердить
-                  </Button>
-                </DialogActions>
-              </Dialog>
-            </Grid>
-          </Grid>
+          <Settings />
         </TabPanel>
       </div>
     </>

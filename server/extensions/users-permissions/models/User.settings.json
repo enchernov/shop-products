@@ -67,6 +67,14 @@
       ],
       "plugin": "upload",
       "required": false
+    },
+    "orders": {
+      "collection": "orders",
+      "via": "user"
+    },
+    "addresses": {
+      "via": "users_permissions_user",
+      "collection": "address"
     }
   }
 }

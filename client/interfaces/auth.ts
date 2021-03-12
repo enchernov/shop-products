@@ -1,9 +1,17 @@
+export interface IOrderProps {
+  id: string
+  total: number
+  products: string
+}
+
 export interface IUserDataProps {
   id: string
   username: string
   email: string
   avatar: any
   confirmed: boolean
+  orders: any
+  addresses: any
 }
 
 type IAvatarProps = {

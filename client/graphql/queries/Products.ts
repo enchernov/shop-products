@@ -8,6 +8,7 @@ const PRODUCTS = gql`
       price
       rating
       published_at
+      available
       image {
         url
       }

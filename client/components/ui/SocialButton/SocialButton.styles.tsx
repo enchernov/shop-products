@@ -5,8 +5,12 @@ export const useStyles = makeStyles(() =>
   createStyles({
     button: {
       borderRadius: 0,
+      border: 'none',
       padding: 10,
       transition: '.1s ease-in-out',
+      '&': {
+        color: 'white !important',
+      },
     },
     facebook: {
       backgroundColor: '#3b5998',

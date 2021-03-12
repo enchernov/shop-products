@@ -5,6 +5,7 @@ export const useStyles = makeStyles(() =>
     button: {
       boxShadow: 'none',
       borderRadius: 0,
+      // color: 'white',
       '&:hover': {
         boxShadow: 'none',
       },

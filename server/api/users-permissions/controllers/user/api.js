@@ -128,7 +128,7 @@ module.exports = {
         .query('user', 'users-permissions')
         .findOne({ username });
 
-      if (userWithSameUsername && userWithSameUsername.id != id) {
+      if (userWithSameUsername && userWithSameUsername.id !== id) {
         return ctx.badRequest(
           null,
           formatError({
@@ -145,7 +145,7 @@ module.exports = {
         .query('user', 'users-permissions')
         .findOne({ email: email.toLowerCase() });
 
-      if (userWithSameEmail && userWithSameEmail.id != id) {
+      if (userWithSameEmail && userWithSameEmail.id !== id) {
         return ctx.badRequest(
           null,
           formatError({

@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "name": "Orders",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "total": {
+      "type": "biginteger"
+    },
+    "products": {
+      "type": "json"
+    },
+    "address": {
+      "type": "richtext"
+    },
+    "charge_id": {
+      "type": "string"
+    },
+    "token": {
+      "type": "string"
+    },
+    "user": {
+      "via": "orders",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

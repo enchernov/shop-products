@@ -1,12 +1,5 @@
-import React, { FunctionComponent, useContext, useState } from 'react'
-import { Grid, Slider, Typography } from '@material-ui/core'
-import { CategoryOutlined } from '@material-ui/icons'
-
-import { Link, Divider } from '@ui/index'
-
-import { ICategoryProps } from '@interfaces/shop'
-
-import { ShopContext } from '@providers/ShopProvider'
+import React, { FunctionComponent, useState } from 'react'
+import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core'
 
 import SortingSelector from '@components/shop/components/SortingSelector'
 
@@ -18,6 +11,7 @@ import ProductHits from '@components/shop/components/ProductHits'
 import ProductSearchBox from '@components/shop/components/ProductSearchBox'
 import Menu from '@components/shop/components/Menu'
 import PriceRange from '@components/shop/components/PriceRange'
+import CartMini from '@components/shop/components/CartMini'
 
 const indexName = 'dev_PRODUCTS'
 
@@ -26,11 +20,37 @@ const searchClient = algoliasearch(
   'b02a6b02a41eb2da855e9e6723e4691c'
 )
 
-const Shop: FunctionComponent = () => {
+const SideBar: FunctionComponent = () => {
   const classes = useStyles()
-  const { state } = useContext(ShopContext)
+  return (
+    <Grid container className={classes.side} direction={'column'} spacing={3}>
+      <Grid item>
+        <Menu attribute={'categories.name'} />
+      </Grid>
+      <Grid item>
+        <PriceRange
+          attribute={'price'}
+          defaultRefinement={{
+            min: 0,
+            max: 500,
+          }}
+          min={0}
+          max={500}
+        />
+      </Grid>
+      <Grid item>
+        <CartMini />
+      </Grid>
+    </Grid>
+  )
+}
+
+const Shop: FunctionComponent = () => {
   const [count, setCount] = useState<number>(0)
   const getCount = (v: number) => setCount(v)
+
+  const theme = useTheme()
+  const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <InstantSearch indexName={indexName} searchClient={searchClient}>
@@ -38,12 +58,18 @@ const Shop: FunctionComponent = () => {
         container
         alignItems={'flex-start'}
         justify={'space-between'}
-        spacing={4}
+        spacing={3}
       >
-        <Grid item xs={9}>
+        <Grid item xs={12} lg={9}>
           <Grid container direction={'column'} spacing={4}>
             <Grid item>
-              <Grid container alignItems={'center'} justify={'space-between'}>
+              <Grid
+                container
+                alignItems={'center'}
+                justify={isSmallWidth ? 'center' : 'space-between'}
+                direction={isSmallWidth ? 'column' : 'row'}
+                spacing={isSmallWidth ? 2 : 0}
+              >
                 <Grid item>
                   <SortingSelector
                     defaultRefinement="products_publishing_date"
@@ -51,11 +77,11 @@ const Shop: FunctionComponent = () => {
                       { value: 'products_publishing_date', label: 'Новинки' },
                       {
                         value: 'products_price_asc',
-                        label: `По цене вверх`,
+                        label: `Дешевле`,
                       },
                       {
                         value: 'products_price_desc',
-                        label: 'По цене вниз',
+                        label: 'Дороже',
                       },
                       {
                         value: 'products_rating',
@@ -79,24 +105,8 @@ const Shop: FunctionComponent = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={3}>
-          <Grid
-            container
-            className={classes.side}
-            direction={'column'}
-            spacing={3}
-          >
-            <Menu attribute={'categories.name'} />
-            <PriceRange
-              attribute={'price'}
-              defaultRefinement={{
-                min: 0,
-                max: 500,
-              }}
-              min={0}
-              max={500}
-            />
-          </Grid>
+        <Grid item xs={12} lg={3}>
+          <SideBar />
         </Grid>
       </Grid>
     </InstantSearch>

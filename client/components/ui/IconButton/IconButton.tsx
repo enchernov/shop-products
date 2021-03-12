@@ -18,6 +18,9 @@ import {
   Add,
   Remove,
   Clear,
+  ClearAll,
+  ArrowBack,
+  ArrowForward,
 } from '@material-ui/icons'
 import clsx from 'clsx'
 
@@ -37,6 +40,9 @@ export type IconType =
   | 'plus'
   | 'minus'
   | 'cross'
+  | 'clear'
+  | 'back'
+  | 'forward'
 
 export interface IIconButtonProps extends IconButtonProps {
   icon: IconType
@@ -60,6 +66,9 @@ const iconButtonMap: Record<IconType, ElementType<SvgIconProps>> = {
   plus: Add,
   minus: Remove,
   cross: Clear,
+  clear: ClearAll,
+  back: ArrowBack,
+  forward: ArrowForward,
 }
 
 const IconButton: FunctionComponent<IIconButtonProps> = forwardRef(

@@ -23,6 +23,7 @@ export interface IProductProps {
   id: string
   published_at: string
   count?: number
+  available: number
 }
 
 export interface IProductCardProps {
@@ -40,4 +41,18 @@ export interface IShopProps {
 export interface ICartItem {
   id: string
   count: number
+}
+
+export interface ICreateOrderProps {
+  id: string
+  total: number
+  products: string
+}
+
+export interface IOrderProps {
+  id: string
+  total: number
+  products: string
+  address: string
+  createdAt: string
 }
