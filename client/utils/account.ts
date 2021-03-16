@@ -110,19 +110,38 @@ export const delAddress = async (user, dispatch, deleteAddress, id) => {
 
 // === CHECKOUT
 
-export const makeOrder = async (createOrder, userId, cart, address, token) => {
-  const { data } = await createOrder({
-    variables: {
-      input: {
-        data: {
-          user: userId,
-          total: getTotal(cart),
-          products: JSON.stringify(cart),
-          address: address,
-          token: token?.token.id || '',
+export const makeOrder = async (
+  dispatch,
+  createOrder,
+  user,
+  cart,
+  address,
+  token
+) => {
+  try {
+    const { data } = await createOrder({
+      variables: {
+        input: {
+          data: {
+            user: user.id,
+            total: getTotal(cart),
+            products: JSON.stringify(cart),
+            address: address,
+            token: token?.token.id || '',
+          },
         },
       },
-    },
-  })
-  return data
+    })
+    if (data.createOrder) {
+      dispatch(
+        ACTIONS.updateUserSuccess({
+          ...user,
+          orders: user?.orders.concat([data.createOrder.order]),
+        })
+      )
+    }
+    return data
+  } catch (e) {
+    console.log(e)
+  }
 }

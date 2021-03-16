@@ -20,7 +20,9 @@ const CartMini = () => {
       <Grid item>
         <Grid container justify={'space-between'} alignItems={'center'}>
           <Grid item>
-            <Typography variant={'h3'}>Корзина</Typography>
+            <Typography variant={'h3'}>
+              <Link href={'/my-account?panel=1'}>Корзина</Link>
+            </Typography>
           </Grid>
           {state.cart.length ? (
             <Grid item>

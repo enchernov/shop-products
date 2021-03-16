@@ -130,7 +130,7 @@ const Cart: FunctionComponent = () => {
                         </Grid>
                         <Grid item>
                           <Button
-                            fullwidth={true}
+                            fullWidth={true}
                             size={'large'}
                             onClick={() => setCheckout(true)}
                             className={classes.button}

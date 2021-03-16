@@ -278,7 +278,7 @@ const Settings: FunctionComponent = () => {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            Вы собираетесь удалить аккаунт {state.user?.username}?
+            Вы собираетесь удалить аккаунт {state.user?.username}.
           </DialogTitle>
           <DialogContent>
             <DialogContentText
@@ -286,12 +286,17 @@ const Settings: FunctionComponent = () => {
               color={'textPrimary'}
             >
               Если вы не уверены в том, что хотите&nbsp;
-              <b>удалить аккаунт &nbsp;{state.user?.username}</b>, нажмите
-              кнопку ОТМЕНА
+              <b>удалить аккаунт&nbsp;{state.user?.username}</b>, нажмите кнопку
+              ОТМЕНА
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleDialog} color="primary" autoFocus>
+            <Button
+              onClick={handleDialog}
+              color="primary"
+              autoFocus
+              className={classes.cancelButton}
+            >
               Отмена
             </Button>
             <Button

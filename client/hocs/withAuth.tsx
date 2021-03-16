@@ -37,7 +37,7 @@ const withAuth = (Component: any) => {
         window.removeEventListener('storage', syncLogout)
         window.localStorage.removeItem('logout')
       }
-    }, [data, loading, error, dispatch, enqueueSnackbar, router])
+    }, [data, loading])
 
     if (state.token) {
       return <Component {...props} />

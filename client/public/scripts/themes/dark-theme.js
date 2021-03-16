@@ -61,32 +61,32 @@ export default createMuiTheme({
     h1: {
       fontWeight: '700',
       fontSize: '1.2rem',
-      color: grey[900],
+      color: grey[100],
     },
     h2: {
       fontWeight: '500',
       fontSize: '1.2rem',
-      color: grey[900],
+      color: grey[100],
     },
     h3: {
       fontWeight: '500',
       fontSize: '1.1rem',
-      color: grey[900],
+      color: grey[100],
     },
     h4: {
       fontWeight: '400',
       fontSize: '1.1rem',
-      color: grey[900],
+      color: grey[100],
     },
     h5: {
       fontWeight: '300',
       fontSize: '1.1rem',
-      color: grey[900],
+      color: grey[100],
     },
     h6: {
       fontSize: '0.875rem',
       fontWeight: 400,
-      color: grey[900],
+      color: grey[100],
     },
   },
 })

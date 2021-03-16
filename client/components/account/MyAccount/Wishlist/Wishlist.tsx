@@ -15,7 +15,7 @@ const Wishlist: FunctionComponent = () => {
       </Grid>
       <Grid item>
         <Grid container spacing={2}>
-          {list.length ? (
+          {list.length && list.every((x) => x !== undefined) ? (
             list.map((product: any) => (
               <Grid item key={product.id}>
                 <ProductCard hit={product} />

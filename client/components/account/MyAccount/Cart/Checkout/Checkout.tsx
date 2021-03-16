@@ -33,15 +33,14 @@ const Checkout: FunctionComponent<ICheckoutProps> = ({
             className={classes.item}
             onInputChange={(e) => {
               const a = e.target.value
-              if (typeof a === 'number') {
-                setAddress(state?.user?.addresses[a].address)
-              } else {
-                setAddress(a)
-              }
+              if (typeof a === 'number')
+                setAddress(state?.user?.addresses[e.target.value].address)
+              else setAddress(e.target.value)
             }}
             renderInput={(params) => (
               <TextField {...params} label="Адрес" variant="outlined" />
             )}
+            freeSolo={true}
           />
         </Grid>
         <Grid item>

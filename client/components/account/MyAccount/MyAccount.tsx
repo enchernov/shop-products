@@ -37,7 +37,7 @@ const MyAccount: FunctionComponent = () => {
   useEffect(() => {
     const p = router.query?.panel
     if (p && +p >= 0 && +p <= 5) setValue(+p)
-  }, [router])
+  }, [router.query?.panel])
 
   const handleChange = (_: ChangeEvent<unknown>, newValue: number) => {
     setValue(newValue)

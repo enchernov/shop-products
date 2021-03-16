@@ -36,8 +36,7 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
   const rfc = async () => {
     try {
       const data = await removeFromCart(dispatch, id, state.cart)
-      if (data)
-        enqueueSnackbar('Товар больше не в корзине', { variant: 'info' })
+      if (data) return
       else enqueueSnackbar('Возникла ошибка', { variant: 'error' })
     } catch (error) {
       console.log(error)
@@ -103,13 +102,10 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
               >
                 {categories.map((category: ICategoryProps, index: number) => (
                   <Grid item key={index}>
-                    <Link
-                      href={`/category/${category.link}`}
-                      className={classes.link}
-                    >
+                    <Typography variant={'body1'}>
                       {category.name}
-                    </Link>
-                    {index !== categories.length - 1 && ','}
+                      {index !== categories.length - 1 && ','}
+                    </Typography>
                   </Grid>
                 ))}
               </Grid>

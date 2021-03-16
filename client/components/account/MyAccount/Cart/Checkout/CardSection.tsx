@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react'
+import React, { FunctionComponent, useContext, useState } from 'react'
 
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { formCart } from '@utils/shop'
@@ -6,7 +6,7 @@ import { useMutation } from '@apollo/client'
 import CREATE_ORDER from '@graphql/mutations/CreateOrder'
 import { ShopContext } from '@providers/ShopProvider'
 import { AppContext } from '@providers/AppProvider'
-import { Grid, Typography } from '@material-ui/core'
+import { Backdrop, CircularProgress, Grid, Typography } from '@material-ui/core'
 import { Button } from '@ui/index'
 import { useSnackbar } from 'notistack'
 
@@ -34,30 +34,37 @@ const CardSection: FunctionComponent<ICardSectionProps> = ({
   const elements = useElements()
 
   const { state } = useContext(ShopContext)
-  const { state: appState } = useContext(AppContext)
+  const { state: appState, dispatch } = useContext(AppContext)
 
   const classes = useStyles()
 
   const cart = formCart(state.cart, state.products).filter((x) => x)
 
+  const [backdropOpen, setBackdropOpen] = useState<boolean>(false)
+
   const submitOrder = async () => {
     try {
+      setBackdropOpen(true)
       const cardElement = elements.getElement(CardElement)
       const token = await stripe.createToken(cardElement)
+      console.log(cardElement, token)
       if (appState?.user?.id && token?.token.id) {
         const data = await makeOrder(
+          dispatch,
           createOrder,
-          appState.user.id,
+          appState.user,
           cart,
           address,
           token
         )
         if (!data?.createOrder) {
+          setBackdropOpen(false)
           throw new Error('Ошибка выполнения')
         } else {
+          setBackdropOpen(false)
+          router.push('/my-account?panel=2')
           enqueueSnackbar('Заказ размещён', { variant: 'success' })
           resetFunction()
-          router.push('/my-account?panel=2')
         }
       }
     } catch (error) {
@@ -78,6 +85,13 @@ const CardSection: FunctionComponent<ICardSectionProps> = ({
           {`Оплатить ${total}₽`}
         </Button>
       </Grid>
+      <Backdrop
+        className={classes.backdrop}
+        open={backdropOpen}
+        onClick={() => setBackdropOpen(false)}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Grid>
   )
 }

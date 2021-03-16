@@ -7,8 +7,11 @@ import { ShopContext } from '@providers/ShopProvider'
 import { setSorting } from '@actions/shop'
 
 import { useStyles } from './SortingSelector.styles'
-
-const SortingSelector: FunctionComponent = connectSortBy(
+interface ISortingSelectorProps {
+  defaultRefinement: string
+  items: Array<{ value: string; label: string }>
+}
+const SortingSelector: FunctionComponent<ISortingSelectorProps> = connectSortBy(
   ({ items, refine }) => {
     const classes = useStyles()
     const { state, dispatch } = useContext(ShopContext)

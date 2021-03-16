@@ -33,30 +33,27 @@ const Login: FunctionComponent = () => {
 
   useEffect(() => {
     router.prefetch('/my-account')
-  }, [router])
+  }, [])
 
   const handleIconClick = () => {
     setIsPasswordVisible((isPasswordVisible) => !isPasswordVisible)
   }
 
-  const handleSubmit = useCallback(
-    async (values) => {
-      try {
-        const data = await loginUser(dispatch, login, values)
-        if (!data.user) {
-          enqueueSnackbar(errorMessage(data), {
-            variant: 'error',
-          })
-        } else {
-          enqueueSnackbar('Успешный вход', { variant: 'success' })
-          router.push('/my-account')
-        }
-      } catch (error) {
-        enqueueSnackbar(errorMessage(error), { variant: 'error' })
+  const handleSubmit = useCallback(async (values) => {
+    try {
+      const data = await loginUser(dispatch, login, values)
+      if (!data.user) {
+        enqueueSnackbar(errorMessage(data), {
+          variant: 'error',
+        })
+      } else {
+        enqueueSnackbar('Успешный вход', { variant: 'success' })
+        router.push('/my-account')
       }
-    },
-    [dispatch, enqueueSnackbar, login, router]
-  )
+    } catch (error) {
+      enqueueSnackbar(errorMessage(error), { variant: 'error' })
+    }
+  }, [])
 
   const initialValues: ILoginProps = {
     identifier: '',

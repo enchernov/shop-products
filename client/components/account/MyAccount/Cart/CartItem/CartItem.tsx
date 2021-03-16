@@ -151,7 +151,7 @@ const CartItem: FunctionComponent<IProductProps> = ({
               <Tooltip title={'Удалить из корзины'} placement={'left'}>
                 <IconButton
                   icon={'delete'}
-                  color={'default'}
+                  color={'inherit'}
                   className={classes.icon}
                   onClick={remove}
                 />

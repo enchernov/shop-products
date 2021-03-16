@@ -11,9 +11,9 @@ interface IOrderComponentProps {
 const Order: FunctionComponent<IOrderComponentProps> = ({ order }) => {
   const { total, createdAt, address, id } = order
   const products = JSON.parse(order.products) || []
-  const [date, time] = createdAt.split('T')
-  const [year, month, day] = date.split('-')
-  const [hour, minute, tail] = time.split(':')
+  // const [date, time] = createdAt.split('T')
+  // const [year, month, day] = date.split('-')
+  // const [hour, minute, ...rest] = time.split(':')
   const classes = useStyles()
   return (
     <Paper className={classes.root} square={true}>
@@ -61,9 +61,10 @@ const Order: FunctionComponent<IOrderComponentProps> = ({ order }) => {
               <Typography variant={'h4'}>Дата</Typography>
             </Grid>
             <Grid item>
-              <Typography
-                variant={'h5'}
-              >{`${day}.${month}.${year} ${hour}:${minute}`}</Typography>
+              <Typography variant={'h5'}>
+                {createdAt}
+                {/*{`${day}.${month}.${year} ${hour}:${minute}`}*/}
+              </Typography>
             </Grid>
           </Grid>
         </Grid>
