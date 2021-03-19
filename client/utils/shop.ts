@@ -206,6 +206,10 @@ export const sortProducts = (
   return sortedProducts
 }
 
+export const getProductById = (products, id) => {
+  return products.find((x) => x.id === id)
+}
+
 // === WISHLIST
 
 export const toggleWishlist = async (dispatch, id, wishlist) => {

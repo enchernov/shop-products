@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext } from 'react'
-import { Grid } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 
@@ -135,6 +135,11 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
         )}
       </header>
       <main className={classes.root}>{children}</main>
+      <footer className={classes.footer}>
+        <Typography variant={'body1'} align={'center'}>
+          &#169; 2021 FoodMarket
+        </Typography>
+      </footer>
     </>
   )
 }

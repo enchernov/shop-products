@@ -32,14 +32,15 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     imageContainer: {
       height: 180,
+      display: 'flex',
+      justifyContent: 'center',
     },
     image: {
-      width: '100%',
       height: '100%',
     },
     link: {
       color: theme.palette.primary.contrastText,
-      transition: '.1s ease-in-out',
+      transition: '.05s ease-in-out',
       '&:hover': {
         color: theme.palette.secondary.main,
       },
@@ -52,15 +53,15 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     iconAnimation: {
       opacity: 0,
-      transition: '.25s ease-in-out',
+      transition: '.1s ease-in-out',
       transform: 'translateX(-10px)',
       '&:nth-child(2)': {
-        transitionDelay: '.125s',
+        transitionDelay: '.075s',
       },
     },
     icon: {
       // color: grey[600],
-      transition: '.2s ease-in-out',
+      transition: '.1s ease-in-out',
       '&:hover': {
         color: theme.palette.secondary.main,
       },
@@ -72,12 +73,12 @@ export const useStyles = makeStyles((theme: Theme) =>
         height: '1.2rem',
       },
       display: 'flex',
-      transition: '.2s ease-in-out',
+      transition: '.1s ease-in-out',
     },
     cartButton: {
       // color: theme.palette.primary.main,
       display: 'none',
-      transition: '.2s ease-in-out',
+      transition: '.1s ease-in-out',
     },
     actions: {
       minHeight: 30,

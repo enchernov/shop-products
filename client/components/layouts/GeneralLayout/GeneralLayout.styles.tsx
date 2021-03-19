@@ -7,6 +7,12 @@ export const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
       padding: '0 40px',
       flex: 1,
+      minHeight: '100vh',
+    },
+    header: {
+      padding: '24px 40px',
+      maxHeight: 72,
+      fontWeight: 500,
     },
     logo: {
       height: 24,
@@ -28,14 +34,6 @@ export const useStyles = makeStyles((theme: Theme) =>
         color: theme.palette.secondary.main,
       },
     },
-    header: {
-      padding: '16px 40px',
-      fontWeight: 500,
-      backgroundColor:
-        theme.name === 'Dark Theme'
-          ? grey[900]
-          : theme.palette.background.default,
-    },
     themeIcon: {
       transition: '.2s ease-in-out',
       '& svg': {
@@ -54,6 +52,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         color: indigo[500],
       },
+    },
+    footer: {
+      padding: '16px 40px',
     },
   })
 )

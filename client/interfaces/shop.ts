@@ -16,6 +16,7 @@ export interface IProductProps {
   name: string
   image: {
     url: string
+    formats: any
   }
   categories: Array<ICategoryProps>
   price: number
@@ -24,6 +25,7 @@ export interface IProductProps {
   published_at: string
   count?: number
   available: number
+  description: string
 }
 
 export interface IProductCardProps {

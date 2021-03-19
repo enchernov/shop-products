@@ -49,14 +49,21 @@ export default createMuiTheme({
       fontWeight: 300,
     },
     body2: {
-      fontSize: '0.875rem',
-      lineHeight: '0.875rem',
+      fontSize: '1rem',
+      lineHeight: '1.4rem',
       fontWeight: 300,
-      color: grey[600],
+      color: grey[800],
+    },
+    caption: {
+      fontWeight: '700',
+      fontSize: '2rem',
+      color: grey[900],
+      letterSpacing: '0.7px',
+      textTransform: 'uppercase',
     },
     h1: {
       fontWeight: '700',
-      fontSize: '1.2rem',
+      fontSize: '1.5rem',
       color: grey[900],
     },
     h2: {

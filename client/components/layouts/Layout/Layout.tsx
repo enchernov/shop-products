@@ -11,6 +11,7 @@ import { useStyles } from './Layout.style'
 const Layout: FunctionComponent<ILayoutProps> = ({ children, title = '' }) => {
   const classes = useStyles()
   const router = useRouter()
+  console.log(router.pathname)
 
   const changeLayout = () => {
     switch (router.pathname) {
@@ -19,6 +20,7 @@ const Layout: FunctionComponent<ILayoutProps> = ({ children, title = '' }) => {
       case '/profile':
       case '/shop':
       case '/test':
+      case '/products/[id]':
         return <GeneralLayout>{children}</GeneralLayout>
       case '/signin':
       case '/signup':

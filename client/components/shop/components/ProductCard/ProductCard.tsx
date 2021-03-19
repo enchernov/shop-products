@@ -20,7 +20,18 @@ import { ShopContext } from '@providers/ShopProvider'
 import { useStyles } from './ProductCard.styles'
 
 const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
-  const { name, image, categories, price, rating, id }: IProductProps = hit
+  const {
+    name,
+    image,
+    categories,
+    price,
+    rating,
+    id,
+    available,
+  }: IProductProps = hit
+  const imgUrl = image.formats.thumbnail.url
+  const productLink = `/products/${id}`
+
   const classes = useStyles()
 
   const { state, dispatch } = useContext(ShopContext)
@@ -53,10 +64,8 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
     }
   }
 
-  // return JSON.stringify(hit)
-
   return (
-    <Paper className={classes.root} square={true}>
+    <Paper className={classes.root} square={true} aria-disabled={available < 1}>
       <Grid
         container
         direction={'column'}
@@ -78,7 +87,9 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
         </Grid>
         <Grid item className={classes.iconAnimation}>
           <Tooltip title={'Подробнее'} placement={'left'}>
-            <IconButton icon={'search'} className={classes.icon} />
+            <Link href={productLink} style={{ border: 'none' }}>
+              <IconButton icon={'search'} className={classes.icon} />
+            </Link>
           </Tooltip>
         </Grid>
       </Grid>
@@ -89,7 +100,7 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
         spacing={2}
       >
         <Grid item xs={12} className={classes.imageContainer}>
-          <img src={image.url} alt={name} className={classes.image} />
+          <img src={imgUrl} alt={name} className={classes.image} />
         </Grid>
         <Grid item>
           <Grid container direction={'column'} spacing={2}>
@@ -111,7 +122,7 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
               </Grid>
             </Grid>
             <Grid item>
-              <Link href={`/products/${id}`} className={classes.name}>
+              <Link href={productLink} className={classes.name}>
                 <Typography variant={'h4'}>{name}</Typography>
               </Link>
             </Grid>
@@ -133,15 +144,25 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
                     precision={0.5}
                     className={classes.rating}
                   />
-                  <Button
-                    icon={inCart ? 'cartRemove' : 'cart'}
-                    color={inCart ? 'secondary' : 'primary'}
-                    variant={'text'}
-                    className={classes.cartButton}
-                    onClick={inCart ? rfc : buy}
-                  >
-                    {inCart ? 'Из корзины' : 'В корзину'}
-                  </Button>
+                  {available > 0 ? (
+                    <Button
+                      icon={inCart ? 'cartRemove' : 'cart'}
+                      color={inCart ? 'secondary' : 'primary'}
+                      variant={'text'}
+                      className={classes.cartButton}
+                      onClick={inCart ? rfc : buy}
+                    >
+                      {inCart ? 'Из корзины' : 'В корзину'}
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled={true}
+                      variant={'text'}
+                      className={classes.cartButton}
+                    >
+                      Нет в наличии
+                    </Button>
+                  )}
                 </Grid>
               </Grid>
             </Grid>

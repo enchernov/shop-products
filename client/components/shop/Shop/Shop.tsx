@@ -3,15 +3,11 @@ import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core'
 
 import SortingSelector from '@components/shop/components/SortingSelector'
 
-import { useStyles } from './Shop.styles'
-
 import algoliasearch from 'algoliasearch/lite'
 import { InstantSearch } from 'react-instantsearch-dom'
 import ProductHits from '@components/shop/components/ProductHits'
 import ProductSearchBox from '@components/shop/components/ProductSearchBox'
-import Menu from '@components/shop/components/Menu'
-import PriceRange from '@components/shop/components/PriceRange'
-import CartMini from '@components/shop/components/CartMini'
+import SideBar from '@components/shop/components/SideBar'
 
 const indexName = 'dev_PRODUCTS'
 
@@ -19,31 +15,6 @@ const searchClient = algoliasearch(
   'AQACOGUA51',
   'b02a6b02a41eb2da855e9e6723e4691c'
 )
-
-const SideBar: FunctionComponent = () => {
-  const classes = useStyles()
-  return (
-    <Grid container className={classes.side} direction={'column'} spacing={3}>
-      <Grid item>
-        <Menu attribute={'categories.name'} />
-      </Grid>
-      <Grid item>
-        <PriceRange
-          attribute={'price'}
-          defaultRefinement={{
-            min: 0,
-            max: 500,
-          }}
-          min={0}
-          max={500}
-        />
-      </Grid>
-      <Grid item>
-        <CartMini />
-      </Grid>
-    </Grid>
-  )
-}
 
 const Shop: FunctionComponent = () => {
   const [count, setCount] = useState<number>(0)

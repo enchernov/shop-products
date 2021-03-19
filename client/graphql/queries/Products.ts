@@ -11,11 +11,13 @@ const PRODUCTS = gql`
       available
       image {
         url
+        formats
       }
       categories {
         name
         link
       }
+      description
     }
   }
 `
