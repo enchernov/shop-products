@@ -42,15 +42,15 @@ const SortingSelector: FunctionComponent<ISortingSelectorProps> = connectSortBy(
         paper: minimalSelectClasses.paper,
         list: minimalSelectClasses.list,
       },
-      anchorOrigin: {
-        vertical: 'bottom',
-        horizontal: 'left',
-      },
-      transformOrigin: {
-        vertical: 'top',
-        horizontal: 'left',
-      },
-      getContentAnchorEl: null,
+      // anchorOrigin: {
+      //   vertical: 'bottom',
+      //   horizontal: 'left',
+      // },
+      // transformOrigin: {
+      //   vertical: 'top',
+      //   horizontal: 'left',
+      // },
+      // getContentAnchorEl: null,
     }
 
     return (

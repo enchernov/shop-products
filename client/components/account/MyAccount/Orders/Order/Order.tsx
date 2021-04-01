@@ -3,6 +3,7 @@ import { Paper, Typography, Grid } from '@material-ui/core'
 
 import { useStyles } from './Order.styles'
 import { IOrderProps } from '@interfaces/shop'
+import { makeDate } from '@utils/account'
 
 interface IOrderComponentProps {
   order: IOrderProps
@@ -11,9 +12,7 @@ interface IOrderComponentProps {
 const Order: FunctionComponent<IOrderComponentProps> = ({ order }) => {
   const { total, createdAt, address, id } = order
   const products = JSON.parse(order.products) || []
-  // const [date, time] = createdAt.split('T')
-  // const [year, month, day] = date.split('-')
-  // const [hour, minute, ...rest] = time.split(':')
+  const date = makeDate(createdAt)
   const classes = useStyles()
   return (
     <Paper className={classes.root} square={true}>
@@ -61,10 +60,7 @@ const Order: FunctionComponent<IOrderComponentProps> = ({ order }) => {
               <Typography variant={'h4'}>Дата</Typography>
             </Grid>
             <Grid item>
-              <Typography variant={'h5'}>
-                {createdAt}
-                {/*{`${day}.${month}.${year} ${hour}:${minute}`}*/}
-              </Typography>
+              <Typography variant={'h5'}>{date}</Typography>
             </Grid>
           </Grid>
         </Grid>

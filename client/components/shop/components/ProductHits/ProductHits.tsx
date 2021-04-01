@@ -10,7 +10,7 @@ const ProductHits = connectHits(({ hits, getCount }) => {
     if (hits?.length) {
       getCount(hits.length)
     }
-  }, [hits?.length])
+  }, [hits?.length, getCount])
   const classes = useStyles()
   const theme = useTheme()
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))

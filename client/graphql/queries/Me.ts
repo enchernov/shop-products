@@ -9,6 +9,10 @@ const ME = gql`
       confirmed
     }
     self {
+      email_subscriber {
+        id
+        email
+      }
       addresses {
         id
         address

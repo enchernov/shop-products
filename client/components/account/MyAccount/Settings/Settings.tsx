@@ -145,7 +145,7 @@ const Settings: FunctionComponent = () => {
   return (
     <Grid container direction={'column'} spacing={4} alignItems={'center'}>
       <Grid item>
-        <Typography variant="h2">Настройки аккаунта</Typography>
+        <Typography variant="h1">Настройки аккаунта</Typography>
       </Grid>
       <Grid item>
         <form onSubmit={formik.handleSubmit} className={classes.form}>

@@ -26,6 +26,8 @@ import {
   Facebook,
   Twitter,
   Pinterest,
+  Instagram,
+  LinkedIn,
 } from '@material-ui/icons'
 import clsx from 'clsx'
 
@@ -53,6 +55,8 @@ export type IconType =
   | 'facebook'
   | 'twitter'
   | 'pinterest'
+  | 'instagram'
+  | 'linkedIn'
 
 export interface IIconButtonProps extends IconButtonProps {
   icon: IconType
@@ -84,6 +88,8 @@ const iconButtonMap: Record<IconType, ElementType<SvgIconProps>> = {
   facebook: Facebook,
   twitter: Twitter,
   pinterest: Pinterest,
+  instagram: Instagram,
+  linkedIn: LinkedIn,
 }
 
 const IconButton: FunctionComponent<IIconButtonProps> = forwardRef(

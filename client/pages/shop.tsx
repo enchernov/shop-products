@@ -3,7 +3,6 @@ import { NextPage } from 'next'
 
 import Layout from '@components/layouts/Layout'
 import Shop from '@components/shop/Shop'
-import withAuth from '@hocs/withAuth'
 
 const ShopPage: NextPage = () => {
   // console.log(state)
@@ -38,10 +37,10 @@ const ShopPage: NextPage = () => {
   // }, [productsData, categoriesData])
 
   return (
-    <Layout title="Магазин">
+    <Layout title="Магазин | FoodMarket">
       <Shop />
     </Layout>
   )
 }
 
-export default withAuth(ShopPage)
+export default ShopPage

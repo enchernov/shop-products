@@ -1,13 +1,14 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { grey, indigo, yellow } from '@material-ui/core/colors'
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((theme: Theme & { name: string }) =>
   createStyles({
     root: {
       position: 'relative',
       padding: '0 40px',
       flex: 1,
       minHeight: '100vh',
+      overflow: 'hidden',
     },
     header: {
       padding: '24px 40px',
@@ -18,6 +19,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       height: 24,
     },
     link: {
+      fontSize: '.875rem',
       color:
         theme.name === 'Dark Theme'
           ? grey[200]
@@ -26,6 +28,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     linkStyle: {
       cursor: 'pointer',
       textDecoration: 'none',
+      fontSize: '.875rem',
+      borderBottom: '1px dashed #e0e0e0',
       color:
         theme.name === 'Dark Theme'
           ? grey[200]
@@ -54,7 +58,13 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     footer: {
-      padding: '16px 40px',
+      position: 'relative',
+      color: '#fafafa',
+      backgroundColor: '#212121',
+      padding: '0 40px',
+    },
+    copyright: {
+      padding: '16px 0',
     },
   })
 )

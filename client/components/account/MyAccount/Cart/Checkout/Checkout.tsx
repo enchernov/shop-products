@@ -29,13 +29,13 @@ const Checkout: FunctionComponent<ICheckoutProps> = ({
         <Grid item>
           <Autocomplete
             options={state?.user?.addresses || []}
-            getOptionLabel={(option) => option.address}
+            getOptionLabel={(option: { address: string }) => option.address}
             className={classes.item}
-            onInputChange={(e) => {
-              const a = e.target.value
+            onInputChange={(e: any) => {
+              const a = e.target?.value
               if (typeof a === 'number')
-                setAddress(state?.user?.addresses[e.target.value].address)
-              else setAddress(e.target.value)
+                setAddress(state?.user?.addresses[e.target?.value].address)
+              else setAddress(e.target?.value)
             }}
             renderInput={(params) => (
               <TextField {...params} label="Адрес" variant="outlined" />

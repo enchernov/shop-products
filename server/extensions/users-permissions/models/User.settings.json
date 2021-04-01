@@ -75,6 +75,14 @@
     "addresses": {
       "via": "users_permissions_user",
       "collection": "address"
+    },
+    "email_subscriber": {
+      "via": "user",
+      "model": "email-subscribers"
+    },
+    "tickets": {
+      "via": "user",
+      "collection": "tickets"
     }
   }
 }

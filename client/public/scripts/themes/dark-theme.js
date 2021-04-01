@@ -1,34 +1,25 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import green from '@material-ui/core/colors/green'
-import purple from '@material-ui/core/colors/purple'
 import { grey } from '@material-ui/core/colors'
-
-const primaryGreen = green[500]
-const accentGreen = green.A200
-const darkGreen = green[900]
-const primaryPurple = purple[500]
-const accentPurple = purple.A200
-const darkPurple = purple[900]
 
 export default createMuiTheme({
   name: 'Dark Theme',
   palette: {
     type: 'dark',
     primary: {
-      light: accentPurple,
-      main: primaryPurple,
-      dark: darkPurple,
-      contrastText: '#fff',
+      light: '#ffff9f',
+      main: '#f7e06e',
+      dark: '#c2ae3e',
+      contrastText: '#fafafa',
     },
     secondary: {
-      light: accentGreen,
-      main: primaryGreen,
-      dark: darkGreen,
-      contrastText: '#000',
+      light: '#ff9fa5',
+      main: '#f36d76',
+      dark: '#bc3c4a',
+      contrastText: '#fafafa',
     },
     background: {
-      default: grey[900],
-      paper: grey[800],
+      default: grey[800],
+      paper: '#53586a',
     },
   },
   typography: {
@@ -50,17 +41,24 @@ export default createMuiTheme({
       fontSize: '0.875rem',
       lineHeight: '0.875rem',
       fontWeight: 300,
-      color: 'white',
+      color: grey[100],
     },
     body2: {
-      fontSize: '0.875rem',
-      lineHeight: '0.875rem',
+      fontSize: '1rem',
+      lineHeight: '1.5rem',
       fontWeight: 300,
-      color: 'white',
+      color: grey[100],
+    },
+    caption: {
+      fontWeight: '700',
+      fontSize: '2rem',
+      color: grey[100],
+      letterSpacing: '0.7px',
+      textTransform: 'uppercase',
     },
     h1: {
       fontWeight: '700',
-      fontSize: '1.2rem',
+      fontSize: '1.5rem',
       color: grey[100],
     },
     h2: {

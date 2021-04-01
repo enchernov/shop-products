@@ -9,6 +9,6 @@ export default {
   component: SortingSelector,
 } as Meta
 
-const Template: Story = (args) => <SortingSelector {...args} />
+const Template: Story = (args) => <button {...args} />
 export const Default = Template.bind({})
 Default.args = {}

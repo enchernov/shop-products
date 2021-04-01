@@ -54,7 +54,7 @@ const CartMini = () => {
                     </Link>
                     <Typography
                       variant={'subtitle1'}
-                    >{`${price} × ${count}`}</Typography>
+                    >{`${price} ₽ × ${count}`}</Typography>
                   </Grid>
                   <Grid item>
                     <Tooltip title={'Удалить из корзины'} placement={'top'}>

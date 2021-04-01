@@ -59,7 +59,7 @@ const Cart: FunctionComponent = () => {
                 </Grid>
               ) : null}
               <Grid item>
-                <Typography variant={'h3'}>
+                <Typography variant={'h1'}>
                   {checkout ? 'Оформить заказ' : 'Корзина'}
                 </Typography>
               </Grid>

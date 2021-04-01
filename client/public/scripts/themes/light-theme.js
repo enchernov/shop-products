@@ -24,8 +24,8 @@ export default createMuiTheme({
       contrastText: '#fff',
     },
     background: {
-      default: grey[50],
-      paper: 'white',
+      default: '#ffffff',
+      paper: '#ffffff',
     },
   },
   typography: {
@@ -50,7 +50,7 @@ export default createMuiTheme({
     },
     body2: {
       fontSize: '1rem',
-      lineHeight: '1.4rem',
+      lineHeight: '1.5rem',
       fontWeight: 300,
       color: grey[800],
     },

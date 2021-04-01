@@ -18,10 +18,13 @@ interface IProductComponent {
 }
 
 const Product: FunctionComponent<IProductComponent> = ({ product }) => {
-  if (!product) return <Loader />
   const classes = useStyles()
+  const { state, dispatch } = useContext(ShopContext)
+  const { enqueueSnackbar } = useSnackbar()
+  if (!product) return <Loader />
   console.log(product)
   const {
+    available,
     name,
     image,
     categories,
@@ -30,8 +33,6 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
     id,
     description,
   }: IProductProps = product
-  const { state, dispatch } = useContext(ShopContext)
-  const { enqueueSnackbar } = useSnackbar()
 
   const buy = async () => {
     try {
@@ -84,8 +85,9 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
                   className={classes.buyButton}
                   onClick={buy}
                   size={'large'}
+                  disabled={available < 1}
                 >
-                  В корзину
+                  {available > 0 ? `В корзину` : `Нет в наличии`}
                 </Button>
               </Grid>
               <Grid item>
@@ -162,12 +164,12 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} style={{ marginBottom: '3rem' }}>
             <Grid container direction={'column'} spacing={3}>
               <Grid item style={{ padding: '20px 40px' }}>
                 <Typography variant={'h1'}>Связанные продукты</Typography>
               </Grid>
-              <Grid item>
+              <Grid item style={{ padding: '0 0 20px 0' }}>
                 <Grid
                   container
                   justify={'space-around'}

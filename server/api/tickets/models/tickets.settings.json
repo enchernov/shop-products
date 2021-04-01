@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tickets",
+  "info": {
+    "name": "Tickets"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "message": {
+      "type": "richtext"
+    },
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "tickets"
+    }
+  }
+}

@@ -4,19 +4,27 @@ export interface IOrderProps {
   products: string
 }
 
+type IAvatarProps = {
+  url: string | undefined
+  id: string | undefined
+}
+
+export interface IProfileDataProps {
+  id: string
+  username: string
+  email: string
+  avatar: IAvatarProps
+}
+
 export interface IUserDataProps {
   id: string
   username: string
   email: string
-  avatar: any
+  avatar: IAvatarProps
   confirmed: boolean
   orders: any
   addresses: any
-}
-
-type IAvatarProps = {
-  url: string
-  id: string
+  email_subscriber: any
 }
 
 export interface IAppProps {

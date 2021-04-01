@@ -8,6 +8,7 @@ const CREATE_ORDER = gql`
         total
         products
         address
+        createdAt
       }
     }
   }

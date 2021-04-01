@@ -1,10 +1,5 @@
 import React, { forwardRef, FunctionComponent, Ref } from 'react'
-import {
-  FormControlLabel,
-  Checkbox,
-  TextField,
-  TextFieldProps,
-} from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 
 import { IconButton } from '@ui/index'
 import clsx from 'clsx'
@@ -13,36 +8,41 @@ import { useStyles } from './Input.styles'
 
 import { IconType } from '@ui/IconButton/IconButton'
 
-// type VariantType = 'standard' | 'filled' | 'outlined'
+type VariantType = 'standard' | 'filled' | 'outlined'
 
 export interface IInputProps {
-  // className?: string
-  // disabled?: boolean
-  // value?: any
-  // id: string
-  // required?: boolean
-  // label: string
+  className?: string
+  disabled?: boolean
+  value?: any
+  id?: string
+  required?: boolean
+  label?: string
   icon?: IconType
+  color?: 'primary' | 'secondary'
   iconColor?: 'inherit' | 'primary' | 'secondary' | 'default' | undefined
-  // name?: string
-  // variant?: VariantType
+  name?: string
+  variant?: VariantType
   error?: boolean
-  // helperText?: string
+  helperText?: string
   fullWidth?: boolean
   checked?: boolean
   iconDisabled?: boolean
-  // onChange?: any
-  onIconClick?: () => void
-  // type: string
+  onChange?: any
+  onKeyPress?: any
+  onIconClick?: any
+  type?: string
+  multiline?: boolean
+  rowsMax?: number
+  rows?: number
 }
+//
+// const defaultProps: Partial<IInputProps> = {
+//   disabled: false,
+// }
+//
+// type DefaultProps = Readonly<typeof defaultProps>
 
-const defaultProps: Partial<IInputProps & TextFieldProps> = {
-  disabled: false,
-}
-
-type DefaultProps = Readonly<typeof defaultProps>
-
-type InputPropsType = IInputProps & DefaultProps & TextFieldProps
+type InputPropsType = IInputProps //& DefaultProps
 
 const Input: FunctionComponent<InputPropsType> = forwardRef(
   (
@@ -55,9 +55,19 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
       type,
       icon,
       name,
-      checked,
       iconDisabled,
       iconColor,
+      id,
+      helperText,
+      required,
+      variant,
+      value,
+      error,
+      fullWidth,
+      color,
+      multiline,
+      rowsMax,
+      rows,
       ...props
     },
     ref: Ref<HTMLInputElement>
@@ -80,45 +90,33 @@ const Input: FunctionComponent<InputPropsType> = forwardRef(
         }
       : undefined
 
-    if (type === 'checkbox') {
-      return (
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={checked}
-              onChange={onChange}
-              name={name}
-              {...props}
-            />
-          }
-          label={label}
-        />
-      )
-    }
-
     return (
       <TextField
         ref={ref}
         className={classesInput}
-        // helperText={helperText}
-        // id={id}
+        helperText={helperText}
+        id={id}
+        color={color}
         name={name}
-        // required={required}
+        required={required}
         type={type}
-        // variant={variant}
-        // value={value}
+        variant={variant}
+        value={value}
         InputProps={endAdornment}
-        // error={error}
+        error={error}
         disabled={disabled}
         label={label}
         onChange={onChange}
-        // fullWidth={fullWidth}
+        fullWidth={fullWidth}
+        multiline={multiline}
+        rowsMax={rowsMax}
+        rows={rows}
         {...props}
       />
     )
   }
 )
 
-Input.defaultProps = defaultProps
+// Input.defaultProps = defaultProps
 
 export default Input

@@ -63,9 +63,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       // color: grey[600],
       transition: '.1s ease-in-out',
       '&:hover': {
-        color: theme.palette.secondary.main,
+        color: theme.palette.primary.main,
       },
       cursor: 'pointer',
+      color: theme.palette.secondary.main,
     },
     rating: {
       '& svg': {

@@ -26,7 +26,7 @@ const Addresses: FunctionComponent = () => {
   return (
     <Grid container direction={'column'} spacing={2} alignItems={'center'}>
       <Grid item>
-        <Typography variant={'h3'}>Адреса</Typography>
+        <Typography variant={'h1'}>Адреса</Typography>
       </Grid>
       <Grid item>
         <Input
@@ -43,7 +43,7 @@ const Addresses: FunctionComponent = () => {
           onKeyPress={(e) => (e.key === 'Enter' ? newAddress() : null)}
         />
       </Grid>
-      {state.user.addresses
+      {state?.user?.addresses
         ? state.user.addresses.map((a) => (
             <Grid item key={a.address}>
               <Paper square={true} className={classes.item}>

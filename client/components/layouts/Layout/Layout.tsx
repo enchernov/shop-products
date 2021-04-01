@@ -19,7 +19,6 @@ const Layout: FunctionComponent<ILayoutProps> = ({ children, title = '' }) => {
       case '/my-account':
       case '/profile':
       case '/shop':
-      case '/test':
       case '/products/[id]':
         return <GeneralLayout>{children}</GeneralLayout>
       case '/signin':

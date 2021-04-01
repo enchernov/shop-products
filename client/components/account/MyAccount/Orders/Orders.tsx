@@ -23,7 +23,7 @@ const Orders: FunctionComponent = () => {
       <Grid item xs={12}>
         <Grid container spacing={2} alignItems={'center'}>
           <Grid item>
-            <Typography variant={'h3'}>Заказы</Typography>
+            <Typography variant={'h1'}>Заказы</Typography>
           </Grid>
           {state.user?.orders?.length ? (
             <Grid item>

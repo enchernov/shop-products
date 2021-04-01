@@ -5,7 +5,7 @@ import { IconButton, Slider } from '@ui/index'
 
 const PriceRange = connectRange(({ refine, currentRefinement, min, max }) => {
   const [priceRange, setPriceRange] = React.useState<number[]>([min, max])
-  const handlePriceRange = (event: any, newValue: number | number[]) => {
+  const handlePriceRange = (_: any, newValue: number | number[]) => {
     if (
       currentRefinement.min !== newValue[0] ||
       currentRefinement.max !== newValue[1]

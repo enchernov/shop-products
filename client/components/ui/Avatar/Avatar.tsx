@@ -8,7 +8,7 @@ type VariantType = 'square' | 'circle'
 
 export interface IAvatarProps extends AvatarProps {
   variant?: VariantType
-  src?: string
+  url?: string
   alt?: string
   children?: ReactNode
   className?: string

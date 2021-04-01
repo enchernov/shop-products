@@ -29,14 +29,17 @@ const Dashboard: FunctionComponent = () => {
 
   useEffect(() => {
     state.user?.avatar &&
-      !state.avatar.url.length &&
+      !state?.avatar?.url?.length &&
       dispatch(
-        loadAvatar({ url: state.user?.avatar.url, id: state.user?.avatar.id })
+        loadAvatar({
+          url: state?.user?.avatar?.url || '',
+          id: state.user?.avatar?.id || '',
+        })
       )
   }, [state.avatar, state.user?.avatar, dispatch])
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) =>
-    await addAvatar(e, state.user.id, dispatch, upload)
+    await addAvatar(e, state?.user?.id, dispatch, upload)
 
   const removeAvatar = async () =>
     await delAvatar(dispatch, deleteFile, state.avatar?.id)
@@ -44,7 +47,7 @@ const Dashboard: FunctionComponent = () => {
   return (
     <Grid container direction={'column'} spacing={2} alignItems={'center'}>
       <Grid item>
-        <Typography variant={'h3'}>
+        <Typography variant={'h1'}>
           {state.user ? (
             <>
               Добро пожаловать,&nbsp;

@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useContext } from 'react'
+import React, { FunctionComponent, useContext, useEffect } from 'react'
 import { Grid, Typography } from '@material-ui/core'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 
 import { IconButton, Link } from '@ui/index'
@@ -18,22 +18,36 @@ import { ThemeContext } from '@providers/ThemeProvider'
 import * as ThemeActions from '@actions/theme'
 import { ThemeType } from '@interfaces/theme'
 import clsx from 'clsx'
+import Footer from '@components/main/Footer'
+import { useQuery } from '@apollo/client'
+import ME from '@graphql/queries/Me'
+import * as ACTIONS from '@actions/auth'
 
 const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
   const { state, dispatch } = useContext(AppContext)
   const { dispatch: themeDispatch } = useContext(ThemeContext)
   const { isAuthenticated } = state
-  const router = useRouter()
+  // const router = useRouter()
   const { enqueueSnackbar } = useSnackbar()
+  const { data, loading } = useQuery(ME)
+
+  useEffect(() => {
+    if (!loading && data) {
+      dispatch(ACTIONS.authSuccess({ user: { ...data.me, ...data.self } }))
+    }
+  }, [data, loading])
+
   console.log(state)
+
   const classes = useStyles()
+
   const logout = async () => {
     try {
       await logoutUser(dispatch)
       enqueueSnackbar('Вы успешно вышли', {
         variant: 'success',
       })
-      router.push('/signin')
+      // router.push('/signin')
     } catch (error) {
       enqueueSnackbar(errorMessage(error), {
         variant: 'error',
@@ -88,6 +102,12 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
                     Избранное
                   </Link>
                 </Grid>
+                <Grid item>·</Grid>
+                <Grid item>
+                  <Link href={'/contacts'} className={classes.link}>
+                    Контакты
+                  </Link>
+                </Grid>
               </Grid>
             </Grid>
             <Grid item>
@@ -118,25 +138,57 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
             </Grid>
           </Grid>
         ) : (
-          <Grid
-            container
-            justify={'flex-end'}
-            spacing={1}
-            alignItems={'center'}
-          >
+          <Grid container justify={'space-between'} alignItems={'center'}>
             <Grid item>
-              <Link href={'/signup'}>Регистрация</Link>
+              <Link href={'/'} style={{ border: 'none' }}>
+                <img
+                  src={'/images/foodMarket.png'}
+                  alt="FoodMarket"
+                  className={classes.logo}
+                />
+              </Link>
             </Grid>
-            <Grid item>/</Grid>
             <Grid item>
-              <Link href={'/signin'}>Вход</Link>
+              <Grid container spacing={1}>
+                <Grid item>
+                  <Link href={'/shop'} className={classes.link}>
+                    Магазин
+                  </Link>
+                </Grid>
+                <Grid item>·</Grid>
+                <Grid item>
+                  <Link href={'/contacts'} className={classes.link}>
+                    Контакты
+                  </Link>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid container spacing={1} alignItems={'center'}>
+                <Grid item>
+                  <Link href={'/signup'} className={classes.link}>
+                    Регистрация
+                  </Link>
+                </Grid>
+                <Grid item>/</Grid>
+                <Grid item>
+                  <Link href={'/signin'} className={classes.link}>
+                    Вход
+                  </Link>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         )}
       </header>
       <main className={classes.root}>{children}</main>
       <footer className={classes.footer}>
-        <Typography variant={'body1'} align={'center'}>
+        <Footer />
+        <Typography
+          variant={'body1'}
+          align={'center'}
+          className={classes.copyright}
+        >
           &#169; 2021 FoodMarket
         </Typography>
       </footer>

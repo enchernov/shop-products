@@ -8,6 +8,7 @@ export type CategoryType =
   | 'Выпечка'
 
 export interface ICategoryProps {
+  id: string
   name: CategoryType
   link: string
 }

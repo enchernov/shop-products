@@ -157,7 +157,7 @@ export const updateCount = (
   return cart
 }
 
-export const getTotal = (cart: Array<IProductProps>) => {
+export const getTotal = (cart) => {
   return cart.reduce(
     (subtotal: number, item) => subtotal + item.price * item.count,
     0
