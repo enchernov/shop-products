@@ -40,6 +40,7 @@ export const fetchShop = async (
       state?.products !== productsData.products
     ) {
       await dispatch(ACTIONS.setProducts(productsData.products))
+      console.log(state, productsData.products)
     }
   } catch (e) {
     console.log(e)

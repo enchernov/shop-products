@@ -12,7 +12,7 @@ export const useStyles = makeStyles((theme: Theme & { name: string }) =>
     },
     header: {
       padding: '24px 40px',
-      maxHeight: 72,
+      // minHeight: 72,
       fontWeight: 500,
     },
     logo: {

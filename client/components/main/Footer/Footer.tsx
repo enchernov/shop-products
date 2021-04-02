@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useCallback, useContext } from 'react'
-import { Grid, Typography } from '@material-ui/core'
+import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core'
 import { IconButton, Link, Input, Button } from '@ui/index'
 
 import { useStyles } from './Footer.styles'
@@ -97,14 +97,24 @@ const Footer: FunctionComponent = () => {
     validateOnMount: false,
   })
 
+  const theme = useTheme()
+  const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
+
   return (
     <Grid
       container
-      justify={'space-between'}
+      justify={isSmallWidth ? 'flex-start' : 'space-between'}
       className={classes.root}
-      alignItems={'flex-start'}
+      style={
+        isSmallWidth
+          ? { padding: 40, left: '-28px', marginBottom: '.1rem' }
+          : { padding: '40px 120px', left: '-40px' }
+      }
+      alignItems={isSmallWidth ? 'center' : 'flex-start'}
+      direction={isSmallWidth ? 'column' : 'row'}
+      spacing={isSmallWidth ? 3 : 0}
     >
-      <Grid item xs={4}>
+      <Grid item xs={isSmallWidth ? 12 : 4}>
         <Grid container direction={'column'} alignItems={'center'} spacing={2}>
           <Grid item>
             <Typography variant={'h3'} className={classes.heading}>
@@ -153,7 +163,7 @@ const Footer: FunctionComponent = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={isSmallWidth ? 12 : 4}>
         <Grid container direction={'column'} alignItems={'center'} spacing={2}>
           <Grid item>
             <Typography variant={'h3'} className={classes.heading}>
@@ -173,7 +183,7 @@ const Footer: FunctionComponent = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={isSmallWidth ? 12 : 4}>
         <Grid container direction={'column'} alignItems={'center'} spacing={2}>
           <Grid item>
             <Typography variant={'h3'} className={classes.heading}>

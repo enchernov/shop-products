@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext, useEffect } from 'react'
-import { Grid, Typography } from '@material-ui/core'
+import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core'
 // import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 
@@ -58,6 +58,9 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
   const swapTheme = async (t: ThemeType) =>
     await themeDispatch(ThemeActions.changeTheme(t))
 
+  const theme = useTheme()
+  const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
+
   return (
     <>
       <header className={classes.header}>
@@ -65,8 +68,9 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
           <Grid
             container
             justify={'space-between'}
-            spacing={1}
+            spacing={isSmallWidth ? 3 : 1}
             alignItems={'center'}
+            direction={isSmallWidth ? 'column' : 'row'}
           >
             <Grid item>
               <Link href={'/'} style={{ border: 'none' }}>
@@ -138,7 +142,12 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
             </Grid>
           </Grid>
         ) : (
-          <Grid container justify={'space-between'} alignItems={'center'}>
+          <Grid
+            container
+            justify={'space-between'}
+            alignItems={'center'}
+            direction={isSmallWidth ? 'column' : 'row'}
+          >
             <Grid item>
               <Link href={'/'} style={{ border: 'none' }}>
                 <img

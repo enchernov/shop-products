@@ -8,7 +8,7 @@ import { Link } from '@ui/index'
 
 const SignUpPage: NextPage = () => {
   return (
-    <Layout title="Регистрация">
+    <Layout title="Регистрация | FoodMarket">
       <Grid container direction={'column'}>
         <Grid item>
           <Link href={'/'} style={{ border: 'none' }}>

@@ -2,6 +2,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      marginBottom: '3rem',
+    },
     side: {
       padding: '0 40px',
     },
@@ -22,5 +25,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.secondary.main,
     },
     hits: {},
+    thumb: {
+      height: 341,
+      width: 257,
+      padding: 0,
+    },
   })
 )

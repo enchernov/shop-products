@@ -44,8 +44,11 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
     }
   }
   const related = state.products
-    .filter((x) =>
-      x.categories.some((c) => categories.map((a) => a.id).indexOf(c.id) > -1)
+    .filter(
+      (x) =>
+        x.categories.some(
+          (c) => categories.map((a) => a.id).indexOf(c.id) > -1
+        ) && x.id !== id
     )
     .slice(0, 4)
 

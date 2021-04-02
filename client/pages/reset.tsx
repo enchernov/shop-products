@@ -5,7 +5,7 @@ import Layout from '@components/layouts/Layout'
 import ResetPassword from '@components/auth/ResetPassword'
 
 const ResetPage: NextPage = () => (
-  <Layout>
+  <Layout title={'Восстановление пароля'}>
     <ResetPassword />
   </Layout>
 )

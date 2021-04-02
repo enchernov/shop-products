@@ -5,13 +5,11 @@ export const useStyles = makeStyles((theme: Theme) =>
     root: {
       overflow: 'hidden',
       position: 'relative',
-      left: '-40px',
       top: 0,
       width: '100vw',
       height: 'auto',
-      padding: '40px 120px',
       backgroundColor: '#313131',
-      maxHeight: 164,
+      // minHeight: 164,
     },
     heading: {
       color: '#fafafa',

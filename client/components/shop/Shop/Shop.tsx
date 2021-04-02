@@ -8,6 +8,7 @@ import { InstantSearch } from 'react-instantsearch-dom'
 import ProductHits from '@components/shop/components/ProductHits'
 import ProductSearchBox from '@components/shop/components/ProductSearchBox'
 import SideBar from '@components/shop/components/SideBar'
+import { useStyles } from '@components/shop/Shop/Shop.styles'
 
 const indexName = 'dev_PRODUCTS'
 
@@ -17,6 +18,7 @@ const searchClient = algoliasearch(
 )
 
 const Shop: FunctionComponent = () => {
+  const classes = useStyles()
   const [count, setCount] = useState<number>(0)
   const getCount = (v: number) => setCount(v)
 
@@ -30,6 +32,7 @@ const Shop: FunctionComponent = () => {
         alignItems={'flex-start'}
         justify={'space-between'}
         spacing={3}
+        className={classes.root}
       >
         <Grid item xs={12} lg={9}>
           <Grid container direction={'column'} spacing={4}>

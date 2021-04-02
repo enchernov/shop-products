@@ -6,6 +6,7 @@ import ProductCard from '@components/shop/components/ProductCard/ProductCard'
 import { useStyles } from '@components/shop/Shop/Shop.styles'
 
 const ProductHits = connectHits(({ hits, getCount }) => {
+  console.log(hits)
   useEffect(() => {
     if (hits?.length) {
       getCount(hits.length)
@@ -29,9 +30,7 @@ const ProductHits = connectHits(({ hits, getCount }) => {
         </Grid>
       ))}
       {!hits.length && (
-        <Grid item>
-          <Typography>Результатов нет</Typography>
-        </Grid>
+        <Typography variant={'body1'}>Результатов нет</Typography>
       )}
     </Grid>
   )
