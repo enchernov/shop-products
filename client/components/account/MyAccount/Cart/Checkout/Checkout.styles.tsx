@@ -9,12 +9,12 @@ export const useStyles = makeStyles((theme: Theme) =>
       color: 'white',
     },
     cardInput: {
-      width: 450,
+      width: 400,
       fontSize: 18,
       padding: '.5rem .25rem',
     },
     item: {
-      width: 300,
+      width: 400,
     },
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,

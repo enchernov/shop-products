@@ -64,131 +64,127 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
   return (
     <>
       <header className={classes.header}>
-        {isAuthenticated ? (
-          <Grid
-            container
-            justify={'space-between'}
-            spacing={isSmallWidth ? 3 : 1}
-            alignItems={'center'}
-            direction={isSmallWidth ? 'column' : 'row'}
-          >
-            <Grid item>
-              <Link href={'/'} style={{ border: 'none' }}>
-                <img
-                  src={'/images/foodMarket.png'}
-                  alt="FoodMarket"
-                  className={classes.logo}
-                />
-              </Link>
-            </Grid>
-            <Grid item>
-              <Grid container spacing={1}>
-                <Grid item>
-                  <Link href={'/shop'} className={classes.link}>
-                    Магазин
-                  </Link>
-                </Grid>
-                <Grid item>·</Grid>
-                <Grid item>
-                  <Link href={'/my-account?panel=0'} className={classes.link}>
-                    Мой аккаунт
-                  </Link>
-                </Grid>
-                <Grid item>·</Grid>
-                <Grid item>
-                  <Link href={'/my-account?panel=1'} className={classes.link}>
-                    Корзина
-                  </Link>
-                </Grid>
-                <Grid item>·</Grid>
-                <Grid item>
-                  <Link href={'/my-account?panel=3'} className={classes.link}>
-                    Избранное
-                  </Link>
-                </Grid>
-                <Grid item>·</Grid>
-                <Grid item>
-                  <Link href={'/contacts'} className={classes.link}>
-                    Контакты
-                  </Link>
-                </Grid>
+        <Grid
+          container
+          justify={'space-between'}
+          spacing={isSmallWidth ? 2 : 1}
+          alignItems={'center'}
+          direction={isSmallWidth ? 'column' : 'row'}
+        >
+          <Grid item>
+            <Link href={'/'} style={{ border: 'none' }}>
+              <img
+                src={'/images/foodMarket.png'}
+                alt="FoodMarket"
+                className={classes.logo}
+              />
+            </Link>
+          </Grid>
+          <Grid item>
+            <Grid container justify={'space-between'} spacing={1}>
+              <Grid item>
+                {isAuthenticated ? (
+                  <Grid container spacing={1}>
+                    <Grid item>
+                      <Link href={'/shop'} className={classes.link}>
+                        Магазин
+                      </Link>
+                    </Grid>
+                    <Grid item>·</Grid>
+                    <Grid item>
+                      <Link
+                        href={'/my-account?panel=0'}
+                        className={classes.link}
+                      >
+                        Мой аккаунт
+                      </Link>
+                    </Grid>
+                    <Grid item>·</Grid>
+                    <Grid item>
+                      <Link
+                        href={'/my-account?panel=1'}
+                        className={classes.link}
+                      >
+                        Корзина
+                      </Link>
+                    </Grid>
+                    <Grid item>·</Grid>
+                    <Grid item>
+                      <Link
+                        href={'/my-account?panel=3'}
+                        className={classes.link}
+                      >
+                        Избранное
+                      </Link>
+                    </Grid>
+                    <Grid item>·</Grid>
+                    <Grid item>
+                      <Link href={'/contacts'} className={classes.link}>
+                        Контакты
+                      </Link>
+                    </Grid>
+                  </Grid>
+                ) : (
+                  <Grid container spacing={1}>
+                    <Grid item>
+                      <Link href={'/shop'} className={classes.link}>
+                        Магазин
+                      </Link>
+                    </Grid>
+                    <Grid item>·</Grid>
+                    <Grid item>
+                      <Link href={'/contacts'} className={classes.link}>
+                        Контакты
+                      </Link>
+                    </Grid>
+                  </Grid>
+                )}
               </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container spacing={1} alignItems={'center'}>
-                <Grid item>
-                  <IconButton
-                    icon={'sun'}
-                    onClick={() => swapTheme('Light')}
-                    className={clsx(classes.themeIcon, classes.sun)}
-                  />
-                </Grid>
-                <Grid item>
-                  <IconButton
-                    icon={'moon'}
-                    onClick={() => swapTheme('Dark')}
-                    className={clsx(classes.themeIcon, classes.moon)}
-                  />
-                </Grid>
-                <Grid item>
-                  <span
-                    className={classes.linkStyle}
-                    onClick={async () => await logout()}
-                  >
-                    Выход
-                  </span>{' '}
+              <Grid item>
+                <Grid container spacing={1} alignItems={'center'}>
+                  <Grid item>
+                    <IconButton
+                      icon={'sun'}
+                      onClick={() => swapTheme('Light')}
+                      className={clsx(classes.themeIcon, classes.sun)}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <IconButton
+                      icon={'moon'}
+                      onClick={() => swapTheme('Dark')}
+                      className={clsx(classes.themeIcon, classes.moon)}
+                    />
+                  </Grid>
+                  <Grid item>
+                    {isAuthenticated ? (
+                      <span
+                        className={classes.linkStyle}
+                        onClick={async () => await logout()}
+                      >
+                        Выход
+                      </span>
+                    ) : (
+                      <Grid container spacing={1} alignItems={'center'}>
+                        <Grid item>
+                          <Link href={'/signup'} className={classes.link}>
+                            Регистрация
+                          </Link>
+                        </Grid>
+                        <Grid item>/</Grid>
+                        <Grid item>
+                          <Link href={'/signin'} className={classes.link}>
+                            Вход
+                          </Link>
+                        </Grid>
+                      </Grid>
+                    )}
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
-        ) : (
-          <Grid
-            container
-            justify={'space-between'}
-            alignItems={'center'}
-            direction={isSmallWidth ? 'column' : 'row'}
-          >
-            <Grid item>
-              <Link href={'/'} style={{ border: 'none' }}>
-                <img
-                  src={'/images/foodMarket.png'}
-                  alt="FoodMarket"
-                  className={classes.logo}
-                />
-              </Link>
-            </Grid>
-            <Grid item>
-              <Grid container spacing={1}>
-                <Grid item>
-                  <Link href={'/shop'} className={classes.link}>
-                    Магазин
-                  </Link>
-                </Grid>
-                <Grid item>·</Grid>
-                <Grid item>
-                  <Link href={'/contacts'} className={classes.link}>
-                    Контакты
-                  </Link>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container spacing={1} alignItems={'center'}>
-                <Grid item>
-                  <Link href={'/signup'} className={classes.link}>
-                    Регистрация
-                  </Link>
-                </Grid>
-                <Grid item>/</Grid>
-                <Grid item>
-                  <Link href={'/signin'} className={classes.link}>
-                    Вход
-                  </Link>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        )}
+        </Grid>
       </header>
       <main className={classes.root}>{children}</main>
       <footer className={classes.footer}>

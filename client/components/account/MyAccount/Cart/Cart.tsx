@@ -33,7 +33,7 @@ const Cart: FunctionComponent = () => {
       justify={'space-around'}
       spacing={2}
     >
-      <Grid item xs={9}>
+      <Grid item xs={12}>
         <Grid container direction={'column'} spacing={2} alignItems={'center'}>
           <Grid item xs={12}>
             <Grid

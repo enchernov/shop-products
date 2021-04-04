@@ -22,7 +22,13 @@ const Checkout: FunctionComponent<ICheckoutProps> = ({
   const { state } = useContext(AppContext)
   return (
     <Paper square={true} className={classes.root}>
-      <Grid container direction={'column'} alignItems={'center'} spacing={2}>
+      <Grid
+        container
+        direction={'column'}
+        alignItems={'center'}
+        justify={'space-around'}
+        spacing={2}
+      >
         <Grid item>
           <Typography variant={'h4'}>Информация о вас</Typography>
         </Grid>

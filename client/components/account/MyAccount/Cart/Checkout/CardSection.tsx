@@ -75,13 +75,13 @@ const CardSection: FunctionComponent<ICardSectionProps> = ({
   }
   return (
     <Grid container direction={'column'} alignItems={'center'} spacing={2}>
-      <Grid item>
+      <Grid item xs={12}>
         <Typography variant={'h4'}>Номер банковской карты</Typography>
       </Grid>
-      <Grid item>
+      <Grid item xs={12}>
         <CardElement className={classes.cardInput} />
       </Grid>
-      <Grid item>
+      <Grid item xs={12}>
         <Button onClick={submitOrder} size={'large'} className={classes.button}>
           {`Оплатить ${total}₽`}
         </Button>

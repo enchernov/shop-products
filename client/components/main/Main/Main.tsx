@@ -14,6 +14,7 @@ const Main: FunctionComponent = () => {
 
   const theme = useTheme()
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
+  const xsWidth = useMediaQuery(theme.breakpoints.down('xs'))
 
   return (
     <div className={classes.mainContainer}>
@@ -57,7 +58,7 @@ const Main: FunctionComponent = () => {
               <Grid item style={{ padding: '0 0 20px 0' }}>
                 <Grid
                   container
-                  direction={isSmallWidth ? 'column' : 'row'}
+                  direction={xsWidth ? 'column' : 'row'}
                   justify={'space-around'}
                   alignItems={'center'}
                   spacing={3}
@@ -125,11 +126,25 @@ const Main: FunctionComponent = () => {
                       : { borderRight: '1px dashed #212121' }
                   }
                 >
-                  <Grid container spacing={1} className={classes.review}>
+                  <Grid
+                    container
+                    spacing={1}
+                    className={classes.review}
+                    style={
+                      xsWidth
+                        ? { flexDirection: 'column', alignItems: 'center' }
+                        : { flexDirection: 'row', alignItems: 'flex-start' }
+                    }
+                  >
                     <img
                       src="/images/main/reviews/1.jpeg"
                       alt="Каролин"
                       className={classes.reviewer}
+                      style={
+                        xsWidth
+                          ? { marginRight: 0, marginBottom: '1.5rem' }
+                          : {}
+                      }
                     />
                     <div className={classes.contents}>
                       <div className={classes.quote}>
@@ -148,11 +163,25 @@ const Main: FunctionComponent = () => {
                   </Grid>
                 </Grid>
                 <Grid item xs={isSmallWidth ? 12 : 6}>
-                  <Grid container spacing={1} className={classes.review}>
+                  <Grid
+                    container
+                    spacing={1}
+                    className={classes.review}
+                    style={
+                      xsWidth
+                        ? { flexDirection: 'column', alignItems: 'center' }
+                        : { flexDirection: 'row', alignItems: 'flex-start' }
+                    }
+                  >
                     <img
                       src="/images/main/reviews/2.jpeg"
                       alt="Лиза"
                       className={classes.reviewer}
+                      style={
+                        xsWidth
+                          ? { marginRight: 0, marginBottom: '1.5rem' }
+                          : {}
+                      }
                     />
                     <div className={classes.contents}>
                       <div className={classes.quote}>

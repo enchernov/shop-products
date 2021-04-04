@@ -159,10 +159,9 @@ export const updateCount = (
 }
 
 export const getTotal = (cart) => {
-  return cart.reduce(
-    (subtotal: number, item) => subtotal + item.price * item.count,
-    0
-  )
+  return cart
+    .reduce((subtotal: number, item) => subtotal + item.price * item.count, 0)
+    .toFixed(2)
 }
 
 // === PRODUCTS

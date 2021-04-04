@@ -5,7 +5,14 @@ import React, {
   ChangeEvent,
   useEffect,
 } from 'react'
-import { Typography, Grid, Tabs, Tab } from '@material-ui/core'
+import {
+  Typography,
+  Grid,
+  Tabs,
+  Tab,
+  useTheme,
+  useMediaQuery,
+} from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
 
 import { Breadcrumbs, Divider, TabPanel } from '@ui/index'
@@ -43,6 +50,9 @@ const MyAccount: FunctionComponent = () => {
     setValue(newValue)
   }
 
+  const theme = useTheme()
+  const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
+
   return (
     <>
       <Grid
@@ -61,42 +71,52 @@ const MyAccount: FunctionComponent = () => {
       </Grid>
       <Divider type={'wide'} />
       <div className={classes.root}>
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          onChange={handleChange}
-          aria-label="Vertical tabs"
-          className={classes.tabs}
-        >
-          <Tab
-            label={state.user?.username || <Skeleton width={100} />}
-            {...a11yProps(0)}
-          />
-          <Tab label="Корзина" {...a11yProps(1)} />
-          <Tab label="Заказы" {...a11yProps(2)} />
-          <Tab label="Избранное" {...a11yProps(3)} />
-          <Tab label="Адреса" {...a11yProps(4)} />
-          <Tab label="Настройки" {...a11yProps(5)} />
-        </Tabs>
-        <TabPanel value={value} index={0}>
-          <Dashboard />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <Cart />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <Orders />
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          <Wishlist />
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          <Addresses />
-        </TabPanel>
-        <TabPanel value={value} index={5}>
-          <Settings />
-        </TabPanel>
+        <Grid container direction={isSmallWidth ? 'column' : 'row'} spacing={3}>
+          <Grid item xs={isSmallWidth ? 12 : 2}>
+            <Tabs
+              orientation={isSmallWidth ? 'horizontal' : 'vertical'}
+              variant="scrollable"
+              value={value}
+              onChange={handleChange}
+              aria-label="account tabs"
+              style={
+                isSmallWidth
+                  ? { borderBottom: `1px solid ${theme.palette.divider}` }
+                  : { borderRight: `1px solid ${theme.palette.divider}` }
+              }
+            >
+              <Tab
+                label={state.user?.username || <Skeleton width={100} />}
+                {...a11yProps(0)}
+              />
+              <Tab label="Корзина" {...a11yProps(1)} />
+              <Tab label="Заказы" {...a11yProps(2)} />
+              <Tab label="Избранное" {...a11yProps(3)} />
+              <Tab label="Адреса" {...a11yProps(4)} />
+              <Tab label="Настройки" {...a11yProps(5)} />
+            </Tabs>
+          </Grid>
+          <Grid item xs={isSmallWidth ? 12 : 10}>
+            <TabPanel value={value} index={0}>
+              <Dashboard />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <Cart />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <Orders />
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <Wishlist />
+            </TabPanel>
+            <TabPanel value={value} index={4}>
+              <Addresses />
+            </TabPanel>
+            <TabPanel value={value} index={5}>
+              <Settings />
+            </TabPanel>
+          </Grid>
+        </Grid>
       </div>
     </>
   )
