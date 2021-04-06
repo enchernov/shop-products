@@ -17,10 +17,10 @@ const SideBar: FunctionComponent = () => {
           attribute={'price'}
           defaultRefinement={{
             min: 0,
-            max: 500,
+            max: 9999,
           }}
           min={0}
-          max={500}
+          max={9999}
         />
       </Grid>
       <Grid item>

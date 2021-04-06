@@ -9,7 +9,16 @@ const ProductSearchBox = connectSearchBox(({ currentRefinement, refine }) => {
     refine(event.currentTarget.value)
   }
   return (
-    <form noValidate action="" role="search" className={classes.form}>
+    <form
+      noValidate
+      action=""
+      role="search"
+      className={classes.form}
+      onSubmit={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+      }}
+    >
       <input
         className={classes.root}
         type="search"

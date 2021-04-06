@@ -4,8 +4,23 @@ import { updateCart, updateWishlist } from '@actions/shop'
 import { ICartItem, IProductProps, SortingType } from '@interfaces/shop'
 
 import * as ACTIONS from '@actions/shop'
+import { logoutUser } from '@utils/auth'
 
 // === SHOP
+
+export const buy = async (dispatch, id, cart, available, enqueueSnackbar) => {
+  try {
+    if ((await countOfItem(id, cart)) < available) {
+      const data = await addToCart(dispatch, id, cart)
+      if (data) enqueueSnackbar('Товар в корзине', { variant: 'success' })
+      else enqueueSnackbar('Возникла ошибка', { variant: 'error' })
+    } else {
+      enqueueSnackbar('Макс. кол-во товара в корзине', { variant: 'warning' })
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 export const fetchShop = async (
   dispatch,
@@ -25,6 +40,10 @@ export const fetchShop = async (
       loading: productsLoading,
     } = productsQuery
 
+    if (productsError || categoriesError) {
+      await logoutUser(dispatch)
+    }
+
     if (
       !categoriesLoading &&
       !categoriesError &&
@@ -40,14 +59,18 @@ export const fetchShop = async (
       state?.products !== productsData.products
     ) {
       await dispatch(ACTIONS.setProducts(productsData.products))
-      console.log(state, productsData.products)
     }
   } catch (e) {
+    await logoutUser(dispatch)
     console.log(e)
   }
 }
 
 // === CART
+
+export const countOfItem = async (id, cart) => {
+  return cart.find((x) => x.id === id)?.count || 0
+}
 
 export const addToCart = async (dispatch, id, cart) => {
   const newCart = cart

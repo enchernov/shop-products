@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
-import { connectHits } from 'react-instantsearch-dom'
+import { connectInfiniteHits } from 'react-instantsearch-dom'
 import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core'
 import { IProductProps } from '@interfaces/shop'
 import ProductCard from '@components/shop/components/ProductCard/ProductCard'
 import { useStyles } from '@components/shop/Shop/Shop.styles'
 
-const ProductHits = connectHits(({ hits, getCount }) => {
-  console.log(hits)
+const ProductHits = connectInfiniteHits(({ hits, getCount }) => {
   useEffect(() => {
     if (hits?.length) {
       getCount(hits.length)

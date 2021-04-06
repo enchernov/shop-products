@@ -5,7 +5,7 @@ import { Grid, Typography } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 
 import { useStyles } from './Product.styles'
-import { addToCart } from '@utils/shop'
+import { buy } from '@utils/shop'
 import { ShopContext } from '@providers/ShopProvider'
 import { useSnackbar } from 'notistack'
 import { Button, IconButton, Link } from '@ui/index'
@@ -22,7 +22,6 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
   const { state, dispatch } = useContext(ShopContext)
   const { enqueueSnackbar } = useSnackbar()
   if (!product) return <Loader />
-  console.log(product)
   const {
     available,
     name,
@@ -34,22 +33,20 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
     description,
   }: IProductProps = product
 
-  const buy = async () => {
-    try {
-      const data = await addToCart(dispatch, id, state.cart)
-      if (data) enqueueSnackbar('Товар в корзине', { variant: 'success' })
-      else enqueueSnackbar('Возникла ошибка', { variant: 'error' })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const toCart = async () =>
+    await buy(dispatch, id, state.cart, available, enqueueSnackbar)
+
   const related = state.products
-    .filter(
-      (x) =>
+    .filter((x) => {
+      if (
         x.categories.some(
-          (c) => categories.map((a) => a.id).indexOf(c.id) > -1
-        ) && x.id !== id
-    )
+          (c) => categories.map((a) => a.name).indexOf(c.name) > -1
+        ) &&
+        x.id !== id
+      ) {
+        return x
+      }
+    })
     .slice(0, 4)
 
   return (
@@ -86,7 +83,7 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
                 <Button
                   color={'primary'}
                   className={classes.buyButton}
-                  onClick={buy}
+                  onClick={toCart}
                   size={'large'}
                   disabled={available < 1}
                 >

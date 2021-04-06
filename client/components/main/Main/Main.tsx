@@ -22,53 +22,49 @@ const Main: FunctionComponent = () => {
         <Grid item xs={12}>
           <Carousel />
         </Grid>
-        <Grid item xs={12}>
+        <Grid
+          container
+          direction={isSmallWidth ? 'column' : 'row'}
+          justify={'center'}
+          alignItems={'center'}
+        >
+          <Grid item className={classes.poster}>
+            <Typography variant={'h1'}>Любимые продукты</Typography>
+            <Typography variant={'h2'}>На FoodMarket</Typography>
+            <Link href={'/shop'}>
+              <Typography variant={'body1'}>Магазин</Typography>
+            </Link>
+          </Grid>
           <Grid
-            container
-            direction={isSmallWidth ? 'column' : 'row'}
-            justify={'center'}
-            alignItems={'center'}
+            item
+            className={classes.poster}
+            style={isSmallWidth ? { marginTop: 32 } : { marginLeft: 32 }}
           >
-            <Grid item className={classes.poster}>
-              <Typography variant={'h1'}>Любимые продукты</Typography>
-              <Typography variant={'h2'}>На FoodMarket</Typography>
-              <Link href={'/shop'}>
-                <Typography variant={'body1'}>Магазин</Typography>
-              </Link>
-            </Grid>
-            <Grid
-              item
-              className={classes.poster}
-              style={isSmallWidth ? { marginTop: 32 } : { marginLeft: 32 }}
-            >
-              <Typography variant={'h1'}>Бесплатная доставка</Typography>
-              <Typography variant={'h2'}>Вашего первого заказа</Typography>
-              <Link href={'/about-us'}>
-                <Typography variant={'body1'}>Подробнее</Typography>
-              </Link>
-            </Grid>
+            <Typography variant={'h1'}>Бесплатная доставка</Typography>
+            <Typography variant={'h2'}>Вашего первого заказа</Typography>
+            <Link href={'/about-us'}>
+              <Typography variant={'body1'}>Подробнее</Typography>
+            </Link>
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Grid item xs={12}>
-            <Grid container direction={'column'} spacing={3}>
-              <Grid item style={{ padding: '20px 40px' }}>
-                <Typography variant={'h1'}>Популярное сейчас</Typography>
-              </Grid>
-              <Grid item style={{ padding: '0 0 20px 0' }}>
-                <Grid
-                  container
-                  direction={xsWidth ? 'column' : 'row'}
-                  justify={'space-around'}
-                  alignItems={'center'}
-                  spacing={3}
-                >
-                  {popular.map((p) => (
-                    <Grid item key={`product_${p.id}`}>
-                      <ProductCard hit={p} />
-                    </Grid>
-                  ))}
-                </Grid>
+          <Grid container direction={'column'} spacing={3}>
+            <Grid item style={{ padding: '20px 40px' }}>
+              <Typography variant={'h1'}>Популярное сейчас</Typography>
+            </Grid>
+            <Grid item style={{ padding: '0 0 20px 0' }}>
+              <Grid
+                container
+                direction={xsWidth ? 'column' : 'row'}
+                justify={'space-around'}
+                alignItems={'center'}
+                spacing={3}
+              >
+                {popular.map((p) => (
+                  <Grid item key={`product_${p.id}`}>
+                    <ProductCard hit={p} />
+                  </Grid>
+                ))}
               </Grid>
             </Grid>
           </Grid>

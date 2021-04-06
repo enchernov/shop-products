@@ -6,7 +6,7 @@ module.exports = ({env}) => ({
       applicationId: env('ALGOLIA_APP_ID'),
       apiKey: env('ALGOLIA_API_SECRET'),
       debug: true,
-      prefix: 'dev'
+      prefix: 'dev',
     },
   }
 })

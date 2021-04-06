@@ -9,12 +9,7 @@ import {
   ICategoryProps,
   IProductCardProps,
 } from '@interfaces/shop'
-import {
-  addToCart,
-  inWishlist,
-  removeFromCart,
-  toggleWishlist,
-} from '@utils/shop'
+import { buy, inWishlist, toggleWishlist } from '@utils/shop'
 import { ShopContext } from '@providers/ShopProvider'
 
 import { useStyles } from './ProductCard.styles'
@@ -29,6 +24,7 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
     id,
     available,
   }: IProductProps = hit
+
   const imgUrl = image.formats.thumbnail.url
   const productLink = `/products/${id}`
 
@@ -42,27 +38,20 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
     await toggleWishlist(dispatch, id, state.wishlist)
 
   const inList = inWishlist(state.wishlist, id)
-  const inCart = inWishlist(state.cart, id)
+  // const inCart = inWishlist(state.cart, id)
 
-  const rfc = async () => {
-    try {
-      const data = await removeFromCart(dispatch, id, state.cart)
-      if (data) return
-      else enqueueSnackbar('Возникла ошибка', { variant: 'error' })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const rfc = async () => {
+  //   try {
+  //     const data = await removeFromCart(dispatch, id, state.cart)
+  //     if (data) return
+  //     else enqueueSnackbar('Возникла ошибка', { variant: 'error' })
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
-  const buy = async () => {
-    try {
-      const data = await addToCart(dispatch, id, state.cart)
-      if (data) enqueueSnackbar('Товар в корзине', { variant: 'success' })
-      else enqueueSnackbar('Возникла ошибка', { variant: 'error' })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const toCart = async () =>
+    await buy(dispatch, id, state.cart, available, enqueueSnackbar)
 
   return (
     <Paper className={classes.root} square={true} aria-disabled={available < 1}>
@@ -146,13 +135,17 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
                   />
                   {available > 0 ? (
                     <Button
-                      icon={inCart ? 'cartRemove' : 'cart'}
-                      color={inCart ? 'secondary' : 'primary'}
+                      // icon={inCart ? 'cartRemove' : 'cart'}
+                      // color={inCart ? 'secondary' : 'primary'}
                       variant={'text'}
                       className={classes.cartButton}
-                      onClick={inCart ? rfc : buy}
+                      // onClick={inCart ? rfc : toCart}
+                      color={'primary'}
+                      icon={'cart'}
+                      onClick={toCart}
+                      // inCart ? 'Из корзины' : 'В корзину'
                     >
-                      {inCart ? 'Из корзины' : 'В корзину'}
+                      В корзину
                     </Button>
                   ) : (
                     <Button

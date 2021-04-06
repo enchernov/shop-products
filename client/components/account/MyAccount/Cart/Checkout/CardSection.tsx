@@ -14,7 +14,7 @@ import { useStyles } from './Checkout.styles'
 import { errorMessage } from '@hooks/auth/errorMessage'
 import { useRouter } from 'next/router'
 import { makeOrder } from '@utils/account'
-import {StripeCardElement} from "@stripe/stripe-js";
+import { StripeCardElement } from '@stripe/stripe-js'
 
 interface ICardSectionProps {
   address: string
@@ -45,27 +45,30 @@ const CardSection: FunctionComponent<ICardSectionProps> = ({
 
   const submitOrder = async () => {
     try {
-      setBackdropOpen(true)
       const cardElement = elements!.getElement(CardElement)
       const token = await stripe!.createToken(cardElement as StripeCardElement)
-      console.log(cardElement, token)
-      if (appState?.user?.id && token?.token?.id) {
-        const data = await makeOrder(
-          dispatch,
-          createOrder,
-          appState.user,
-          cart,
-          address,
-          token
-        )
-        if (!data?.createOrder) {
-          setBackdropOpen(false)
-          throw new Error('Ошибка выполнения')
-        } else {
-          setBackdropOpen(false)
-          router.push('/my-account?panel=2')
-          enqueueSnackbar('Заказ размещён', { variant: 'success' })
-          resetFunction()
+      if (!cart.length || !address.length || !token?.token?.id) {
+        enqueueSnackbar('Заполните все поля', { variant: 'warning' })
+      } else {
+        setBackdropOpen(true)
+        if (appState?.user?.id && token?.token?.id) {
+          const data = await makeOrder(
+            dispatch,
+            createOrder,
+            appState.user,
+            cart,
+            address,
+            token
+          )
+          if (!data?.createOrder) {
+            setBackdropOpen(false)
+            throw new Error('Ошибка выполнения')
+          } else {
+            setBackdropOpen(false)
+            router.push('/my-account?panel=2')
+            enqueueSnackbar('Заказ размещён', { variant: 'success' })
+            resetFunction()
+          }
         }
       }
     } catch (error) {
