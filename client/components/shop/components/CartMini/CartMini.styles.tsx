@@ -11,6 +11,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       height: 80,
     },
     icon: {
+      position: 'absolute',
+      bottom: 0,
+      right: 20,
       width: '0.5rem',
       height: '0.5rem',
       transition: '.2s ease-in-out',
@@ -20,7 +23,12 @@ export const useStyles = makeStyles((theme: Theme) =>
       cursor: 'pointer',
     },
     productMini: {
-      paddingRight: 12,
+      position: 'relative',
+      // paddingRight: 24,
+    },
+    link: {
+      width: 'fit-content',
+      borderBottom: '1px dashed #e0e0e0',
     },
   })
 )

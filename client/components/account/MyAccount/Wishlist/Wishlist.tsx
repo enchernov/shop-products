@@ -4,6 +4,7 @@ import { ShopContext } from '@providers/ShopProvider'
 import { formCart } from '@utils/shop'
 import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core'
 import ProductCard from '@components/shop/components/ProductCard'
+import { Link } from '@ui/index'
 
 const Wishlist: FunctionComponent = () => {
   const { state } = useContext(ShopContext)
@@ -30,7 +31,12 @@ const Wishlist: FunctionComponent = () => {
               </Grid>
             ))
           ) : (
-            <p>Товаров нет</p>
+            <Grid item>
+              <Typography variant={'body1'} paragraph>
+                В списке пока нет товаров. Мы уверены, что в{' '}
+                <Link href={'/shop'}>Магазине</Link> многе вам понравится.
+              </Typography>
+            </Grid>
           )}
         </Grid>
       </Grid>

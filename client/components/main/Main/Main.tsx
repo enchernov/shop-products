@@ -1,5 +1,11 @@
 import React, { FunctionComponent, useContext } from 'react'
-import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core'
+import {
+  Grid,
+  Hidden,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core'
 import Carousel from '@components/main/Carousel'
 import { useStyles } from './Main.styles'
 import ProductCard from '@components/shop/components/ProductCard/ProductCard'
@@ -15,31 +21,34 @@ const Main: FunctionComponent = () => {
   const theme = useTheme()
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
   const xsWidth = useMediaQuery(theme.breakpoints.down('xs'))
+  const mdWidth = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
     <div className={classes.mainContainer}>
       <Grid container direction={'column'} spacing={6}>
-        <Grid item xs={12}>
-          <Carousel />
-        </Grid>
+        <Hidden xsDown>
+          <Grid item sm={12}>
+            <Carousel />
+          </Grid>
+        </Hidden>
         <Grid
           container
-          direction={isSmallWidth ? 'column' : 'row'}
+          direction={mdWidth ? 'column' : 'row'}
           justify={'center'}
           alignItems={'center'}
         >
-          <Grid item className={classes.poster}>
+          <Grid
+            item
+            className={classes.poster}
+            style={mdWidth ? { marginBottom: 32 } : { marginRight: 32 }}
+          >
             <Typography variant={'h1'}>Любимые продукты</Typography>
             <Typography variant={'h2'}>На FoodMarket</Typography>
             <Link href={'/shop'}>
               <Typography variant={'body1'}>Магазин</Typography>
             </Link>
           </Grid>
-          <Grid
-            item
-            className={classes.poster}
-            style={isSmallWidth ? { marginTop: 32 } : { marginLeft: 32 }}
-          >
+          <Grid item className={classes.poster}>
             <Typography variant={'h1'}>Бесплатная доставка</Typography>
             <Typography variant={'h2'}>Вашего первого заказа</Typography>
             <Link href={'/about-us'}>
@@ -142,7 +151,10 @@ const Main: FunctionComponent = () => {
                           : {}
                       }
                     />
-                    <div className={classes.contents}>
+                    <div
+                      className={classes.contents}
+                      style={xsWidth ? { width: '100%' } : {}}
+                    >
                       <div className={classes.quote}>
                         <Typography variant={'body2'} paragraph={true}>
                           На самом деле, я впервые покупаю продукты в Интернете.
@@ -179,7 +191,10 @@ const Main: FunctionComponent = () => {
                           : {}
                       }
                     />
-                    <div className={classes.contents}>
+                    <div
+                      className={classes.contents}
+                      style={xsWidth ? { width: '100%' } : {}}
+                    >
                       <div className={classes.quote}>
                         <Typography variant={'body2'} paragraph={true}>
                           С вашим хорошим ассортиментом я теперь могу сэкономить

@@ -4,7 +4,7 @@ export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       height: 'auto',
-      width: 330,
+      width: 'auto',
       padding: 20,
       position: 'relative',
       backgroundColor: theme.palette.background.paper,

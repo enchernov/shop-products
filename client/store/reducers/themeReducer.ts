@@ -5,8 +5,11 @@ import { IActionsProps } from '@interfaces/index'
 import * as ACTION_TYPES from '../types/theme'
 import Cookies from 'js-cookie'
 
+const hour = new Date().getHours()
+const timedTheme = hour > 6 && hour < 22 ? 0 : 1
+
 export const initialState: IThemeProps = {
-  theme: themes[Cookies.get('theme') || 0],
+  theme: themes[Cookies.get('theme') || timedTheme],
   // locale: Cookies.get('locale') || 'ruRU',
 }
 

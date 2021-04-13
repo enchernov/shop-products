@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useCallback, useState } from 'react'
 import { useStyles } from './Carousel.styles'
 import { ArrowRight, ArrowLeft } from '@material-ui/icons'
-import { Grid } from '@material-ui/core'
 import { Button } from '@ui/index'
 
 interface ISlideProps {
@@ -16,64 +15,31 @@ interface ISlideProps {
 
 const slides: Array<ISlideProps> = [
   {
-    image: '/images/main/carousel/slide.jpg',
+    image: '/images/main/carousel/slide-2-1.jpg',
     title: (classes) => (
-      <Grid
-        className={classes.title}
-        container
-        direction={'column'}
-        alignItems={'flex-start'}
-        spacing={6}
-      >
-        <Grid item>FoodMarket на</Grid>
-        <Grid item>Android</Grid>
-        <Grid item>& IOS</Grid>
-      </Grid>
+      <p className={classes.title}>FoodMarket на Android & IOS</p>
     ),
     subtitle: (classes) => (
-      <Grid
-        className={classes.subtitle}
-        container
-        direction={'column'}
-        alignItems={'flex-start'}
-      >
-        <Grid item>Faster shopping with a whole new way</Grid>
-        <Grid item>to search and navigate.</Grid>
-        <Grid item>Shop your last order again</Grid>
-        <Grid item>with just one click.</Grid>
-      </Grid>
+      <p className={classes.subtitle}>
+        Faster shopping with a whole new way to search and navigate. Shop your
+        last order again with just one click.
+      </p>
     ),
     button: {
-      text: 'Узнать больше',
+      text: 'Загрузить',
       url: '/shop',
     },
   },
   {
-    image: '/images/main/carousel/slide-2-1.jpg',
+    image: '/images/main/carousel/slide.jpg',
     title: (classes) => (
-      <Grid
-        className={classes.title}
-        container
-        direction={'column'}
-        alignItems={'flex-start'}
-        spacing={6}
-      >
-        <Grid item>Экономьте</Grid>
-        <Grid item>до 30%</Grid>
-        <Grid item>c FoodMarket</Grid>
-      </Grid>
+      <p className={classes.title}>Экономьте до 30% c FoodMarket</p>
     ),
     subtitle: (classes) => (
-      <Grid
-        className={classes.subtitle}
-        container
-        direction={'column'}
-        alignItems={'flex-start'}
-      >
-        <Grid item>From March 9 to May 31, 2021,</Grid>
-        <Grid item>you could win one of the 25 $1,000</Grid>
-        <Grid item>FoodMarket gift cards each week.</Grid>
-      </Grid>
+      <p className={classes.subtitle}>
+        From March 9 to May 31, 2021, you could win one of the 25 $1,000
+        FoodMarket gift cards each week.
+      </p>
     ),
     button: {
       text: 'Узнать больше',
@@ -116,14 +82,18 @@ const Carousel: FunctionComponent = () => {
     <div className={classes.root}>
       <div
         className={classes.slide}
-        style={{ backgroundImage: `url(${slides[idx]?.image})` }}
+        style={{
+          backgroundImage: `url(${slides[idx]?.image})`,
+          backgroundPosition: 'left',
+        }}
       >
-        {slides[idx].title(classes)}
-
-        {slides[idx].subtitle(classes)}
-        <Button href={slides[idx].button.url} className={classes.button}>
-          {slides[idx].button.text}
-        </Button>
+        <div className={classes.contents}>
+          {slides[idx].title(classes)}
+          {slides[idx].subtitle(classes)}
+          <Button href={slides[idx].button.url} className={classes.button}>
+            {slides[idx].button.text}
+          </Button>
+        </div>
       </div>
       <ArrowLeft onClick={decrease} className={classes.icon} />
       <ArrowRight onClick={increase} className={classes.icon} />

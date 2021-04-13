@@ -99,6 +99,7 @@ const Footer: FunctionComponent = () => {
 
   const theme = useTheme()
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
+  const xsWidth = useMediaQuery(theme.breakpoints.down('xs'))
 
   return (
     <Grid
@@ -123,7 +124,21 @@ const Footer: FunctionComponent = () => {
           </Grid>
           <Grid item>
             {state.user?.email_subscriber ? (
-              <>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                }}
+                className={classes.form}
+                style={
+                  xsWidth
+                    ? {
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                      }
+                    : {}
+                }
+              >
                 <Input
                   id="email_unsubscribe"
                   type="email"
@@ -136,12 +151,31 @@ const Footer: FunctionComponent = () => {
                 <Button
                   className={classes.subscribeButton}
                   onClick={handleUnsubscribe}
+                  style={
+                    xsWidth
+                      ? {
+                          width: 200,
+                          marginTop: 12,
+                        }
+                      : {}
+                  }
                 >
                   Отписаться
                 </Button>
-              </>
+              </form>
             ) : (
-              <form onSubmit={formik.handleSubmit}>
+              <form
+                onSubmit={formik.handleSubmit}
+                className={classes.form}
+                style={
+                  xsWidth
+                    ? {
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                      }
+                    : {}
+                }
+              >
                 <Input
                   id="email"
                   type="email"
@@ -155,6 +189,14 @@ const Footer: FunctionComponent = () => {
                 <Button
                   className={classes.subscribeButton}
                   onClick={formik.handleSubmit}
+                  style={
+                    xsWidth
+                      ? {
+                          width: 200,
+                          marginTop: 12,
+                        }
+                      : {}
+                  }
                 >
                   Подписаться
                 </Button>
@@ -191,7 +233,12 @@ const Footer: FunctionComponent = () => {
             </Typography>
           </Grid>
           <Grid item>
-            <Grid container spacing={2}>
+            <Grid
+              container
+              spacing={2}
+              direction={xsWidth ? 'column' : 'row'}
+              alignItems={'center'}
+            >
               <Grid item>
                 <img
                   src="/images/main/apps/app-store.png"

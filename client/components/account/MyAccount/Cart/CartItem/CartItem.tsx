@@ -11,6 +11,8 @@ import {
   Tooltip,
   Typography,
   ButtonGroup,
+  useTheme,
+  useMediaQuery,
 } from '@material-ui/core'
 import { useStyles } from './CartItem.styles'
 import { IconButton, Link, Input } from '@ui/index'
@@ -55,9 +57,17 @@ const CartItem: FunctionComponent<IProductProps> = ({
     [state.cart, dispatch, id, count, available]
   )
 
+  const theme = useTheme()
+  const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
+
   return (
     <Paper square={true} className={classes.root}>
-      <Grid container justify={'space-between'} alignItems={'center'}>
+      <Grid
+        container
+        justify={'space-between'}
+        alignItems={'center'}
+        direction={isSmallWidth ? 'column' : 'row'}
+      >
         <Grid item>
           <img src={image.url} alt={name} className={classes.image} />
         </Grid>
@@ -119,15 +129,15 @@ const CartItem: FunctionComponent<IProductProps> = ({
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid item style={isSmallWidth ? { marginTop: '1rem' } : {}}>
           <Typography variant={'h2'}>
-            {count ? price * count : price}&nbsp;₽
+            {count ? (price * count).toFixed(2) : price}&nbsp;₽
           </Typography>
         </Grid>
-        <Grid item>
+        <Grid item style={isSmallWidth ? { marginTop: '1rem' } : {}}>
           <Grid
             container
-            direction={'column'}
+            direction={isSmallWidth ? 'row' : 'column'}
             justify={'space-between'}
             alignItems={'center'}
             spacing={10}
@@ -137,7 +147,7 @@ const CartItem: FunctionComponent<IProductProps> = ({
                 title={
                   inList ? 'Удалить из избранного' : 'Добавить в избранное'
                 }
-                placement={'left'}
+                placement={isSmallWidth ? 'top' : 'left'}
               >
                 <IconButton
                   icon={inList ? 'favoriteFill' : 'favorite'}
@@ -148,7 +158,10 @@ const CartItem: FunctionComponent<IProductProps> = ({
               </Tooltip>
             </Grid>
             <Grid item>
-              <Tooltip title={'Удалить из корзины'} placement={'left'}>
+              <Tooltip
+                title={'Удалить из корзины'}
+                placement={isSmallWidth ? 'top' : 'left'}
+              >
                 <IconButton
                   icon={'delete'}
                   color={'inherit'}

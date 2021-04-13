@@ -199,7 +199,7 @@ export const unsubscribeEmail = async (
   user,
   subscribeId
 ) => {
-  console.log(dispatch, deleteEmailSubscriber, user, subscribeId)
+  // console.log(dispatch, deleteEmailSubscriber, user, subscribeId)
   try {
     const { data } = await deleteEmailSubscriber({
       variables: {

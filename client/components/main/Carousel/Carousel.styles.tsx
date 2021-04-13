@@ -4,7 +4,6 @@ export const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: 550,
-      width: 'calc(100vw - 80px)',
       position: 'relative',
       padding: 0,
       '&:hover $icon': {
@@ -20,6 +19,13 @@ export const useStyles = makeStyles(() =>
       backgroundSize: 'cover',
       transition: '.2s ease-in-out',
       padding: '52px 80px',
+    },
+    contents: {
+      position: 'absolute',
+      maxWidth: 400,
+      width: '66vw',
+      left: 80,
+      // top: 70,
     },
     icon: {
       transition: '.2s ease-in-out',
@@ -39,30 +45,22 @@ export const useStyles = makeStyles(() =>
     },
     title: {
       color: 'rgb(255, 211, 77)',
-      whiteSpace: 'nowrap',
       fontSize: 70,
+      lineHeight: '80px',
       fontWeight: 700,
-      width: 'fit-content',
       margin: 0,
-      '& *': {
-        padding: '28px 0 !important',
-      },
     },
     subtitle: {
       color: '#fafafa',
-      fontSize: '1rem',
-      lineHeight: '1.5rem',
-      fontWeight: 500,
-      width: 'fit-content',
+      fontSize: '1.2rem',
+      lineHeight: '2rem',
+      fontWeight: 400,
       margin: '20px 0',
-      // '& *': {
-      //   margin: '20px 0',
-      // },
     },
     button: {
       border: 'none',
       position: 'absolute',
-      bottom: 52,
+      // bottom: 52,
       padding: '13px 30px',
       color: 'rgb(255, 211, 77)',
       backgroundColor: '#323232',

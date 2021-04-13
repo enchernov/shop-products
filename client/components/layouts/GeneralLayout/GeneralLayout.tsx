@@ -29,15 +29,16 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
   const { isAuthenticated } = state
   // const router = useRouter()
   const { enqueueSnackbar } = useSnackbar()
-  const { data, loading } = useQuery(ME)
+  const { data, loading, error } = useQuery(ME)
 
   useEffect(() => {
     if (!loading && data) {
       dispatch(ACTIONS.authSuccess({ user: { ...data.me, ...data.self } }))
     }
+    if (error) logoutUser(dispatch)
   }, [data, loading])
 
-  console.log(state)
+  // console.log(state)
 
   const classes = useStyles()
 
@@ -81,65 +82,83 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
             </Link>
           </Grid>
           <Grid item>
-            <Grid container justify={'space-between'} spacing={1}>
-              <Grid item>
-                {isAuthenticated ? (
-                  <Grid container spacing={1}>
-                    <Grid item>
-                      <Link href={'/shop'} className={classes.link}>
-                        Магазин
-                      </Link>
-                    </Grid>
-                    <Grid item>·</Grid>
-                    <Grid item>
-                      <Link
-                        href={'/my-account?panel=0'}
-                        className={classes.link}
-                      >
-                        Мой аккаунт
-                      </Link>
-                    </Grid>
-                    <Grid item>·</Grid>
-                    <Grid item>
-                      <Link
-                        href={'/my-account?panel=1'}
-                        className={classes.link}
-                      >
-                        Корзина
-                      </Link>
-                    </Grid>
-                    <Grid item>·</Grid>
-                    <Grid item>
-                      <Link
-                        href={'/my-account?panel=3'}
-                        className={classes.link}
-                      >
-                        Избранное
-                      </Link>
-                    </Grid>
-                    <Grid item>·</Grid>
-                    <Grid item>
-                      <Link href={'/contacts'} className={classes.link}>
-                        Контакты
-                      </Link>
-                    </Grid>
+            <Grid
+              container
+              justify={isSmallWidth ? 'flex-start' : 'space-between'}
+              alignItems={'center'}
+              spacing={1}
+            >
+              {isAuthenticated ? (
+                <>
+                  <Grid item>
+                    <Link href={'/'} className={classes.link}>
+                      Главная
+                    </Link>
                   </Grid>
-                ) : (
-                  <Grid container spacing={1}>
-                    <Grid item>
-                      <Link href={'/shop'} className={classes.link}>
-                        Магазин
-                      </Link>
-                    </Grid>
-                    <Grid item>·</Grid>
-                    <Grid item>
-                      <Link href={'/contacts'} className={classes.link}>
-                        Контакты
-                      </Link>
-                    </Grid>
+                  <Grid item>·</Grid>
+                  <Grid item>
+                    <Link href={'/shop'} className={classes.link}>
+                      Магазин
+                    </Link>
                   </Grid>
-                )}
-              </Grid>
+                  <Grid item>·</Grid>
+                  <Grid item>
+                    <Link href={'/my-account?panel=0'} className={classes.link}>
+                      Мой аккаунт
+                    </Link>
+                  </Grid>
+                  <Grid item>·</Grid>
+                  <Grid item>
+                    <Link href={'/my-account?panel=1'} className={classes.link}>
+                      Корзина
+                    </Link>
+                  </Grid>
+                  <Grid item>·</Grid>
+                  <Grid item>
+                    <Link href={'/my-account?panel=3'} className={classes.link}>
+                      Избранное
+                    </Link>
+                  </Grid>
+                  <Grid item>·</Grid>
+                  <Grid item>
+                    <Link href={'/about-us'} className={classes.link}>
+                      О нас
+                    </Link>
+                  </Grid>
+                  <Grid item>·</Grid>
+                  <Grid item>
+                    <Link href={'/contacts'} className={classes.link}>
+                      Контакты
+                    </Link>
+                  </Grid>
+                </>
+              ) : (
+                <>
+                  <Grid item>
+                    <Link href={'/'} className={classes.link}>
+                      Главная
+                    </Link>
+                  </Grid>
+                  <Grid item>·</Grid>
+                  <Grid item>
+                    <Link href={'/shop'} className={classes.link}>
+                      Магазин
+                    </Link>
+                  </Grid>
+                  <Grid item>·</Grid>
+                  <Grid item>
+                    <Link href={'/about-us'} className={classes.link}>
+                      О нас
+                    </Link>
+                  </Grid>
+                  <Grid item>·</Grid>
+                  <Grid item>
+                    <Link href={'/contacts'} className={classes.link}>
+                      Контакты
+                    </Link>
+                  </Grid>
+                </>
+              )}
               <Grid item>
                 <Grid container spacing={1} alignItems={'center'}>
                   <Grid item>
@@ -156,31 +175,31 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
                       className={clsx(classes.themeIcon, classes.moon)}
                     />
                   </Grid>
-                  <Grid item>
-                    {isAuthenticated ? (
-                      <span
-                        className={classes.linkStyle}
-                        onClick={async () => await logout()}
-                      >
-                        Выход
-                      </span>
-                    ) : (
-                      <Grid container spacing={1} alignItems={'center'}>
-                        <Grid item>
-                          <Link href={'/signup'} className={classes.link}>
-                            Регистрация
-                          </Link>
-                        </Grid>
-                        <Grid item>/</Grid>
-                        <Grid item>
-                          <Link href={'/signin'} className={classes.link}>
-                            Вход
-                          </Link>
-                        </Grid>
-                      </Grid>
-                    )}
-                  </Grid>
                 </Grid>
+              </Grid>
+              <Grid item>
+                {isAuthenticated ? (
+                  <span
+                    className={classes.linkStyle}
+                    onClick={async () => await logout()}
+                  >
+                    Выход
+                  </span>
+                ) : (
+                  <Grid container spacing={1} alignItems={'center'}>
+                    <Grid item>
+                      <Link href={'/signup'} className={classes.link}>
+                        Регистрация
+                      </Link>
+                    </Grid>
+                    <Grid item>/</Grid>
+                    <Grid item>
+                      <Link href={'/signin'} className={classes.link}>
+                        Вход
+                      </Link>
+                    </Grid>
+                  </Grid>
+                )}
               </Grid>
             </Grid>
           </Grid>

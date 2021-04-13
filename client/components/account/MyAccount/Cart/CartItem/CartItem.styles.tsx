@@ -4,14 +4,20 @@ export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: 20,
-      width: 550,
+      maxWidth: 550,
+      width: '90vw',
     },
     image: {
       width: 150,
       height: 150,
     },
     link: {},
-    name: {},
+    name: {
+      '& > *': {
+        width: 'fit-content',
+        borderBottom: '1px dashed #e0e0e0',
+      },
+    },
     icon: {
       transition: '.2s ease-in-out',
       '&:hover': {

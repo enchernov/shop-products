@@ -6,6 +6,6 @@ export type ThemeType = 'Light' | 'Dark'
 // export type LocalesType = keyof typeof locales
 
 export interface IThemeProps {
-  theme: Theme
+  theme: Theme & { name?: string }
   // locale: LocalesType
 }

@@ -7,9 +7,7 @@ import { useStyles } from '@components/shop/Shop/Shop.styles'
 
 const ProductHits = connectInfiniteHits(({ hits, getCount }) => {
   useEffect(() => {
-    if (hits?.length) {
-      getCount(hits.length)
-    }
+    getCount(hits.length)
   }, [hits?.length, getCount])
   const classes = useStyles()
   const theme = useTheme()
@@ -29,7 +27,11 @@ const ProductHits = connectInfiniteHits(({ hits, getCount }) => {
         </Grid>
       ))}
       {!hits.length && (
-        <Typography variant={'body1'}>Результатов нет</Typography>
+        <Grid item>
+          <Typography variant={'body1'} paragraph>
+            Ничего не нашлось.
+          </Typography>
+        </Grid>
       )}
     </Grid>
   )

@@ -13,7 +13,6 @@ export const registerUser = async (dispatch, register, payload) => {
         },
       },
     })
-    console.log(data)
     if (data.register?.user) {
       dispatch(ACTIONS.authSuccess(data.register))
       return data.register
@@ -36,9 +35,10 @@ export const loginUser = async (dispatch, login, payload) => {
     })
     if (data.login?.user) {
       dispatch(ACTIONS.authSuccess(data.login))
-      Cookies.set('token', data.login.jwt)
+      Cookies.set('token', data.login.jwt, { expires: 3 })
       return data.login
     }
+    await logoutUser(dispatch)
     dispatch(ACTIONS.authError())
     return data.errors[0]
   } catch (error) {
@@ -48,8 +48,8 @@ export const loginUser = async (dispatch, login, payload) => {
 }
 
 export const logoutUser = async (dispatch) => {
-  dispatch(ACTIONS.logout())
   Object.keys(Cookies.get()).forEach((value: string) => Cookies.remove(value))
+  dispatch(ACTIONS.logout())
 }
 
 export const updateUser = async (userId, dispatch, update, values) => {
@@ -71,7 +71,6 @@ export const updateUser = async (userId, dispatch, update, values) => {
         },
       },
     })
-    console.log('UPDATE_USER_DATA', data)
     if (data?.updateUser?.user) {
       dispatch(ACTIONS.requestAuth())
       dispatch(ACTIONS.updateUserSuccess(data.updateUser.user))
@@ -143,7 +142,7 @@ export const confirmEmailUser = async (
     })
     if (data.emailConfirmation?.user) {
       dispatch(ACTIONS.authSuccess(data.emailConfirmation))
-      Cookies.set('token', data.emailConfirmation.jwt)
+      Cookies.set('token', data.emailConfirmation.jwt, { expires: 3 })
       return data.emailConfirmation
     }
     dispatch(ACTIONS.authError())
@@ -187,9 +186,6 @@ export const updUser = async (dispatch, updateUser, id, payload) => {
         },
       },
     })
-    if (data) {
-      console.log(data)
-    }
     if (data.updateUser?.user) {
       dispatch(ACTIONS.updateUserSuccess(data.updateUser.user))
       return data.updateUser

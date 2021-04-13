@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext } from 'react'
 import { ICategoryProps, IProductProps } from '@interfaces/shop'
 import Loader from '@ui/Loader'
-import { Grid, Typography } from '@material-ui/core'
+import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 
 import { useStyles } from './Product.styles'
@@ -21,6 +21,8 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
   const classes = useStyles()
   const { state, dispatch } = useContext(ShopContext)
   const { enqueueSnackbar } = useSnackbar()
+  const theme = useTheme()
+  const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
   if (!product) return <Loader />
   const {
     available,
@@ -52,16 +54,22 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
   return (
     <Grid
       container
-      alignItems={'flex-start'}
+      direction={isSmallWidth ? 'column' : 'row'}
+      alignItems={isSmallWidth ? 'center' : 'flex-start'}
       justify={'space-between'}
       spacing={3}
+      style={{ marginBottom: '3rem' }}
     >
       <Grid item xs={12} lg={9}>
-        <Grid container spacing={1}>
-          <Grid item xs={6} className={classes.imageContainer}>
+        <Grid container spacing={1} direction={isSmallWidth ? 'column' : 'row'}>
+          <Grid
+            item
+            xs={isSmallWidth ? 12 : 6}
+            className={classes.imageContainer}
+          >
             <img src={image.url} alt={name} className={classes.image} />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={isSmallWidth ? 12 : 6}>
             <Grid container direction={'column'} spacing={3}>
               <Grid item>
                 <Typography variant={'caption'}>{name}</Typography>

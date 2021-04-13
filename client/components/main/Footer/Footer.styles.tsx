@@ -14,6 +14,20 @@ export const useStyles = makeStyles((theme: Theme) =>
     heading: {
       color: '#fafafa',
     },
+    [theme.breakpoints.down('xs')]: {
+      form: {
+
+      },
+      subscribeButton: {
+        width: 200,
+      },
+    },
+    form: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+    },
     subscribeInput: {
       height: 48,
       width: 200,

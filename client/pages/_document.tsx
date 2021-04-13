@@ -18,7 +18,7 @@ interface IMyDocument {
 }
 
 class MyDocument extends Document implements IMyDocument {
-  url = 'https://foodmarket.com'
+  url = process.env.HOST as string
   title = 'FoodMarket'
   description = 'Покупка и доставка еды онлайн'
 
@@ -27,7 +27,7 @@ class MyDocument extends Document implements IMyDocument {
       <Html lang="ru">
         <Head>
           <meta name="description" content={this.description} />
-          <meta name="theme-color" content={themes[1].palette.primary.main} />
+          <meta name="theme-color" content={themes[0].palette.primary.main} />
           <meta property="og:type" content="website" />
           <meta property="og:title" content={this.title} />
           <meta property="og:url" content={this.url} />

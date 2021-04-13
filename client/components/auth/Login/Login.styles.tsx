@@ -10,14 +10,14 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     heading: {
-      margin: '0 0 10px 0',
+      marginBottom: '1rem',
     },
     serviceHeading: {
       marginBottom: 20,
       marginTop: 0,
     },
     formPaper: {
-      padding: 40,
+      padding: '24px 40px',
     },
     registerPaper: {
       padding: 20,

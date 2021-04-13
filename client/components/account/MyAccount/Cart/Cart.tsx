@@ -5,7 +5,7 @@ import { ShopContext } from '@providers/ShopProvider'
 import CartItem from '@components/account/MyAccount/Cart/CartItem'
 import { clearCart, formCart, getTotal } from '@utils/shop'
 import { Grid, Paper, Tooltip, Typography } from '@material-ui/core'
-import { Button, IconButton } from '@ui/index'
+import { Button, IconButton, Link } from '@ui/index'
 import { Elements } from '@stripe/react-stripe-js'
 import Checkout from './Checkout'
 import { loadStripe } from '@stripe/stripe-js'
@@ -97,7 +97,12 @@ const Cart: FunctionComponent = () => {
                         </Grid>
                       ))
                     ) : (
-                      <p>Корзина пуста</p>
+                      <Grid item>
+                        <Typography variant={'body1'} paragraph>
+                          В корзине нет товаров. Посмотрите, что есть в{' '}
+                          <Link href={'/shop'}>Магазине</Link>.
+                        </Typography>
+                      </Grid>
                     )}
                   </Grid>
                 </Grid>

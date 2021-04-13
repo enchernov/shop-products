@@ -19,6 +19,7 @@ const nextConfig = {
     ALGOLIA_APP_ID: process.env.ALGOLIA_APP_ID,
     ALGOLIA_API_KEY: process.env.ALGOLIA_API_KEY,
     ALGOLIA_INDEX: process.env.ALGOLIA_INDEX,
+    HOST: process.env.HOST,
   },
   webpackDevMiddleware: (config) => {
     return config

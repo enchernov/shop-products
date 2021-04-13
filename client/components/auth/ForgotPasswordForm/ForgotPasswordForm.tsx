@@ -51,7 +51,7 @@ const ForgotPasswordForm: FunctionComponent<IForgotProps> = ({
 
   const handleSubmit = useCallback(
     async (values: IForgotPasswordProps) => {
-      console.log(captchaToken)
+      // console.log(captchaToken)
       if (captchaToken.length) {
         try {
           const data = await forgotPasswordUser(

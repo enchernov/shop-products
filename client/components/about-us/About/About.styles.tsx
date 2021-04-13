@@ -3,9 +3,81 @@ import { grey } from '@material-ui/core/colors'
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    headline: {
+      width: '100%',
+      paddingBottom: 20,
+    },
     mainContainer: {
       overflow: 'hidden',
       marginBottom: '3rem',
+      flexGrow: 1,
+      display: 'flex',
+      marginTop: 40,
+      paddingBottom: 40,
+    },
+    contactContanier: {
+      padding: 16,
+      '& img': {
+        width: '100%',
+      },
+    },
+    heading: {
+      textTransform: 'uppercase',
+      letterSpacing: '.2px',
+    },
+    subHeading: {
+      maxWidth: 450,
+      width: '66vw',
+      margin: 'auto',
+    },
+    root: {
+      height: 400,
+      width: 'calc(100vw - 160px)',
+      position: 'relative',
+      padding: 0,
+      margin: 'auto',
+    },
+    title: {
+      color: 'white',
+      fontSize: 42,
+      fontWeight: 500,
+      margin: 0,
+    },
+    subtitle: {
+      color: '#fafafa',
+      fontSize: '1rem',
+      lineHeight: '1.5rem',
+      fontWeight: 400,
+      margin: '20px 0',
+    },
+    button: {
+      border: 'none',
+      // position: 'absolute',
+      // bottom: 52,
+      padding: '13px 30px',
+      color: 'rgb(255, 211, 77)',
+      backgroundColor: '#323232',
+      fontWeight: 500,
+      '&:hover': {
+        color: '#323232',
+        backgroundColor: 'rgb(255, 211, 77)',
+      },
+    },
+    slide: {
+      width: '100%',
+      height: '100%',
+      position: 'relative',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      transition: '.2s ease-in-out',
+    },
+    contents: {
+      position: 'absolute',
+      maxWidth: 450,
+      width: '66vw',
+      right: 40,
+      top: 70,
     },
     poster: {
       width: '100%',
@@ -18,7 +90,6 @@ export const useStyles = makeStyles((theme: Theme) =>
         backgroundImage: `url('/images/main/banners/1.jpeg')`,
       },
       '&:last-child': {
-        backgroundPosition: 'right',
         alignItems: 'flex-end',
         backgroundImage: `url('/images/main/banners/2.jpeg')`,
       },
@@ -78,9 +149,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
       padding: '40px 32px',
-    },
-    contents: {
-      width: 'calc(100% - 100px)',
     },
     reviewer: {
       marginRight: '1.5rem',

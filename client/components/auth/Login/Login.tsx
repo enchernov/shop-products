@@ -17,7 +17,7 @@ import { Button, Link, Input } from '@ui/index'
 import { ILoginProps, ILoginMutationProps } from '@interfaces/auth'
 import SocialAuth from '../SocialAuth'
 import { AppContext } from '@providers/AppProvider'
-import { loginUser } from '@utils/auth'
+import { loginUser, logoutUser } from '@utils/auth'
 import LOGIN_USER from '@graphql/mutations/LoginUser'
 import { errorMessage } from '@hooks/auth/errorMessage'
 
@@ -42,7 +42,9 @@ const Login: FunctionComponent = () => {
   const handleSubmit = useCallback(async (values) => {
     try {
       const data = await loginUser(dispatch, login, values)
+      // console.log(data)
       if (!data.user) {
+        logoutUser(dispatch)
         enqueueSnackbar(errorMessage(data), {
           variant: 'error',
         })
@@ -51,6 +53,7 @@ const Login: FunctionComponent = () => {
         router.push('/my-account')
       }
     } catch (error) {
+      console.log(error)
       enqueueSnackbar(errorMessage(error), { variant: 'error' })
     }
   }, [])

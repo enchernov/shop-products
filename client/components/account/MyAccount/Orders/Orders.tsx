@@ -1,8 +1,14 @@
 import React, { FunctionComponent, useContext } from 'react'
-import { Grid, Tooltip, Typography } from '@material-ui/core'
+import {
+  Grid,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core'
 import { AppContext } from '@providers/AppProvider'
 import Order from '@components/account/MyAccount/Orders/Order'
-import { IconButton } from '@ui/index'
+import { IconButton, Link } from '@ui/index'
 import { useStyles } from './Orders.styles'
 import { useMutation } from '@apollo/client'
 import UPDATE_USER from '@graphql/mutations/UpdateUser'
@@ -18,6 +24,8 @@ const Orders: FunctionComponent = () => {
     })
     return
   }
+  const theme = useTheme()
+  const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
   return (
     <Grid container direction={'column'} spacing={2} alignItems={'center'}>
       <Grid item xs={12}>
@@ -39,7 +47,12 @@ const Orders: FunctionComponent = () => {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <Grid container spacing={2}>
+        <Grid
+          container
+          spacing={2}
+          direction={isSmallWidth ? 'column' : 'row'}
+          alignItems={isSmallWidth ? 'center' : 'flex-start'}
+        >
           {state.user?.orders?.length ? (
             state.user.orders.map((o) => (
               <Grid item key={o.id}>
@@ -47,7 +60,13 @@ const Orders: FunctionComponent = () => {
               </Grid>
             ))
           ) : (
-            <p>Заказов нет</p>
+            <Grid item>
+              <Typography variant={'body1'} paragraph>
+                У вас пока нет заказов. Вы можете оформить заказ, если добавите
+                в корзину продукты. Для этого воспользуйтесь{' '}
+                <Link href={'/shop'}>Магазином</Link>.
+              </Typography>
+            </Grid>
           )}
         </Grid>
       </Grid>

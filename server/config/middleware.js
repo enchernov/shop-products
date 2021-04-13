@@ -1,8 +1,11 @@
 module.exports = {
   settings: {
-    // cors: {
-    //   enabled: true,
-    //   origin: 'https://shop-products.vercel.app/',
+    cors: {
+      enabled: true,
+      headers: ['*'],
+      methods: ['*'],
+      origin: ['*'],
+      // origin: 'https://shop-products.vercel.app/',
     //   expose: ['WWW-Authenticate', 'Server-Authorization', 'Access-Control-Expose-Headers'],
     //   maxAge: 31536000,
     //   credentials: true,
@@ -15,6 +18,6 @@ module.exports = {
     //     'Access-Control-Allow-Headers',
     //     'access-control-allow-origin',
     //   ],
-    // },
+    },
   },
 };

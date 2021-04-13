@@ -29,6 +29,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         color: theme.palette.secondary.main,
       },
+      '& > *': {
+        width: 'fit-content',
+        borderBottom: '1px dashed #e0e0e0',
+      },
     },
     imageContainer: {
       height: 180,

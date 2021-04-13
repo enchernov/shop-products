@@ -4,6 +4,7 @@ export const useStyles = makeStyles(() =>
   createStyles({
     panel: {
       width: '100%',
+      marginBottom: '3rem',
     },
   })
 )

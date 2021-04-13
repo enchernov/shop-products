@@ -43,23 +43,29 @@ const Addresses: FunctionComponent = () => {
           onKeyPress={(e) => (e.key === 'Enter' ? newAddress() : null)}
         />
       </Grid>
-      {state?.user?.addresses
-        ? state.user.addresses.map((a) => (
-            <Grid item key={a.address}>
-              <Paper square={true} className={classes.item}>
-                <Grid container justify={'space-between'} alignItems={'center'}>
-                  <Grid item>{a.address}</Grid>
-                  <Grid item>
-                    <IconButton
-                      icon={'cross'}
-                      onClick={() => removeAddress(a.id)}
-                    />
-                  </Grid>
+      {state?.user?.addresses?.length ? (
+        state.user.addresses.map((a) => (
+          <Grid item key={a.address}>
+            <Paper square={true} className={classes.item}>
+              <Grid container justify={'space-between'} alignItems={'center'}>
+                <Grid item>{a.address}</Grid>
+                <Grid item>
+                  <IconButton
+                    icon={'cross'}
+                    onClick={() => removeAddress(a.id)}
+                  />
                 </Grid>
-              </Paper>
-            </Grid>
-          ))
-        : null}
+              </Grid>
+            </Paper>
+          </Grid>
+        ))
+      ) : (
+        <Grid item>
+          <Typography variant={'body1'} paragraph>
+            Добавьте ваш первый адрес.
+          </Typography>
+        </Grid>
+      )}
     </Grid>
   )
 }

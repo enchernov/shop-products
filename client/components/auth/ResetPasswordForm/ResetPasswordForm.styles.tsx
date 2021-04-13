@@ -6,6 +6,7 @@ export const useStyles = makeStyles(() =>
       marginBottom: 20,
     },
     button: {
+      color: 'white',
       padding: 15,
     },
   })

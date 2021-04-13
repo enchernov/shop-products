@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "nodemon server.js",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "NODE_ENV=production node server.js",
     "type-check": "tsc",
     "build-storybook": "build-storybook",

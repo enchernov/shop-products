@@ -7,6 +7,7 @@ import { useStyles } from './Breadcrumbs.styles'
 
 const breadcrumbNameMap: { [key: string]: string } = {
   '/my-account': 'Мой аккаунт',
+  '/about-us': 'О нас',
   '/delivery': 'Условия доставки',
   '/shop': 'Магазин',
   '/contacts': 'Контакты',

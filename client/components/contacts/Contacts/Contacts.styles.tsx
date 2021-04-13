@@ -4,7 +4,7 @@ export const useStyles = makeStyles(() =>
   createStyles({
     headline: {
       width: '100%',
-      padding: '20px 0',
+      paddingBottom: 20,
     },
     root: {
       flexGrow: 1,

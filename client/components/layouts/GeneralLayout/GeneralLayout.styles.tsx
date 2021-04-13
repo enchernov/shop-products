@@ -5,7 +5,7 @@ export const useStyles = makeStyles((theme: Theme & { name: string }) =>
   createStyles({
     root: {
       position: 'relative',
-      padding: '0 40px',
+      padding: '0 20px',
       flex: 1,
       minHeight: '100vh',
       overflow: 'hidden',

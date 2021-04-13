@@ -21,7 +21,9 @@ const CartMini = () => {
         <Grid container justify={'space-between'} alignItems={'center'}>
           <Grid item>
             <Link href={'/my-account?panel=1'}>
-              <Typography variant={'h3'}>Корзина</Typography>
+              <Typography variant={'h3'} className={classes.link}>
+                Корзина
+              </Typography>
             </Link>
           </Grid>
           {state.cart.length ? (
@@ -41,31 +43,31 @@ const CartMini = () => {
               <Paper square={true} className={classes.root}>
                 <Grid
                   container
-                  justify={'space-around'}
                   alignItems={'center'}
                   className={classes.productMini}
+                  spacing={1}
                 >
                   <Grid item>
                     <img src={image.url} alt={name} className={classes.image} />
                   </Grid>
                   <Grid item>
                     <Link href={`/products/${id}`}>
-                      <Typography variant={'h6'}>{name}</Typography>
+                      <Typography variant={'h6'} className={classes.link}>
+                        {name}
+                      </Typography>
                     </Link>
                     <Typography
                       variant={'subtitle1'}
                     >{`${price} ₽ × ${count}`}</Typography>
                   </Grid>
-                  <Grid item>
-                    <Tooltip title={'Удалить из корзины'} placement={'top'}>
-                      <IconButton
-                        icon={'delete'}
-                        color={'default'}
-                        className={classes.icon}
-                        onClick={() => remove(id)}
-                      />
-                    </Tooltip>
-                  </Grid>
+                  <Tooltip title={'Удалить из корзины'} placement={'top'}>
+                    <IconButton
+                      icon={'delete'}
+                      color={'default'}
+                      className={classes.icon}
+                      onClick={() => remove(id)}
+                    />
+                  </Tooltip>
                 </Grid>
               </Paper>
             </Grid>
