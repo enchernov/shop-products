@@ -16,8 +16,8 @@ const SignInPage: NextPage = () => {
               src="/images/foodMarket.png"
               alt="FoodMarket"
               style={{
-                width: '234px',
-                margin: '0 calc(50% - 117px)',
+                width: '200px',
+                margin: '0 calc(50% - 100px)',
                 padding: '24px 0',
               }}
             />

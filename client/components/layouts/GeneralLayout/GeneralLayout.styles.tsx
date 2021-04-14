@@ -61,7 +61,6 @@ export const useStyles = makeStyles((theme: Theme & { name: string }) =>
       position: 'relative',
       color: '#fafafa',
       backgroundColor: '#212121',
-      padding: '0 40px',
     },
     copyright: {
       padding: '16px 0',

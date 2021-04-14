@@ -10,7 +10,6 @@ import {
   Paper,
   Tooltip,
   Typography,
-  ButtonGroup,
   useTheme,
   useMediaQuery,
 } from '@material-ui/core'
@@ -92,36 +91,43 @@ const CartItem: FunctionComponent<IProductProps> = ({
                 spacing={2}
               >
                 <Grid item>
-                  <ButtonGroup>
-                    <IconButton
-                      icon={'minus'}
-                      disabled={itemCount <= 1}
-                      onClick={() =>
-                        itemCount > 1 && changeCount(+itemCount - 1)
-                      }
-                    />
-
-                    <Input
-                      type={'number'}
-                      id={id + '_count'}
-                      label={'Количество'}
-                      value={itemCount}
-                      onChange={(e) => {
-                        changeCount(+e.currentTarget.value)
-                      }}
-                      className={classes.countInput}
-                    />
-                    <IconButton
-                      icon={'plus'}
-                      disabled={itemCount === available}
-                      onClick={() =>
-                        itemCount < available && changeCount(+itemCount + 1)
-                      }
-                    />
-                  </ButtonGroup>
+                  <Grid container alignItems={'center'}>
+                    <Grid item>
+                      <IconButton
+                        size={'medium'}
+                        icon={'minus'}
+                        disabled={itemCount <= 1}
+                        onClick={() =>
+                          itemCount > 1 && changeCount(+itemCount - 1)
+                        }
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Input
+                        type={'number'}
+                        id={id + '_count'}
+                        label={'Количество'}
+                        value={itemCount}
+                        onChange={(e) => {
+                          changeCount(+e.currentTarget.value)
+                        }}
+                        className={classes.countInput}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <IconButton
+                        size={'medium'}
+                        icon={'plus'}
+                        disabled={itemCount === available}
+                        onClick={() =>
+                          itemCount < available && changeCount(+itemCount + 1)
+                        }
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
                 <Grid item>
-                  <Typography>
+                  <Typography variant={'body1'}>
                     <b>{price}</b>&nbsp;₽&nbsp;/&nbsp;шт.
                   </Typography>
                 </Grid>
@@ -131,7 +137,7 @@ const CartItem: FunctionComponent<IProductProps> = ({
         </Grid>
         <Grid item style={isSmallWidth ? { marginTop: '1rem' } : {}}>
           <Typography variant={'h2'}>
-            {count ? (price * count).toFixed(2) : price}&nbsp;₽
+            {count ? '' + (price * count).toFixed(2) : '' + price}&nbsp;₽
           </Typography>
         </Grid>
         <Grid item style={isSmallWidth ? { marginTop: '1rem' } : {}}>
@@ -164,7 +170,7 @@ const CartItem: FunctionComponent<IProductProps> = ({
               >
                 <IconButton
                   icon={'delete'}
-                  color={'inherit'}
+                  color={'default'}
                   className={classes.icon}
                   onClick={remove}
                 />

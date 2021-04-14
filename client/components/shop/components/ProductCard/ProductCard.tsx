@@ -13,6 +13,7 @@ import { buy, inWishlist, toggleWishlist } from '@utils/shop'
 import { ShopContext } from '@providers/ShopProvider'
 
 import { useStyles } from './ProductCard.styles'
+import clsx from 'clsx'
 
 const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
   const {
@@ -138,7 +139,10 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
                       // icon={inCart ? 'cartRemove' : 'cart'}
                       // color={inCart ? 'secondary' : 'primary'}
                       variant={'text'}
-                      className={classes.cartButton}
+                      className={clsx(
+                        classes.cartButton,
+                        classes.primaryButton
+                      )}
                       // onClick={inCart ? rfc : toCart}
                       color={'primary'}
                       icon={'cart'}

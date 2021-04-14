@@ -81,7 +81,10 @@ const Shop: FunctionComponent = () => {
                       ]}
                     />
                   </Grid>
-                  <Grid item>
+                  <Grid
+                    item
+                    style={isSmallWidth ? { width: '80%' } : { minWidth: 450 }}
+                  >
                     <ProductSearchBox />
                   </Grid>
                   <Grid item>

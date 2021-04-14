@@ -20,10 +20,13 @@ export const useStyles = makeStyles((theme: Theme) =>
     button: {
       padding: 15,
       marginBottom: 20,
-      color: 'white',
+      // color: theme.palette.primary.contrastText,
     },
     cancelButton: {
-      color: 'white',
+      // color: theme.palette.primary.contrastText,
+    },
+    redButton: {
+      color: theme.palette.secondary.main + ' !important',
     },
     error: {
       color: theme.palette.error.main,

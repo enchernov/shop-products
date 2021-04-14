@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useContext, useEffect } from 'react'
 import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core'
-// import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
 
 import { IconButton, Link } from '@ui/index'
@@ -13,8 +12,6 @@ import { useStyles } from './GeneralLayout.styles'
 
 import { ThemeContext } from '@providers/ThemeProvider'
 
-// import { FoodMarket } from '@public/images/foodMarket.png'
-
 import * as ThemeActions from '@actions/theme'
 import { ThemeType } from '@interfaces/theme'
 import clsx from 'clsx'
@@ -22,14 +19,15 @@ import Footer from '@components/main/Footer'
 import { useQuery } from '@apollo/client'
 import ME from '@graphql/queries/Me'
 import * as ACTIONS from '@actions/auth'
+import { useRouter } from 'next/router'
 
 const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
   const { state, dispatch } = useContext(AppContext)
   const { dispatch: themeDispatch } = useContext(ThemeContext)
   const { isAuthenticated } = state
-  // const router = useRouter()
   const { enqueueSnackbar } = useSnackbar()
   const { data, loading, error } = useQuery(ME)
+  const router = useRouter()
 
   useEffect(() => {
     if (!loading && data) {
@@ -48,7 +46,7 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
       enqueueSnackbar('Вы успешно вышли', {
         variant: 'success',
       })
-      // router.push('/signin')
+      await router.push('/signin')
     } catch (error) {
       enqueueSnackbar(errorMessage(error), {
         variant: 'error',

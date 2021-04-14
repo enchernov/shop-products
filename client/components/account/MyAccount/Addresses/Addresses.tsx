@@ -40,7 +40,9 @@ const Addresses: FunctionComponent = () => {
           iconColor={'primary'}
           onIconClick={newAddress}
           iconDisabled={!address.length}
-          onKeyPress={(e) => (e.key === 'Enter' ? newAddress() : null)}
+          onKeyPress={async (e) =>
+            e.key === 'Enter' ? await newAddress() : null
+          }
         />
       </Grid>
       {state?.user?.addresses?.length ? (

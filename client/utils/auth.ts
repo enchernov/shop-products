@@ -49,7 +49,7 @@ export const loginUser = async (dispatch, login, payload) => {
 
 export const logoutUser = async (dispatch) => {
   Object.keys(Cookies.get()).forEach((value: string) => Cookies.remove(value))
-  dispatch(ACTIONS.logout())
+  await dispatch(ACTIONS.logout())
 }
 
 export const updateUser = async (userId, dispatch, update, values) => {

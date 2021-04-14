@@ -51,27 +51,19 @@ const ResetPassword: FunctionComponent = () => {
                   Проверьте ваш email адрес <strong>{emailFormik}</strong>
                 </Typography>
               ) : (
-                <>
-                  <ForgotPasswordForm
-                    setEmailData={setEmailData}
-                    setFormikEmailData={setFormikEmailData}
-                  />
-                  <Grid item className={classes.container}>
-                    <Paper
-                      className={classes.registerPaper}
-                      elevation={1}
-                      square
-                    >
-                      <Grid container justify="center" alignContent="center">
-                        <Grid item>
-                          <Link href={'/signin'}>Войти</Link> или{' '}
-                          <Link href={'/signup'}>Зарегистрироваться</Link>
-                        </Grid>
-                      </Grid>
-                    </Paper>
-                  </Grid>
-                </>
+                <ForgotPasswordForm
+                  setEmailData={setEmailData}
+                  setFormikEmailData={setFormikEmailData}
+                />
               )}
+            </Grid>
+          </Grid>
+        </Paper>
+        <Paper className={classes.registerPaper} elevation={1} square>
+          <Grid container justify="center" alignContent="center">
+            <Grid item>
+              <Link href={'/signin'}>Войти</Link> или{' '}
+              <Link href={'/signup'}>Зарегистрироваться</Link>
             </Grid>
           </Grid>
         </Paper>

@@ -6,6 +6,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       position: 'relative',
       top: 0,
+      margin: 0,
       width: '100vw',
       height: 'auto',
       backgroundColor: '#313131',
@@ -15,9 +16,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       color: '#fafafa',
     },
     [theme.breakpoints.down('xs')]: {
-      form: {
-
-      },
+      form: {},
       subscribeButton: {
         width: 200,
       },

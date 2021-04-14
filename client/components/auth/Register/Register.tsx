@@ -82,7 +82,7 @@ const Register: FunctionComponent = () => {
         enqueueSnackbar('Успешная регистрация', { variant: 'success' })
         enqueueSnackbar('Подтвердите email', {
           variant: 'info',
-          autoHideDuration: 10000,
+          autoHideDuration: 20000,
         })
         router.push('/signin')
       }
@@ -209,7 +209,7 @@ const Register: FunctionComponent = () => {
                 />
                 <Button
                   type="submit"
-                  disabled={!formik.isValid}
+                  disabled={!formik.isValid || state.loading}
                   fullWidth
                   className={classes.button}
                 >

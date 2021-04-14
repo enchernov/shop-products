@@ -68,7 +68,7 @@ export const fetchShop = async (
 
 // === CART
 
-export const countOfItem = async (id, cart) => {
+export const countOfItem = (id, cart) => {
   return cart.find((x) => x.id === id)?.count || 0
 }
 

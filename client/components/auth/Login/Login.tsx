@@ -153,7 +153,7 @@ const Login: FunctionComponent = () => {
                 />
                 <Button
                   type="submit"
-                  disabled={!formik.isValid}
+                  disabled={!formik.isValid || state.loading}
                   fullWidth
                   className={classes.button}
                 >

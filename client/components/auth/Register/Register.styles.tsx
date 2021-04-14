@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       maxWidth: 420,
       '&:not(:last-child)': {
-        marginBottom: 10,
+        marginBottom: 20,
       },
     },
     heading: {
@@ -31,6 +31,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     button: {
       padding: 15,
       marginBottom: 20,
+      // color: theme.palette.primary.contrastText,
     },
     error: {
       color: theme.palette.error.main,

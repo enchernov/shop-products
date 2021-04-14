@@ -1,14 +1,20 @@
-import React, { FunctionComponent, useContext } from 'react'
+import React, {
+  FunctionComponent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { ICategoryProps, IProductProps } from '@interfaces/shop'
 import Loader from '@ui/Loader'
 import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 
 import { useStyles } from './Product.styles'
-import { buy } from '@utils/shop'
+import { buy, countOfItem, updateCount } from '@utils/shop'
 import { ShopContext } from '@providers/ShopProvider'
 import { useSnackbar } from 'notistack'
-import { Button, IconButton, Link } from '@ui/index'
+import { Button, IconButton, Input, Link } from '@ui/index'
 import CartMini from '@components/shop/components/CartMini'
 import clsx from 'clsx'
 import ProductCard from '@components/shop/components/ProductCard'
@@ -23,6 +29,19 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
   const { enqueueSnackbar } = useSnackbar()
   const theme = useTheme()
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
+  const [itemCount, setItemCount] = useState<number>(1)
+  useEffect(() => setItemCount(1), [product])
+
+  const changeCount = useCallback(
+    (value: number) => {
+      if (value > 0 && value <= product?.available) {
+        setItemCount(value)
+        return
+      }
+      if (value > product?.available) setItemCount(1)
+    },
+    [state.cart, dispatch, itemCount, product]
+  )
   if (!product) return <Loader />
   const {
     available,
@@ -35,8 +54,13 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
     description,
   }: IProductProps = product
 
-  const toCart = async () =>
+  const toCart = async () => {
     await buy(dispatch, id, state.cart, available, enqueueSnackbar)
+    if (itemCount > 1) {
+      const currentCount = countOfItem(id, state.cart)
+      await updateCount(dispatch, state.cart, id, currentCount + itemCount)
+    }
+  }
 
   const related = state.products
     .filter((x) => {
@@ -88,15 +112,59 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
                 <Typography variant={'body2'}>{description}</Typography>
               </Grid>
               <Grid item>
-                <Button
-                  color={'primary'}
-                  className={classes.buyButton}
-                  onClick={toCart}
-                  size={'large'}
-                  disabled={available < 1}
-                >
-                  {available > 0 ? `В корзину` : `Нет в наличии`}
-                </Button>
+                <Grid container justify={'space-between'} alignItems={'center'}>
+                  <Grid item>
+                    <Button
+                      color={'primary'}
+                      className={classes.buyButton}
+                      onClick={toCart}
+                      size={'large'}
+                      variant={available < 1 ? 'text' : 'contained'}
+                      disabled={available < 1}
+                    >
+                      {available > 0 ? `В корзину` : `Нет в наличии`}
+                    </Button>
+                  </Grid>
+                  {available > 0 ? (
+                    <Grid item>
+                      <Grid container alignItems={'center'}>
+                        <Grid item>
+                          <IconButton
+                            size={'medium'}
+                            icon={'minus'}
+                            disabled={itemCount <= 1}
+                            onClick={() =>
+                              itemCount > 1 && changeCount(+itemCount - 1)
+                            }
+                          />
+                        </Grid>
+                        <Grid item>
+                          <Input
+                            type={'number'}
+                            id={id + '_count'}
+                            label={'Количество'}
+                            value={itemCount}
+                            onChange={(e) => {
+                              changeCount(+e.currentTarget.value)
+                            }}
+                            className={classes.countInput}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <IconButton
+                            size={'medium'}
+                            icon={'plus'}
+                            disabled={itemCount === available}
+                            onClick={() =>
+                              itemCount < available &&
+                              changeCount(+itemCount + 1)
+                            }
+                          />
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  ) : null}
+                </Grid>
               </Grid>
               <Grid item>
                 <Grid container justify={'space-between'} alignItems={'center'}>

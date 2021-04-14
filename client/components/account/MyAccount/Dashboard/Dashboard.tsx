@@ -17,9 +17,10 @@ import { AppContext } from '@providers/AppProvider'
 
 import { useStyles } from './Dashboard.styles'
 
-import { loadAvatar } from '@actions/auth'
+import { loadAvatar, updateUserSuccess } from '@actions/auth'
 import { addAvatar, delAvatar } from '@utils/account'
 import { Skeleton } from '@material-ui/lab'
+import {IUserDataProps} from "@interfaces/auth";
 
 const Dashboard: FunctionComponent = () => {
   const classes = useStyles()
@@ -28,7 +29,7 @@ const Dashboard: FunctionComponent = () => {
   const [deleteFile] = useMutation(DELETE_FILE)
 
   useEffect(() => {
-    state.user?.avatar &&
+    state.user?.avatar?.url?.length &&
       !state?.avatar?.url?.length &&
       dispatch(
         loadAvatar({
@@ -41,8 +42,10 @@ const Dashboard: FunctionComponent = () => {
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) =>
     await addAvatar(e, state?.user?.id, dispatch, upload)
 
-  const removeAvatar = async () =>
-    await delAvatar(dispatch, deleteFile, state.avatar?.id)
+  const removeAvatar = async () => {
+    await delAvatar(dispatch, deleteFile, state.avatar.id)
+    await updateUserSuccess({ ...state.user, avatar: null } as IUserDataProps)
+  }
 
   return (
     <Grid container direction={'column'} spacing={2} alignItems={'center'}>

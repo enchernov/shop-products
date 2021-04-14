@@ -20,7 +20,7 @@ export interface IUserDataProps {
   id: string
   username: string
   email: string
-  avatar: IAvatarProps
+  avatar: IAvatarProps | null
   confirmed: boolean
   orders: any
   addresses: any

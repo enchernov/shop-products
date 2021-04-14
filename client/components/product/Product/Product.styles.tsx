@@ -25,6 +25,12 @@ export const useStyles = makeStyles(() =>
     buyButton: {
       color: 'white',
     },
+    countInput: {
+      width: 100,
+      '& > div': {
+        marginBottom: 10,
+      },
+    },
     share: {
       border: 'none !important',
     },

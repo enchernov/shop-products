@@ -81,9 +81,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       transition: '.1s ease-in-out',
     },
     cartButton: {
-      // color: theme.palette.primary.main,
       display: 'none',
       transition: '.1s ease-in-out',
+    },
+    primaryButton: {
+      color: theme.palette.primary.main + ' !important',
     },
     actions: {
       minHeight: 30,

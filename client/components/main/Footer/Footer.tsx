@@ -108,8 +108,8 @@ const Footer: FunctionComponent = () => {
       className={classes.root}
       style={
         isSmallWidth
-          ? { padding: 40, left: '-28px', marginBottom: '.1rem' }
-          : { padding: '40px 120px', left: '-40px' }
+          ? { padding: 40, marginBottom: '.1rem' }
+          : { padding: '40px 120px' }
       }
       alignItems={isSmallWidth ? 'center' : 'flex-start'}
       direction={isSmallWidth ? 'column' : 'row'}

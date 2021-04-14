@@ -1,22 +1,41 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import { grey } from '@material-ui/core/colors'
+import { green, red, grey } from '@material-ui/core/colors'
+
+const primaryGreen = green[500]
+const accentGreen = green.A200
+const darkGreen = green[900]
+const primaryRed = red[500]
+const accentRed = red.A200
+const darkRed = red[900]
 
 export default createMuiTheme({
   name: 'Dark Theme',
   palette: {
     type: 'dark',
     primary: {
-      light: '#ffff9f',
-      main: '#f7e06e',
-      dark: '#c2ae3e',
-      contrastText: '#fafafa',
+      light: accentGreen,
+      main: primaryGreen,
+      dark: darkGreen,
+      contrastText: '#fff',
     },
     secondary: {
-      light: '#ff9fa5',
-      main: '#f36d76',
-      dark: '#bc3c4a',
-      contrastText: '#fafafa',
+      light: primaryRed,
+      main: accentRed,
+      dark: darkRed,
+      contrastText: '#000',
     },
+    // primary: {
+    //   light: '#ffff9f',
+    //   main: '#f7e06e',
+    //   dark: '#c2ae3e',
+    //   contrastText: '#fff',
+    // },
+    // secondary: {
+    //   light: '#ff9fa5',
+    //   main: '#f36d76',
+    //   dark: '#bc3c4a',
+    //   contrastText: '#000',
+    // },
     background: {
       default: grey[800],
       paper: '#53586a',

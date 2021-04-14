@@ -269,7 +269,12 @@ const Settings: FunctionComponent = () => {
         </form>
       </Grid>
       <Grid item>
-        <Button color={'secondary'} variant={'outlined'} onClick={handleDialog}>
+        <Button
+          color={'secondary'}
+          variant={'outlined'}
+          onClick={handleDialog}
+          className={classes.redButton}
+        >
           Удалить аккаунт
         </Button>
         <Dialog
@@ -303,6 +308,7 @@ const Settings: FunctionComponent = () => {
               onClick={confirmDelete}
               color="secondary"
               variant={'outlined'}
+              className={classes.redButton}
             >
               Подвердить
             </Button>

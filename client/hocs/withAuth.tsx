@@ -29,10 +29,11 @@ const withAuth = (Component: any) => {
         dispatch(ACTIONS.authSuccess({ user: { ...data.me, ...data.self } }))
       }
 
-      if (error) {
+      if (!loading && (error || !data)) {
         enqueueSnackbar('Вы не авторизованы', { variant: 'error' })
         syncLogout({ key: 'logout' })
       }
+
       return () => {
         window.removeEventListener('storage', syncLogout)
         window.localStorage.removeItem('logout')

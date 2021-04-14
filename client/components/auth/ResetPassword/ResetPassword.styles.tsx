@@ -16,6 +16,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       padding: 20,
     },
     registerPaper: {
+      marginTop: 20,
       padding: 20,
     },
     input: {

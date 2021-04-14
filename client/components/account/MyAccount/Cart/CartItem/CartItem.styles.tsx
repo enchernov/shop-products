@@ -27,6 +27,9 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     countInput: {
       width: 100,
+      '& > div': {
+        marginBottom: 10,
+      },
       // textAlign: 'center',
     },
   })
