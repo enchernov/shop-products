@@ -15,10 +15,27 @@ const Order: FunctionComponent<IOrderComponentProps> = ({ order }) => {
   const date = makeDate(createdAt)
   const classes = useStyles()
   return (
-    <Paper className={classes.root} square={true}>
+    <Paper
+      className={classes.root}
+      square={true}
+      elevation={0}
+      style={{ boxShadow: 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px' }}
+    >
       <Grid container direction={'column'} spacing={2}>
         <Grid item>
-          <Typography variant={'h4'}>Продукты</Typography>
+          <Grid
+            container
+            justify={'space-between'}
+            alignItems={'center'}
+            spacing={2}
+          >
+            <Grid item>
+              <Typography variant={'h4'}>ID</Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant={'h5'}>{id}</Typography>
+            </Grid>
+          </Grid>
         </Grid>
         {products.map((i) => (
           <Grid item key={i.id}>
@@ -40,7 +57,9 @@ const Order: FunctionComponent<IOrderComponentProps> = ({ order }) => {
               <Typography variant={'h4'}>Итог</Typography>
             </Grid>
             <Grid item>
-              <Typography variant={'h5'}>{`${total / 100} ₽`}</Typography>
+              <Typography variant={'h5'}>{`${(total / 100).toFixed(
+                2
+              )} ₽`}</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -61,16 +80,6 @@ const Order: FunctionComponent<IOrderComponentProps> = ({ order }) => {
             </Grid>
             <Grid item>
               <Typography variant={'h5'}>{date}</Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item>
-          <Grid container justify={'space-between'} alignItems={'center'}>
-            <Grid item>
-              <Typography variant={'h4'}>ID</Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant={'h5'}>{id}</Typography>
             </Grid>
           </Grid>
         </Grid>

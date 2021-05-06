@@ -2,6 +2,7 @@ import React from 'react'
 import { Story } from '@storybook/react'
 import { Meta } from '@storybook/react/types-6-0'
 import Accordion from './index'
+import { Typography } from '@material-ui/core'
 
 export default {
   title: 'ui/Accordion',
@@ -13,12 +14,12 @@ const Template: Story = (args) => (
 )
 export const Default = Template.bind({})
 Default.args = {
-  title: 'TITLE',
-  children: <h1>Settings</h1>,
+  title: 'Заголовок',
+  children: <Typography variant={'body2'}>Содержание аккордиона</Typography>,
 }
-
-export const General = Template.bind({})
-General.args = {
-  title: 'General',
-  children: <h1>General settings</h1>,
-}
+//
+// export const General = Template.bind({})
+// General.args = {
+//   title: 'General',
+//   children: <Typography variant={'body2'}>General settings</Typography>,
+// }

@@ -116,7 +116,7 @@ const Settings: FunctionComponent = () => {
     initialValues: formInitialValues(state),
     validationSchema: validationSchema,
     onSubmit: handleSubmit,
-    validateOnMount: false,
+    // validateOnMount: false,
   })
 
   useEffect(() => {
@@ -278,6 +278,7 @@ const Settings: FunctionComponent = () => {
           Удалить аккаунт
         </Button>
         <Dialog
+          className={classes.dialog}
           open={dialogOpen}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
@@ -290,9 +291,7 @@ const Settings: FunctionComponent = () => {
               id="alert-dialog-description"
               color={'textPrimary'}
             >
-              Если вы не уверены в том, что хотите&nbsp;
-              <b>удалить аккаунт&nbsp;{state.user?.username}</b>, нажмите кнопку
-              ОТМЕНА
+              Если вы не уверены в том, что хотите сделать это, нажмите кнопку ОТМЕНА
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -301,13 +300,14 @@ const Settings: FunctionComponent = () => {
               color="primary"
               autoFocus
               className={classes.cancelButton}
+              variant={'outlined'}
             >
               Отмена
             </Button>
             <Button
               onClick={confirmDelete}
               color="secondary"
-              variant={'outlined'}
+              variant={'text'}
               className={classes.redButton}
             >
               Подвердить

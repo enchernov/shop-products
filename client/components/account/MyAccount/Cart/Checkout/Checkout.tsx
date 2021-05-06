@@ -29,7 +29,7 @@ const Checkout: FunctionComponent<ICheckoutProps> = ({
   }
 
   return (
-    <Paper square={true} className={classes.root}>
+    <Paper square={true} className={classes.root} elevation={0}>
       <Grid
         container
         direction={'column'}

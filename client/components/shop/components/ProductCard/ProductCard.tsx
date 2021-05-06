@@ -55,7 +55,12 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
     await buy(dispatch, id, state.cart, available, enqueueSnackbar)
 
   return (
-    <Paper className={classes.root} square={true} aria-disabled={available < 1}>
+    <Paper
+      className={classes.root}
+      square={true}
+      aria-disabled={available < 1}
+      elevation={0}
+    >
       <Grid
         container
         direction={'column'}

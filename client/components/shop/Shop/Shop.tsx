@@ -39,7 +39,9 @@ const Shop: FunctionComponent = () => {
           <Breadcrumbs />
         </Grid>
         <Grid item>
-          <Typography variant={'h1'}>Магазин</Typography>
+          <Typography variant={'h1'}>
+            Магазин
+          </Typography>
         </Grid>
       </Grid>
       <Divider type={'wide'} />

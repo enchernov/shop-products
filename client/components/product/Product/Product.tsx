@@ -55,10 +55,16 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
   }: IProductProps = product
 
   const toCart = async () => {
-    await buy(dispatch, id, state.cart, available, enqueueSnackbar)
-    if (itemCount > 1) {
+    const errStatus = await buy(
+      dispatch,
+      id,
+      state.cart,
+      available,
+      enqueueSnackbar
+    )
+    if (itemCount > 1 && errStatus !== 2) {
       const currentCount = countOfItem(id, state.cart)
-      await updateCount(dispatch, state.cart, id, currentCount + itemCount)
+      await updateCount(dispatch, state.cart, id, currentCount + itemCount - 1)
     }
   }
 
@@ -240,27 +246,29 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} style={{ marginBottom: '3rem' }}>
-            <Grid container direction={'column'} spacing={3}>
-              <Grid item style={{ padding: '20px 40px' }}>
-                <Typography variant={'h1'}>Связанные продукты</Typography>
-              </Grid>
-              <Grid item style={{ padding: '0 0 20px 0' }}>
-                <Grid
-                  container
-                  justify={'space-around'}
-                  alignItems={'center'}
-                  spacing={3}
-                >
-                  {related.map((p) => (
-                    <Grid item key={`product_${p.id}`}>
-                      <ProductCard hit={p} />
-                    </Grid>
-                  ))}
+          {related?.length > 0 ? (
+            <Grid item xs={12} style={{ marginBottom: '3rem' }}>
+              <Grid container direction={'column'} spacing={3}>
+                <Grid item style={{ padding: '20px 40px' }}>
+                  <Typography variant={'h1'}>Связанные продукты</Typography>
+                </Grid>
+                <Grid item style={{ padding: '0 0 20px 0' }}>
+                  <Grid
+                    container
+                    justify={'space-around'}
+                    alignItems={'center'}
+                    spacing={3}
+                  >
+                    {related.map((p) => (
+                      <Grid item key={`product_${p.id}`}>
+                        <ProductCard hit={p} />
+                      </Grid>
+                    ))}
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
+          ) : null}
         </Grid>
       </Grid>
       <Grid item xs={12} lg={3}>

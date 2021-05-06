@@ -6,6 +6,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       padding: 20,
       maxWidth: 550,
       width: '90vw',
+      boxShadow: 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px',
+      '&:hover': {
+        boxShadow:
+          'rgba(76, 175, 79, 0.75) 0px -2px inset, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px',
+      },
     },
     image: {
       width: 150,

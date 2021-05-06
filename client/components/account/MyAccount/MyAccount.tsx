@@ -15,6 +15,21 @@ import {
 } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
 
+import {
+  AccountCircle,
+  AccountCircleOutlined,
+  ShoppingCart,
+  ShoppingCartOutlined,
+  Favorite,
+  FavoriteBorderOutlined,
+  Settings as SettingsFilled,
+  SettingsOutlined,
+  Room,
+  RoomOutlined,
+  Assignment,
+  AssignmentOutlined,
+} from '@material-ui/icons'
+
 import { Breadcrumbs, Divider, TabPanel } from '@ui/index'
 import { AppContext } from '@providers/AppProvider'
 import Dashboard from './Dashboard'
@@ -66,7 +81,9 @@ const MyAccount: FunctionComponent = () => {
           <Breadcrumbs />
         </Grid>
         <Grid item>
-          <Typography variant={'h1'}>Мой аккаунт</Typography>
+          <Typography variant={'h1'} >
+            Мой аккаунт
+          </Typography>
         </Grid>
       </Grid>
       <Divider type={'wide'} />
@@ -86,14 +103,73 @@ const MyAccount: FunctionComponent = () => {
               }
             >
               <Tab
+                className={classes.tab}
+                icon={
+                  value === 0 ? (
+                    <AccountCircle color={'secondary'} />
+                  ) : (
+                    <AccountCircleOutlined />
+                  )
+                }
                 label={state.user?.username || <Skeleton width={100} />}
                 {...a11yProps(0)}
               />
-              <Tab label="Корзина" {...a11yProps(1)} />
-              <Tab label="Заказы" {...a11yProps(2)} />
-              <Tab label="Избранное" {...a11yProps(3)} />
-              <Tab label="Адреса" {...a11yProps(4)} />
-              <Tab label="Настройки" {...a11yProps(5)} />
+              <Tab
+                className={classes.tab}
+                icon={
+                  value === 1 ? (
+                    <ShoppingCart color={'secondary'} />
+                  ) : (
+                    <ShoppingCartOutlined />
+                  )
+                }
+                label="Корзина"
+                {...a11yProps(1)}
+              />
+              <Tab
+                className={classes.tab}
+                icon={
+                  value === 2 ? (
+                    <Assignment color={'secondary'} />
+                  ) : (
+                    <AssignmentOutlined />
+                  )
+                }
+                label="Заказы"
+                {...a11yProps(2)}
+              />
+              <Tab
+                className={classes.tab}
+                icon={
+                  value === 3 ? (
+                    <Favorite color={'secondary'} />
+                  ) : (
+                    <FavoriteBorderOutlined />
+                  )
+                }
+                label="Избранное"
+                {...a11yProps(3)}
+              />
+              <Tab
+                className={classes.tab}
+                icon={
+                  value === 4 ? <Room color={'secondary'} /> : <RoomOutlined />
+                }
+                label="Адреса"
+                {...a11yProps(4)}
+              />
+              <Tab
+                className={classes.tab}
+                icon={
+                  value === 5 ? (
+                    <SettingsFilled color={'secondary'} />
+                  ) : (
+                    <SettingsOutlined />
+                  )
+                }
+                label="Настройки"
+                {...a11yProps(5)}
+              />
             </Tabs>
           </Grid>
           <Grid item xs={isSmallWidth ? 12 : 10}>

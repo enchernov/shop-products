@@ -48,7 +48,7 @@ const Addresses: FunctionComponent = () => {
       {state?.user?.addresses?.length ? (
         state.user.addresses.map((a) => (
           <Grid item key={a.address}>
-            <Paper square={true} className={classes.item}>
+            <Paper square={true} className={classes.item} elevation={0}>
               <Grid container justify={'space-between'} alignItems={'center'}>
                 <Grid item>{a.address}</Grid>
                 <Grid item>
@@ -62,11 +62,31 @@ const Addresses: FunctionComponent = () => {
           </Grid>
         ))
       ) : (
-        <Grid item>
-          <Typography variant={'body1'} paragraph>
-            Добавьте ваш первый адрес.
-          </Typography>
-        </Grid>
+        <>
+          <Grid item>
+            <Typography variant={'body2'} paragraph>
+              Добавьте ваш первый адрес.
+            </Typography>
+          </Grid>
+          <Grid
+            item
+            style={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <img
+              src="/images/account/address.svg"
+              alt=""
+              style={{
+                width: '100%',
+                height: '100%',
+                maxWidth: 450,
+              }}
+            />
+          </Grid>
+        </>
       )}
     </Grid>
   )

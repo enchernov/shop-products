@@ -97,18 +97,42 @@ const Cart: FunctionComponent = () => {
                         </Grid>
                       ))
                     ) : (
-                      <Grid item>
-                        <Typography variant={'body1'} paragraph>
-                          В корзине нет товаров. Посмотрите, что есть в{' '}
-                          <Link href={'/shop'}>Магазине</Link>.
-                        </Typography>
-                      </Grid>
+                      <>
+                        <Grid item>
+                          <Typography variant={'body2'} paragraph>
+                            В корзине нет товаров. Посмотрите, что есть в{' '}
+                            <Link href={'/shop'}>Магазине</Link>.
+                          </Typography>
+                        </Grid>
+                        <Grid
+                          item
+                          style={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'center'
+                          }}
+                        >
+                          <img
+                            src="/images/account/cart.svg"
+                            alt=""
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              maxWidth: 450,
+                            }}
+                          />
+                        </Grid>
+                      </>
                     )}
                   </Grid>
                 </Grid>
                 {cart.length && !checkout ? (
                   <Grid item>
-                    <Paper className={classes.placeOrderRoot} square={true}>
+                    <Paper
+                      className={classes.placeOrderRoot}
+                      square={true}
+                      elevation={0}
+                    >
                       <Grid
                         container
                         direction={'column'}
@@ -117,21 +141,10 @@ const Cart: FunctionComponent = () => {
                         spacing={2}
                       >
                         <Grid item>
-                          <Grid
-                            container
-                            justify={'space-between'}
-                            alignItems={'center'}
-                            spacing={2}
-                          >
-                            <Grid item>
-                              <Typography variant={'h1'}>Итого</Typography>
-                            </Grid>
-                            <Grid item>
-                              <Typography
-                                variant={'h1'}
-                              >{`${total} ₽`}</Typography>
-                            </Grid>
-                          </Grid>
+                          <Typography variant={'h1'}>Итого</Typography>
+                        </Grid>
+                        <Grid item>
+                          <Typography variant={'h1'}>{`${total} ₽`}</Typography>
                         </Grid>
                         <Grid item>
                           <Button

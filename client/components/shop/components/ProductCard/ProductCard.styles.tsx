@@ -8,9 +8,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       width: 233,
       position: 'relative',
       backgroundColor: theme.palette.background.paper,
-      boxShadow: theme.shadows['1'],
+      transition: '.1s ease-in-out',
+      boxShadow: 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px',
       '&:hover': {
-        boxShadow: theme.shadows['4'],
+        boxShadow:
+          'rgba(76, 175, 79, 0.75) 0px -2px inset, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px',
         '& $iconAnimation': {
           opacity: 1,
           transform: 'translateX(0)',

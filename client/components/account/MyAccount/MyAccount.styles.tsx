@@ -11,5 +11,16 @@ export const useStyles = makeStyles(() =>
       display: 'flex',
       marginTop: 20,
     },
+    tab: {
+      '& > span.MuiTab-wrapper': {
+        flexDirection: 'row',
+        '& > svg.MuiSvgIcon-root': {
+          width: '1.25rem',
+          height: '1.25rem',
+          marginBottom: 0,
+          marginRight: 6,
+        },
+      },
+    },
   })
 )

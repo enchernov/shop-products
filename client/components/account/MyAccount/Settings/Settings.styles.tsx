@@ -23,7 +23,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       // color: theme.palette.primary.contrastText,
     },
     cancelButton: {
-      // color: theme.palette.primary.contrastText,
+      color: theme.palette.primary.contrastText,
     },
     redButton: {
       color: theme.palette.secondary.main + ' !important',
@@ -42,6 +42,12 @@ export const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       textAlign: 'center',
       margin: '0 0 20px 0',
+    },
+    dialog: {
+      '& > div.MuiBackdrop-root': {
+        backgroundColor: 'transparent',
+        backdropFilter: 'blur(.1rem)',
+      },
     },
   })
 )

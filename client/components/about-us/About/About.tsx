@@ -30,7 +30,9 @@ const About: FunctionComponent = () => {
           <Breadcrumbs />
         </Grid>
         <Grid item>
-          <Typography variant={'h1'}>О нас</Typography>
+          <Typography variant={'h1'} >
+            О нас
+          </Typography>
         </Grid>
       </Grid>
       <Divider type={'wide'} />

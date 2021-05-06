@@ -50,7 +50,13 @@ const Orders: FunctionComponent = () => {
         <Grid
           container
           spacing={2}
-          direction={isSmallWidth ? 'column' : 'row'}
+          direction={
+            !state.user?.orders?.length
+              ? 'column'
+              : isSmallWidth
+              ? 'column'
+              : 'row'
+          }
           alignItems={isSmallWidth ? 'center' : 'flex-start'}
         >
           {state.user?.orders?.length ? (
@@ -60,13 +66,33 @@ const Orders: FunctionComponent = () => {
               </Grid>
             ))
           ) : (
-            <Grid item>
-              <Typography variant={'body1'} paragraph>
-                У вас пока нет заказов. Вы можете оформить заказ, если добавите
-                в корзину продукты. Для этого воспользуйтесь{' '}
-                <Link href={'/shop'}>Магазином</Link>.
-              </Typography>
-            </Grid>
+            <>
+              <Grid item>
+                <Typography variant={'body2'} paragraph>
+                  У вас пока нет заказов. Вы сможете оформить заказ, если
+                  добавите в корзину продукты. Для этого воспользуйтесь{' '}
+                  <Link href={'/shop'}>Магазином</Link>.
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center'
+                }}
+              >
+                <img
+                  src="/images/account/order.svg"
+                  alt=""
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    maxWidth: 450,
+                  }}
+                />
+              </Grid>
+            </>
           )}
         </Grid>
       </Grid>

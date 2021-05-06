@@ -60,7 +60,7 @@ const CartItem: FunctionComponent<IProductProps> = ({
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
-    <Paper square={true} className={classes.root}>
+    <Paper square={true} className={classes.root} elevation={0}>
       <Grid
         container
         justify={'space-between'}

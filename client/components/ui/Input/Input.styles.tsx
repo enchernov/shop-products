@@ -21,6 +21,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       '& + p': {
         height: 0,
       },
+      '& > p': {
+        fontSize: '0.875rem',
+      },
     },
   })
 )

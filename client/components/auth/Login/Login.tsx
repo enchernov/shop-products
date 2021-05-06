@@ -78,7 +78,7 @@ const Login: FunctionComponent = () => {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: handleSubmit,
-    validateOnMount: true,
+    // validateOnMount: true,
   })
 
   return (

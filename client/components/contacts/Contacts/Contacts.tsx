@@ -95,7 +95,9 @@ const Contacts: FunctionComponent = () => {
           <Breadcrumbs />
         </Grid>
         <Grid item>
-          <Typography variant={'h1'}>Контакты</Typography>
+          <Typography variant={'h1'} >
+            Контакты
+          </Typography>
         </Grid>
       </Grid>
       <Divider type={'wide'} />

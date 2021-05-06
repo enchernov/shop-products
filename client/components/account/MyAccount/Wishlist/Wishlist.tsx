@@ -21,7 +21,7 @@ const Wishlist: FunctionComponent = () => {
         <Grid
           container
           spacing={2}
-          direction={isSmallWidth ? 'column' : 'row'}
+          direction={!list.length ? 'column' : isSmallWidth ? 'column' : 'row'}
           alignItems={isSmallWidth ? 'center' : 'flex-start'}
         >
           {list.length && list.every((x) => x !== undefined) ? (
@@ -31,12 +31,32 @@ const Wishlist: FunctionComponent = () => {
               </Grid>
             ))
           ) : (
-            <Grid item>
-              <Typography variant={'body1'} paragraph>
-                В списке пока нет товаров. Мы уверены, что в{' '}
-                <Link href={'/shop'}>Магазине</Link> многе вам понравится.
-              </Typography>
-            </Grid>
+            <>
+              <Grid item>
+                <Typography variant={'body2'} paragraph>
+                  В списке пока нет товаров. Мы уверены, что в{' '}
+                  <Link href={'/shop'}>Магазине</Link> многе вам понравится.
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
+              >
+                <img
+                  src="/images/account/favorite.svg"
+                  alt=""
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    maxWidth: 450,
+                  }}
+                />
+              </Grid>
+            </>
           )}
         </Grid>
       </Grid>

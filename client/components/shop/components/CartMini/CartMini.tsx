@@ -40,12 +40,12 @@ const CartMini = () => {
           const { name, image, price, id, count } = product
           return (
             <Grid item key={product?.id}>
-              <Paper square={true} className={classes.root}>
+              <Paper square={true} className={classes.root} elevation={0}>
                 <Grid
                   container
                   alignItems={'center'}
+                  justify={'space-around'}
                   className={classes.productMini}
-                  spacing={1}
                 >
                   <Grid item>
                     <img src={image.url} alt={name} className={classes.image} />
@@ -60,14 +60,16 @@ const CartMini = () => {
                       variant={'subtitle1'}
                     >{`${price} ₽ × ${count}`}</Typography>
                   </Grid>
-                  <Tooltip title={'Удалить из корзины'} placement={'top'}>
-                    <IconButton
-                      icon={'delete'}
-                      color={'default'}
-                      className={classes.icon}
-                      onClick={() => remove(id)}
-                    />
-                  </Tooltip>
+                  <Grid item>
+                    <Tooltip title={'Удалить из корзины'} placement={'top'}>
+                      <IconButton
+                        icon={'delete'}
+                        color={'default'}
+                        className={classes.icon}
+                        onClick={() => remove(id)}
+                      />
+                    </Tooltip>
+                  </Grid>
                 </Grid>
               </Paper>
             </Grid>

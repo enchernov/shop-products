@@ -16,6 +16,7 @@ export const buy = async (dispatch, id, cart, available, enqueueSnackbar) => {
       else enqueueSnackbar('Возникла ошибка', { variant: 'error' })
     } else {
       enqueueSnackbar('Макс. кол-во товара в корзине', { variant: 'warning' })
+      return 2
     }
   } catch (error) {
     console.log(error)

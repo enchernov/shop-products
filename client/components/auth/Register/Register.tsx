@@ -95,7 +95,7 @@ const Register: FunctionComponent = () => {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: handleSubmit,
-    validateOnMount: true,
+    // validateOnMount: true,
   })
 
   return (
