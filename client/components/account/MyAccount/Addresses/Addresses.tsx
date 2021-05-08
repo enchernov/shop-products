@@ -4,24 +4,25 @@ import { IconButton, Input } from '@ui/index'
 import { Grid, Paper, Typography } from '@material-ui/core'
 import { AppContext } from '@providers/AppProvider'
 import { useMutation } from '@apollo/client'
-import CREATE_ADDRESS from '@graphql/mutations/CreateAddress'
-import DELETE_ADDRESS from '@graphql/mutations/DeleteAddress'
 import { addAddress, delAddress } from '@utils/account'
+import UPDATE_USER from '@graphql/mutations/UpdateUser'
 
 const Addresses: FunctionComponent = () => {
   const classes = useStyles()
   const [address, setAddress] = useState<string>('')
   const { state, dispatch } = useContext(AppContext)
-  const [createAddress] = useMutation(CREATE_ADDRESS)
-  const [deleteAddress] = useMutation(DELETE_ADDRESS)
+
+  const [updateUser] = useMutation(UPDATE_USER)
 
   const removeAddress = async (id) =>
-    await delAddress(state.user, dispatch, deleteAddress, id)
+    await delAddress(state.user, dispatch, updateUser, id)
 
   const newAddress = async () => {
+    await addAddress(state.user, dispatch, updateUser, address)
     setAddress('')
-    await addAddress(state.user, dispatch, createAddress, address)
   }
+
+  const addresses = JSON.parse(state.user?.addresses || '[]')
 
   return (
     <Grid container direction={'column'} spacing={2} alignItems={'center'}>
@@ -45,8 +46,8 @@ const Addresses: FunctionComponent = () => {
           }
         />
       </Grid>
-      {state?.user?.addresses?.length ? (
-        state.user.addresses.map((a) => (
+      {addresses.length ? (
+        addresses.map((a) => (
           <Grid item key={a.address}>
             <Paper square={true} className={classes.item} elevation={0}>
               <Grid container justify={'space-between'} alignItems={'center'}>

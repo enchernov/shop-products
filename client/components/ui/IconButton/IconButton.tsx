@@ -21,6 +21,7 @@ import {
   ClearAllOutlined,
   ArrowBackOutlined,
   ArrowForwardOutlined,
+  ArrowUpwardOutlined,
   WbSunny,
   NightsStay,
   Facebook,
@@ -50,6 +51,7 @@ export type IconType =
   | 'clear'
   | 'back'
   | 'forward'
+  | 'up'
   | 'sun'
   | 'moon'
   | 'facebook'
@@ -83,6 +85,7 @@ const iconButtonMap: Record<IconType, ElementType<SvgIconProps>> = {
   clear: ClearAllOutlined,
   back: ArrowBackOutlined,
   forward: ArrowForwardOutlined,
+  up: ArrowUpwardOutlined,
   sun: WbSunny,
   moon: NightsStay,
   facebook: Facebook,

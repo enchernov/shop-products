@@ -4,9 +4,7 @@ import { darken } from '@material-ui/core/styles/colorManipulator'
 export const useStyles = makeStyles(() =>
   createStyles({
     root: {},
-    side: {
-      padding: '0 40px',
-    },
+    side: {},
     imageContainer: {
       display: 'flex',
       justifyContent: 'center',

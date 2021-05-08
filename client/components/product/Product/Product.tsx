@@ -27,8 +27,11 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
   const classes = useStyles()
   const { state, dispatch } = useContext(ShopContext)
   const { enqueueSnackbar } = useSnackbar()
+
   const theme = useTheme()
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
+  const xsWidth = useMediaQuery(theme.breakpoints.down('xs'))
+
   const [itemCount, setItemCount] = useState<number>(1)
   useEffect(() => setItemCount(1), [product])
 
@@ -42,6 +45,7 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
     },
     [state.cart, dispatch, itemCount, product]
   )
+
   if (!product) return <Loader />
   const {
     available,
@@ -101,7 +105,7 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
           </Grid>
           <Grid item xs={isSmallWidth ? 12 : 6}>
             <Grid container direction={'column'} spacing={3}>
-              <Grid item>
+              <Grid item style={isSmallWidth ? { textAlign: 'center' } : {}}>
                 <Typography variant={'caption'}>{name}</Typography>
                 <Rating
                   name="read-only"
@@ -109,18 +113,47 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
                   readOnly
                   precision={0.5}
                   className={classes.rating}
+                  style={isSmallWidth ? { justifyContent: 'center' } : {}}
                 />
               </Grid>
               <Grid item>
-                <Typography variant={'h1'}>{price + ' ₽'}</Typography>
+                <Typography
+                  variant={'h1'}
+                  align={isSmallWidth ? 'center' : 'left'}
+                >
+                  {price + ' ₽'}
+                </Typography>
               </Grid>
               <Grid item>
-                <Typography variant={'body2'}>{description}</Typography>
+                <Typography
+                  variant={'body2'}
+                  align={isSmallWidth ? 'justify' : 'left'}
+                >
+                  {description}
+                </Typography>
               </Grid>
               <Grid item>
-                <Grid container justify={'space-between'} alignItems={'center'}>
-                  <Grid item>
+                <Grid
+                  container
+                  direction={isSmallWidth ? 'column-reverse' : 'row'}
+                  justify={'space-between'}
+                  alignItems={'center'}
+                  spacing={isSmallWidth ? 3 : 0}
+                >
+                  <Grid
+                    item
+                    style={
+                      isSmallWidth ? { width: '100%', textAlign: 'center' } : {}
+                    }
+                  >
                     <Button
+                      style={
+                        xsWidth
+                          ? { width: '67%' }
+                          : isSmallWidth
+                          ? { width: '50%' }
+                          : {}
+                      }
                       color={'primary'}
                       className={classes.buyButton}
                       onClick={toCart}
@@ -249,13 +282,31 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
           {related?.length > 0 ? (
             <Grid item xs={12} style={{ marginBottom: '3rem' }}>
               <Grid container direction={'column'} spacing={3}>
-                <Grid item style={{ padding: '20px 40px' }}>
-                  <Typography variant={'h1'}>Связанные продукты</Typography>
+                <Grid
+                  item
+                  style={
+                    isSmallWidth
+                      ? { padding: '20px 0' }
+                      : { padding: '20px 40px' }
+                  }
+                >
+                  <Typography
+                    variant={'h1'}
+                    align={isSmallWidth ? 'center' : 'left'}
+                  >
+                    Связанные продукты
+                  </Typography>
                 </Grid>
-                <Grid item style={{ padding: '0 0 20px 0' }}>
+                <Grid
+                  item
+                  style={
+                    isSmallWidth ? { paddingTop: 20 } : { paddingLeft: 20 }
+                  }
+                >
                   <Grid
                     container
-                    justify={'space-around'}
+                    direction={isSmallWidth ? 'column' : 'row'}
+                    justify={'flex-start'}
                     alignItems={'center'}
                     spacing={3}
                   >
@@ -271,17 +322,27 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
           ) : null}
         </Grid>
       </Grid>
-      <Grid item xs={12} lg={3}>
-        <Grid
-          container
-          className={classes.side}
-          direction={'column'}
-          spacing={3}
-        >
-          <Grid item>
-            <CartMini />
-          </Grid>
-        </Grid>
+      <Grid
+        item
+        xs={12}
+        lg={3}
+        style={
+          isSmallWidth
+            ? { padding: 0 }
+            : { padding: '20px', maxWidth: 450, margin: '0 auto' }
+        }
+      >
+        {/*<Grid*/}
+        {/*  container*/}
+        {/*  className={classes.side}*/}
+        {/*  */}
+        {/*  direction={'column'}*/}
+        {/*  spacing={3}*/}
+        {/*>*/}
+        {/*  <Grid item>*/}
+        <CartMini />
+        {/*</Grid>*/}
+        {/*</Grid>*/}
       </Grid>
     </Grid>
   )

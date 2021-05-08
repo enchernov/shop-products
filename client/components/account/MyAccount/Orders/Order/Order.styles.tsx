@@ -8,9 +8,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       padding: 20,
       position: 'relative',
       backgroundColor: theme.palette.background.paper,
-      boxShadow: theme.shadows['1'],
+      boxShadow: 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px',
       '&:hover': {
-        boxShadow: theme.shadows['4'],
+        boxShadow:
+          'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
       },
     },
   })

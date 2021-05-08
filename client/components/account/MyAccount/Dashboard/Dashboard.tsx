@@ -20,7 +20,7 @@ import { useStyles } from './Dashboard.styles'
 import { loadAvatar, updateUserSuccess } from '@actions/auth'
 import { addAvatar, delAvatar } from '@utils/account'
 import { Skeleton } from '@material-ui/lab'
-import {IUserDataProps} from "@interfaces/auth";
+import { IUserDataProps } from '@interfaces/auth'
 
 const Dashboard: FunctionComponent = () => {
   const classes = useStyles()

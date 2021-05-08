@@ -79,7 +79,7 @@ const Orders: FunctionComponent = () => {
                 style={{
                   width: '100%',
                   display: 'flex',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
                 }}
               >
                 <img

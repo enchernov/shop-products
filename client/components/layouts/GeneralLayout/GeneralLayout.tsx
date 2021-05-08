@@ -1,5 +1,11 @@
 import React, { FunctionComponent, useContext, useEffect } from 'react'
-import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core'
+import {
+  Grid,
+  Typography,
+  useMediaQuery,
+  useScrollTrigger,
+  useTheme,
+} from '@material-ui/core'
 import { useSnackbar } from 'notistack'
 
 import { IconButton, Link } from '@ui/index'
@@ -36,7 +42,7 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
     if (error) logoutUser(dispatch)
   }, [data, loading])
 
-  // console.log(state)
+  const scrollUpShown = useScrollTrigger({ threshold: 50 })
 
   const classes = useStyles()
 
@@ -59,6 +65,8 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
 
   const theme = useTheme()
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
+
+  console.log(state)
 
   return (
     <>
@@ -214,6 +222,16 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
           &#169; 2021 FoodMarket
         </Typography>
       </footer>
+      <IconButton
+        icon={'up'}
+        className={classes.scrollUp}
+        onClick={() => typeof window !== 'undefined' && window?.scrollTo(0, 0)}
+        style={
+          scrollUpShown
+            ? { opacity: 1, display: 'block' }
+            : { opacity: 0, display: 'none' }
+        }
+      />
     </>
   )
 }

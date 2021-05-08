@@ -16,7 +16,10 @@ const Main: FunctionComponent = () => {
   const classes = useStyles()
   const { state } = useContext(ShopContext)
 
-  const popular = state.products.sort((a, b) => b.rating - a.rating).slice(0, 5)
+  const popular = state.products
+    .filter((x) => x.available > 0)
+    .sort((a, b) => b.rating - a.rating)
+    .slice(0, 5)
 
   const theme = useTheme()
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
@@ -56,28 +59,30 @@ const Main: FunctionComponent = () => {
             </Link>
           </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Grid container direction={'column'} spacing={3}>
-            <Grid item style={{ padding: '20px 40px' }}>
-              <Typography variant={'h1'}>Популярное сейчас</Typography>
-            </Grid>
-            <Grid item style={{ padding: '0 0 20px 0' }}>
-              <Grid
-                container
-                direction={xsWidth ? 'column' : 'row'}
-                justify={'space-around'}
-                alignItems={'center'}
-                spacing={3}
-              >
-                {popular.map((p) => (
-                  <Grid item key={`product_${p.id}`}>
-                    <ProductCard hit={p} />
-                  </Grid>
-                ))}
+        {popular.length > 0 ? (
+          <Grid item xs={12}>
+            <Grid container direction={'column'} spacing={3}>
+              <Grid item style={{ padding: '20px 40px' }}>
+                <Typography variant={'h1'}>Популярное сейчас</Typography>
+              </Grid>
+              <Grid item style={{ padding: '0 0 20px 0' }}>
+                <Grid
+                  container
+                  direction={xsWidth ? 'column' : 'row'}
+                  justify={'space-around'}
+                  alignItems={'center'}
+                  spacing={3}
+                >
+                  {popular.map((p) => (
+                    <Grid item key={`product_${p.id}`}>
+                      <ProductCard hit={p} />
+                    </Grid>
+                  ))}
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        ) : null}
         <Grid item xs={12}>
           <Grid
             container

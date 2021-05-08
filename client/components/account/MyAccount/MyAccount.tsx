@@ -67,6 +67,7 @@ const MyAccount: FunctionComponent = () => {
 
   const theme = useTheme()
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
+  const mdWidth = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
     <>
@@ -81,15 +82,13 @@ const MyAccount: FunctionComponent = () => {
           <Breadcrumbs />
         </Grid>
         <Grid item>
-          <Typography variant={'h1'} >
-            Мой аккаунт
-          </Typography>
+          <Typography variant={'h1'}>Мой аккаунт</Typography>
         </Grid>
       </Grid>
       <Divider type={'wide'} />
       <div className={classes.root}>
         <Grid container direction={isSmallWidth ? 'column' : 'row'} spacing={3}>
-          <Grid item xs={isSmallWidth ? 12 : 2}>
+          <Grid item xs={isSmallWidth ? 12 : mdWidth ? 3 : 2}>
             <Tabs
               orientation={isSmallWidth ? 'horizontal' : 'vertical'}
               variant="scrollable"
@@ -172,7 +171,7 @@ const MyAccount: FunctionComponent = () => {
               />
             </Tabs>
           </Grid>
-          <Grid item xs={isSmallWidth ? 12 : 10}>
+          <Grid item xs={isSmallWidth ? 12 : mdWidth ? 9 : 10}>
             <TabPanel value={value} index={0}>
               <Dashboard />
             </TabPanel>

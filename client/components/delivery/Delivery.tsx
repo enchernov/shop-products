@@ -18,9 +18,7 @@ const Delivery: FunctionComponent = () => {
           <Breadcrumbs />
         </Grid>
         <Grid item>
-          <Typography variant={'h1'} >
-            Условия доставки
-          </Typography>
+          <Typography variant={'h1'}>Условия доставки</Typography>
         </Grid>
       </Grid>
       <Divider type={'wide'} />

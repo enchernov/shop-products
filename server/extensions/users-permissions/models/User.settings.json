@@ -68,21 +68,23 @@
       "plugin": "upload",
       "required": false
     },
+    "email_subscriber": {
+      "model": "email-subscribers",
+      "via": "user"
+    },
+    "tickets": {
+      "collection": "tickets",
+      "via": "user"
+    },
+    "wishlist": {
+      "type": "json"
+    },
+    "addresses": {
+      "type": "json"
+    },
     "orders": {
       "collection": "orders",
       "via": "user"
-    },
-    "addresses": {
-      "via": "users_permissions_user",
-      "collection": "address"
-    },
-    "email_subscriber": {
-      "via": "user",
-      "model": "email-subscribers"
-    },
-    "tickets": {
-      "via": "user",
-      "collection": "tickets"
     }
   }
 }

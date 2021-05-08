@@ -4,10 +4,11 @@ export const useStyles = makeStyles(() =>
   createStyles({
     placeOrderRoot: {
       padding: 20,
-      minWidth: 200,
+      backgroundColor: 'transparent',
     },
     button: {
       color: 'white',
+      marginTop: 20,
     },
   })
 )

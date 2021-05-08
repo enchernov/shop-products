@@ -13,10 +13,6 @@ const ME = gql`
         id
         email
       }
-      addresses {
-        id
-        address
-      }
       avatar {
         url
         id
@@ -28,6 +24,8 @@ const ME = gql`
         createdAt
         address
       }
+      wishlist
+      addresses
     }
   }
 `

@@ -8,10 +8,6 @@ const UPDATE_USER = gql`
         username
         email
         confirmed
-        addresses {
-          id
-          address
-        }
         avatar {
           url
           id
@@ -23,6 +19,8 @@ const UPDATE_USER = gql`
           createdAt
           address
         }
+        wishlist
+        addresses
       }
     }
   }

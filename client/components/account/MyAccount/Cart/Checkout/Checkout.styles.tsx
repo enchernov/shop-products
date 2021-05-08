@@ -22,8 +22,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
       color: '#e0e0e0',
-      backgroundColor: 'transparent',
-      backdropFilter: 'blur(.1rem)',
+      // backgroundColor: 'transparent',
+      // backdropFilter: 'blur(.1rem)',
     },
   })
 )

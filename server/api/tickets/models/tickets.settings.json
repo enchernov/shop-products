@@ -20,9 +20,9 @@
       "type": "email"
     },
     "user": {
+      "via": "tickets",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "tickets"
+      "model": "user"
     }
   }
 }

@@ -15,12 +15,7 @@ const Order: FunctionComponent<IOrderComponentProps> = ({ order }) => {
   const date = makeDate(createdAt)
   const classes = useStyles()
   return (
-    <Paper
-      className={classes.root}
-      square={true}
-      elevation={0}
-      style={{ boxShadow: 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px' }}
-    >
+    <Paper className={classes.root} square={true} elevation={0}>
       <Grid container direction={'column'} spacing={2}>
         <Grid item>
           <Grid

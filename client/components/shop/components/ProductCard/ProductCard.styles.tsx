@@ -12,7 +12,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       boxShadow: 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px',
       '&:hover': {
         boxShadow:
-          'rgba(76, 175, 79, 0.75) 0px -2px inset, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px',
+          'rgba(76, 175, 79, 0.75) 0px -2px inset, rgba(76, 175, 79, 0.1) 0px 4px 6px -1px, rgba(76, 175, 79, 0.06) 0px 2px 4px -1px',
         '& $iconAnimation': {
           opacity: 1,
           transform: 'translateX(0)',

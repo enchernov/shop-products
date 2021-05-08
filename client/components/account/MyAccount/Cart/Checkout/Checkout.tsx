@@ -18,13 +18,14 @@ const Checkout: FunctionComponent<ICheckoutProps> = ({
   resetFunction,
 }) => {
   const [address, setAddress] = useState<string>('')
+  console.log(address)
   const classes = useStyles()
   const { state } = useContext(AppContext)
 
   const handleChange = (e) => {
     const a = e.target?.value
     if (typeof a === 'number')
-      setAddress(state?.user?.addresses[e.target?.value].address)
+      setAddress(JSON.parse(state?.user?.addresses)[e.target?.value].address)
     else setAddress(e.target?.value)
   }
 
@@ -42,7 +43,7 @@ const Checkout: FunctionComponent<ICheckoutProps> = ({
         </Grid>
         <Grid item>
           <Autocomplete
-            options={state?.user?.addresses || []}
+            options={JSON.parse(state?.user?.addresses || '[]')}
             getOptionLabel={(option: { address: string }) => option.address}
             className={classes.item}
             onInputChange={(e: any) => handleChange(e)}

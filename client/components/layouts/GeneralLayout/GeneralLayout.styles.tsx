@@ -65,5 +65,20 @@ export const useStyles = makeStyles((theme: Theme & { name: string }) =>
     copyright: {
       padding: '16px 0',
     },
+    scrollUp: {
+      width: 48,
+      height: 48,
+      position: 'fixed',
+      bottom: 40,
+      right: 20,
+      transition: '.1s ease-in-out',
+      backgroundColor: theme.palette.secondary.light,
+      color: '#fafafa',
+      zIndex: theme.zIndex.drawer + 10,
+      '&:hover': {
+        backgroundColor: theme.palette.secondary.dark,
+        color: '#fafafa',
+      },
+    },
   })
 )

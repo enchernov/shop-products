@@ -12,9 +12,9 @@
   },
   "attributes": {
     "user": {
+      "via": "email_subscriber",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "email_subscriber"
+      "model": "user"
     },
     "email": {
       "type": "email"

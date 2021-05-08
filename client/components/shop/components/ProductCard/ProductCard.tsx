@@ -39,20 +39,15 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
     await toggleWishlist(dispatch, id, state.wishlist)
 
   const inList = inWishlist(state.wishlist, id)
-  // const inCart = inWishlist(state.cart, id)
-
-  // const rfc = async () => {
-  //   try {
-  //     const data = await removeFromCart(dispatch, id, state.cart)
-  //     if (data) return
-  //     else enqueueSnackbar('Возникла ошибка', { variant: 'error' })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
 
   const toCart = async () =>
-    await buy(dispatch, id, state.cart, available, enqueueSnackbar)
+    await buy(
+      dispatch,
+      id,
+      state.cart,
+      available,
+      enqueueSnackbar,
+    )
 
   return (
     <Paper

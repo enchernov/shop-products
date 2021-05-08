@@ -2,6 +2,8 @@ import * as ACTIONS from '@actions/auth'
 import { getTotal } from '@utils/shop'
 import { ChangeEvent } from 'react'
 import { loadAvatar, requestAuth, stopLoading } from '@actions/auth'
+import { v4 as uuidv4 } from 'uuid'
+import { updUser } from '@utils/auth'
 
 // === DASHBOARD
 export const addAvatar = async (
@@ -57,52 +59,27 @@ export const delAvatar = async (dispatch, deleteFile, fileId) => {
 
 // === ADDRESSES
 
-export const addAddress = async (user, dispatch, createAddress, address) => {
+export const addAddress = async (user, dispatch, updateMutation, address) => {
   try {
-    const { data } = await createAddress({
-      variables: {
-        input: {
-          data: {
-            address,
-            users_permissions_user: user?.id || '',
-          },
-        },
-      },
+    const id = uuidv4()
+    const oldAddresses = JSON.parse(user.addresses) || []
+    const newAddresses = [...oldAddresses, { id, address }]
+    console.log({ id, address }, newAddresses)
+    await updUser(dispatch, updateMutation, user.id, {
+      addresses: JSON.stringify(newAddresses),
     })
-    if (data.createAddress) {
-      dispatch(
-        ACTIONS.updateUserSuccess({
-          ...user,
-          addresses: user?.addresses.concat([data.createAddress.address]),
-        })
-      )
-    }
   } catch (e) {
     console.log(e)
   }
 }
 
-export const delAddress = async (user, dispatch, deleteAddress, id) => {
+export const delAddress = async (user, dispatch, updateMutation, id) => {
   try {
-    const { data } = await deleteAddress({
-      variables: {
-        input: {
-          where: {
-            id,
-          },
-        },
-      },
+    const oldAddresses = JSON.parse(user.addresses)
+    const newAddresses = oldAddresses.filter((x) => x.id !== id)
+    await updUser(dispatch, updateMutation, user.id, {
+      addresses: JSON.stringify(newAddresses),
     })
-    if (data.deleteAddress) {
-      dispatch(
-        ACTIONS.updateUserSuccess({
-          ...user,
-          addresses: user?.addresses.filter(
-            (x) => x.id !== data.deleteAddress.address.id
-          ),
-        })
-      )
-    }
   } catch (e) {
     console.log(e)
   }
@@ -223,6 +200,7 @@ export const unsubscribeEmail = async (
     console.log(e)
   }
 }
+
 export const makeTicket = async (createTicket, message, name, email, user) => {
   try {
     const { data } = await createTicket({

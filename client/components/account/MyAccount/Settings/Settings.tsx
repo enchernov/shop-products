@@ -291,7 +291,8 @@ const Settings: FunctionComponent = () => {
               id="alert-dialog-description"
               color={'textPrimary'}
             >
-              Если вы не уверены в том, что хотите сделать это, нажмите кнопку ОТМЕНА
+              Если вы не уверены в том, что хотите сделать это, нажмите кнопку
+              ОТМЕНА
             </DialogContentText>
           </DialogContent>
           <DialogActions>

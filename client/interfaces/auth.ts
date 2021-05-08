@@ -25,6 +25,8 @@ export interface IUserDataProps {
   orders: any
   addresses: any
   email_subscriber: any
+  cart?: any
+  favorite?: any
 }
 
 export interface IAppProps {

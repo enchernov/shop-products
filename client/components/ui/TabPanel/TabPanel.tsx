@@ -31,11 +31,7 @@ const TabPanel: FunctionComponent<TabPanelProps> = ({
       {value === index && (
         <Box
           p={3}
-          style={
-            isSmallWidth
-              ? { paddingLeft: 0, paddingRight: 0 }
-              : {}
-          }
+          style={isSmallWidth ? { paddingLeft: 0, paddingRight: 0 } : {}}
         >
           {children}
         </Box>

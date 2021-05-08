@@ -53,6 +53,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       alignItems: 'flex-start',
       '&:nth-child(1)': {
+        backgroundPosition: 'right',
         backgroundImage: `url('/images/main/banners/3.jpeg')`,
       },
       '&:nth-child(2)': {
