@@ -2,33 +2,12 @@ version: "3.7"
 
 services:
   nextjs:
-    environment:
-      - NEXT_PUBLIC_CAPTCHA_SECRET_KEY=6Lft4OwZAAAAACOwXs2stnxycUPTG9xrt5U6raK_
-      - STRAPI_API_URL=http://localhost:1337
-      - ALGOLIA_API_KEY=b02a6b02a41eb2da855e9e6723e4691c
-      - ALGOLIA_APP_ID=AQACOGUA51
-      - ALGOLIA_INDEX=dev_PRODUCTS
-      - HOST=http://localhost:3000
     build:
       context: ./client
       dockerfile: Dockerfile
     ports:
       - '3000:3000'
   strapi:
-    environment:
-      - DATABASE_HOST=cluster0.w2j2h.mongodb.net
-      - DATABASE_PORT=27017
-      - DATABASE_NAME=shop-products
-      - DATABASE_USERNAME=evgeniy
-      - DATABASE_PASSWORD=developer2020
-      - SENDGRID_API_KEY=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
-      - CLOUDINARY_CLOUD_NAME=dvvupsk1t
-      - CLOUDINARY_API_KEY=822362643342125
-      - CLOUDINARY_API_SECRET=so3U8k2HXvjdorq2yZz1o42BR-A
-      - ALGOLIA_API_SECRET=db0a5a3f12619392adc204402c3030ef
-      - ALGOLIA_INDEX=PRODUCTS
-      - ALGOLIA_APP_ID=AQACOGUA51
-      - PUBLIC_URL=https://peaceful-mesa-39323.herokuapp.com
     build:
       context: ./server
       dockerfile: Dockerfile

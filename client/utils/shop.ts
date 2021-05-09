@@ -4,7 +4,7 @@ import { updateCart, updateWishlist } from '@actions/shop'
 import { ICartItem, IProductProps, SortingType } from '@interfaces/shop'
 
 import * as ACTIONS from '@actions/shop'
-import { logoutUser } from '@utils/auth'
+import { logoutUser, updUser } from '@utils/auth'
 
 // === SHOP
 
@@ -236,9 +236,15 @@ export const getProductById = (products, id) => {
 
 // === WISHLIST
 
-export const toggleWishlist = async (dispatch, id, wishlist) => {
+export const toggleWishlist = async (
+  dispatch,
+  id,
+  wishlist,
+  userDispatch,
+  updateMutation,
+  user
+) => {
   let newWishlist = wishlist
-
   if (wishlist.map((x) => x.id).indexOf(id) !== -1) {
     newWishlist = wishlist.filter((x) => x.id !== id)
   } else {
@@ -249,6 +255,10 @@ export const toggleWishlist = async (dispatch, id, wishlist) => {
   try {
     await dispatch(updateWishlist(newWishlist))
     Cookies.set('wishlist', JSON.stringify(newWishlist))
+    user?.id &&
+      (await updUser(userDispatch, updateMutation, user.id, {
+        wishlist: JSON.stringify(newWishlist),
+      }))
   } catch (error) {
     return
   }

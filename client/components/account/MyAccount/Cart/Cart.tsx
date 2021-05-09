@@ -21,7 +21,7 @@ import ProductCard from '@components/shop/components/ProductCard/ProductCard'
 const Cart: FunctionComponent = () => {
   const classes = useStyles()
   const { state, dispatch } = useContext(ShopContext)
-  console.log(state)
+  // console.log(state)
   const cart = formCart(state.cart, state.products).filter((x) => x)
   const dropCart = async () => await clearCart(dispatch)
   const total = useMemo(() => getTotal(cart), [cart])

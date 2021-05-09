@@ -1,7 +1,7 @@
-import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { darken } from '@material-ui/core/styles/colorManipulator'
 
-export const useStyles = makeStyles(() =>
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     side: {},
@@ -9,6 +9,7 @@ export const useStyles = makeStyles(() =>
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'flex-start',
+      position: 'relative',
     },
     image: {
       width: 420,
@@ -54,6 +55,13 @@ export const useStyles = makeStyles(() =>
       '&:hover': {
         color: darken('#00ACEE', 0.4),
       },
+    },
+    icon: {
+      transition: '.2s ease-in-out',
+      '&:hover': {
+        color: theme.palette.secondary.main,
+      },
+      cursor: 'pointer',
     },
   })
 )

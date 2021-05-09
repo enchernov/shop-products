@@ -7,17 +7,32 @@ import React, {
 } from 'react'
 import { ICategoryProps, IProductProps } from '@interfaces/shop'
 import Loader from '@ui/Loader'
-import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core'
+import {
+  Grid,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 
 import { useStyles } from './Product.styles'
-import { buy, countOfItem, updateCount } from '@utils/shop'
+import {
+  buy,
+  countOfItem,
+  inWishlist,
+  toggleWishlist,
+  updateCount,
+} from '@utils/shop'
 import { ShopContext } from '@providers/ShopProvider'
 import { useSnackbar } from 'notistack'
 import { Button, IconButton, Input, Link } from '@ui/index'
 import CartMini from '@components/shop/components/CartMini'
 import clsx from 'clsx'
 import ProductCard from '@components/shop/components/ProductCard'
+import { AppContext } from '@providers/AppProvider'
+import { useMutation } from '@apollo/client'
+import UPDATE_USER from '@graphql/mutations/UpdateUser'
 
 interface IProductComponent {
   product: IProductProps
@@ -46,6 +61,9 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
     [state.cart, dispatch, itemCount, product]
   )
 
+  const { state: userState, dispatch: userDispatch } = useContext(AppContext)
+  const [updateUser] = useMutation(UPDATE_USER)
+
   if (!product) return <Loader />
   const {
     available,
@@ -57,6 +75,18 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
     id,
     description,
   }: IProductProps = product
+
+  const inList = inWishlist(state.wishlist, id)
+
+  const toggleWish = async () =>
+    await toggleWishlist(
+      dispatch,
+      id,
+      state.wishlist,
+      userDispatch,
+      updateUser,
+      userState.user
+    )
 
   const toCart = async () => {
     const errStatus = await buy(
@@ -101,6 +131,22 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
             xs={isSmallWidth ? 12 : 6}
             className={classes.imageContainer}
           >
+            <Tooltip
+              title={inList ? 'Удалить из избранного' : 'Добавить в избранное'}
+              placement={'left'}
+              style={{
+                position: 'absolute',
+                top: 16,
+                right: 32,
+              }}
+            >
+              <IconButton
+                icon={inList ? 'favoriteFill' : 'favorite'}
+                color={inList ? 'secondary' : 'default'}
+                className={classes.icon}
+                onClick={toggleWish}
+              />
+            </Tooltip>
             <img src={image.url} alt={name} className={classes.image} />
           </Grid>
           <Grid item xs={isSmallWidth ? 12 : 6}>

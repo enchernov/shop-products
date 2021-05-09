@@ -62,9 +62,8 @@ export const delAvatar = async (dispatch, deleteFile, fileId) => {
 export const addAddress = async (user, dispatch, updateMutation, address) => {
   try {
     const id = uuidv4()
-    const oldAddresses = JSON.parse(user.addresses) || []
+    const oldAddresses = JSON.parse(user?.addresses || '[]')
     const newAddresses = [...oldAddresses, { id, address }]
-    console.log({ id, address }, newAddresses)
     await updUser(dispatch, updateMutation, user.id, {
       addresses: JSON.stringify(newAddresses),
     })
@@ -75,7 +74,7 @@ export const addAddress = async (user, dispatch, updateMutation, address) => {
 
 export const delAddress = async (user, dispatch, updateMutation, id) => {
   try {
-    const oldAddresses = JSON.parse(user.addresses)
+    const oldAddresses = JSON.parse(user?.addresses || '[]')
     const newAddresses = oldAddresses.filter((x) => x.id !== id)
     await updUser(dispatch, updateMutation, user.id, {
       addresses: JSON.stringify(newAddresses),

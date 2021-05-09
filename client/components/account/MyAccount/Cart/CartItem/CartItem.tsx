@@ -22,6 +22,9 @@ import {
   filterCart,
   updateCount,
 } from '@utils/shop'
+import { AppContext } from '@providers/AppProvider'
+import { useMutation } from '@apollo/client'
+import UPDATE_USER from '@graphql/mutations/UpdateUser'
 
 const CartItem: FunctionComponent<IProductProps> = ({
   name,
@@ -34,11 +37,20 @@ const CartItem: FunctionComponent<IProductProps> = ({
   const classes = useStyles()
 
   const { state, dispatch } = useContext(ShopContext)
+  const { state: userState, dispatch: userDispatch } = useContext(AppContext)
+  const [updateUser] = useMutation(UPDATE_USER)
 
   const inList = inWishlist(state.wishlist, id)
 
   const toggleWish = async () =>
-    await toggleWishlist(dispatch, id, state.wishlist)
+    await toggleWishlist(
+      dispatch,
+      id,
+      state.wishlist,
+      userDispatch,
+      updateUser,
+      userState.user
+    )
 
   const remove = () => filterCart(dispatch, id, state.cart)
 

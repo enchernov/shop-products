@@ -6,12 +6,15 @@ import { useRouter } from 'next/router'
 import ME from '@graphql/queries/Me'
 import { AppContext } from '@providers/AppProvider'
 import * as ACTIONS from '@actions/auth'
+import * as SHOP_ACTIONS from '@actions/shop'
 import { logoutUser } from '@utils/auth'
 import Loader from '@components/ui/Loader'
+import { ShopContext } from '@providers/ShopProvider'
 
 const withAuth = (Component: any) => {
   const Wrapper = (props) => {
     const { state, dispatch } = useContext(AppContext)
+    const { dispatch: shopDispatch } = useContext(ShopContext)
     const { enqueueSnackbar } = useSnackbar()
     const router = useRouter()
 
@@ -27,6 +30,9 @@ const withAuth = (Component: any) => {
       window.addEventListener('storage', syncLogout)
       if (!loading && data) {
         dispatch(ACTIONS.authSuccess({ user: { ...data.me, ...data.self } }))
+        const dataWishlist = JSON.parse(data?.self?.wishlist || '[]')
+        dataWishlist.length > 0 &&
+          shopDispatch(SHOP_ACTIONS.updateWishlist(dataWishlist))
       }
 
       if (!loading && (error || !data)) {

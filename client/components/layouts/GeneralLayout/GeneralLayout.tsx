@@ -26,6 +26,8 @@ import { useQuery } from '@apollo/client'
 import ME from '@graphql/queries/Me'
 import * as ACTIONS from '@actions/auth'
 import { useRouter } from 'next/router'
+import * as SHOP_ACTIONS from '@actions/shop'
+import { ShopContext } from '@providers/ShopProvider'
 
 const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
   const { state, dispatch } = useContext(AppContext)
@@ -34,13 +36,16 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
   const { enqueueSnackbar } = useSnackbar()
   const { data, loading, error } = useQuery(ME)
   const router = useRouter()
-
+  const { dispatch: shopDispatch } = useContext(ShopContext)
   useEffect(() => {
-    if (!loading && data) {
+    if (!loading && data && state.isAuthenticated) {
       dispatch(ACTIONS.authSuccess({ user: { ...data.me, ...data.self } }))
+      const dataWishlist = JSON.parse(data?.self?.wishlist || '[]')
+      dataWishlist.length > 0 &&
+        shopDispatch(SHOP_ACTIONS.updateWishlist(dataWishlist))
     }
     if (error) logoutUser(dispatch)
-  }, [data, loading])
+  }, [data, loading, state.isAuthenticated])
 
   const scrollUpShown = useScrollTrigger({ threshold: 50 })
 
@@ -66,7 +71,7 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
   const theme = useTheme()
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
 
-  console.log(state)
+  // console.log(state)
 
   return (
     <>

@@ -14,6 +14,9 @@ import { ShopContext } from '@providers/ShopProvider'
 
 import { useStyles } from './ProductCard.styles'
 import clsx from 'clsx'
+import { AppContext } from '@providers/AppProvider'
+import { useMutation } from '@apollo/client'
+import UPDATE_USER from '@graphql/mutations/UpdateUser'
 
 const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
   const {
@@ -33,21 +36,25 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
 
   const { state, dispatch } = useContext(ShopContext)
 
+  const { state: userState, dispatch: userDispatch } = useContext(AppContext)
+  const [updateUser] = useMutation(UPDATE_USER)
+
   const { enqueueSnackbar } = useSnackbar()
 
   const toggleWish = async () =>
-    await toggleWishlist(dispatch, id, state.wishlist)
+    await toggleWishlist(
+      dispatch,
+      id,
+      state.wishlist,
+      userDispatch,
+      updateUser,
+      userState.user
+    )
 
   const inList = inWishlist(state.wishlist, id)
 
   const toCart = async () =>
-    await buy(
-      dispatch,
-      id,
-      state.cart,
-      available,
-      enqueueSnackbar,
-    )
+    await buy(dispatch, id, state.cart, available, enqueueSnackbar)
 
   return (
     <Paper
