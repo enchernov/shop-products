@@ -89,7 +89,7 @@ const Login: FunctionComponent = () => {
       justify={'center'}
     >
       <Grid item className={classes.container}>
-        <Paper className={classes.formPaper} elevation={1} square>
+        <Paper className={classes.formPaper} elevation={0} square>
           <Grid
             container
             direction="column"
@@ -153,7 +153,7 @@ const Login: FunctionComponent = () => {
                 />
                 <Button
                   type="submit"
-                  disabled={!formik.isValid || state.loading}
+                  disabled={state.loading}
                   fullWidth
                   className={classes.button}
                 >
@@ -164,7 +164,7 @@ const Login: FunctionComponent = () => {
             </Grid>
             <Grid item>
               <Typography variant="h3" className={classes.serviceHeading}>
-                Или войдите с помощью сервисов
+                Вход с помощью сервисов
               </Typography>
             </Grid>
             <SocialAuth />

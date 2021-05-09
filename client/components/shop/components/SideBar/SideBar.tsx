@@ -10,6 +10,7 @@ const SideBar: FunctionComponent = () => {
 
   const theme = useTheme()
   const mdWidth = useMediaQuery(theme.breakpoints.down('md'))
+  const xsWidth = useMediaQuery(theme.breakpoints.down('xs'))
 
   return (
     <Grid
@@ -17,7 +18,13 @@ const SideBar: FunctionComponent = () => {
       className={classes.side}
       direction={'column'}
       spacing={3}
-      style={mdWidth ? { maxWidth: 500, margin: '0 auto', padding: 0 } : {}}
+      style={
+        xsWidth
+          ? {}
+          : mdWidth
+          ? { maxWidth: 500, margin: '0 auto', padding: 0 }
+          : {}
+      }
     >
       <Grid item>
         <Menu attribute={'categories.name'} />

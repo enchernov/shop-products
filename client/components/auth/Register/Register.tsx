@@ -101,7 +101,7 @@ const Register: FunctionComponent = () => {
   return (
     <Grid container direction="column" alignItems="center" justify="center">
       <Grid item className={classes.container}>
-        <Paper className={classes.formPaper} elevation={1} square>
+        <Paper className={classes.formPaper} elevation={0} square>
           <Grid
             container
             direction="column"
@@ -209,7 +209,7 @@ const Register: FunctionComponent = () => {
                 />
                 <Button
                   type="submit"
-                  disabled={!formik.isValid || state.loading}
+                  disabled={state.loading}
                   fullWidth
                   className={classes.button}
                 >
@@ -219,7 +219,7 @@ const Register: FunctionComponent = () => {
             </Grid>
             <Grid item>
               <Typography variant="h3" className={classes.serviceHeading}>
-                Или войдите с помощью сервисов
+                Регистрация с помощью сервисов
               </Typography>
             </Grid>
             <SocialAuth />
@@ -227,7 +227,7 @@ const Register: FunctionComponent = () => {
         </Paper>
       </Grid>
       <Grid item className={classes.container}>
-        <Paper className={classes.loginPaper} elevation={1} square>
+        <Paper className={classes.loginPaper} elevation={0} square>
           <Grid container justify="center" alignContent="center">
             <Grid item>
               Уже зарегистрированы? <Link href={'/signin'}>Войдите</Link>

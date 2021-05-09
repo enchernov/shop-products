@@ -14,10 +14,12 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     formPaper: {
       padding: 20,
+      boxShadow: 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px',
     },
     registerPaper: {
       marginTop: 20,
       padding: 20,
+      boxShadow: 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px',
     },
     input: {
       marginBottom: 30,

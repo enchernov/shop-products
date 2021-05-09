@@ -18,9 +18,11 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     formPaper: {
       padding: '24px 40px',
+      boxShadow: 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px',
     },
     registerPaper: {
       padding: 20,
+      boxShadow: 'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px',
     },
     form: {
       marginBottom: 20,

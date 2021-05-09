@@ -31,7 +31,7 @@ const ResetPassword: FunctionComponent = () => {
       justify="space-between"
     >
       <Grid item className={classes.container}>
-        <Paper className={classes.formPaper} elevation={1} square>
+        <Paper className={classes.formPaper} elevation={0} square>
           <Grid
             container
             direction="column"
@@ -59,7 +59,7 @@ const ResetPassword: FunctionComponent = () => {
             </Grid>
           </Grid>
         </Paper>
-        <Paper className={classes.registerPaper} elevation={1} square>
+        <Paper className={classes.registerPaper} elevation={0} square>
           <Grid container justify="center" alignContent="center">
             <Grid item>
               <Link href={'/signin'}>Войти</Link> или{' '}
