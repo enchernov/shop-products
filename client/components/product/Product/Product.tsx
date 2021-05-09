@@ -131,22 +131,6 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
             xs={isSmallWidth ? 12 : 6}
             className={classes.imageContainer}
           >
-            <Tooltip
-              title={inList ? 'Удалить из избранного' : 'Добавить в избранное'}
-              placement={'left'}
-              style={{
-                position: 'absolute',
-                top: 16,
-                right: 32,
-              }}
-            >
-              <IconButton
-                icon={inList ? 'favoriteFill' : 'favorite'}
-                color={inList ? 'secondary' : 'default'}
-                className={classes.icon}
-                onClick={toggleWish}
-              />
-            </Tooltip>
             <img src={image.url} alt={name} className={classes.image} />
           </Grid>
           <Grid item xs={isSmallWidth ? 12 : 6}>
@@ -162,13 +146,33 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
                   style={isSmallWidth ? { justifyContent: 'center' } : {}}
                 />
               </Grid>
-              <Grid item>
+              <Grid
+                item
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
                 <Typography
                   variant={'h1'}
                   align={isSmallWidth ? 'center' : 'left'}
                 >
                   {price + ' ₽'}
                 </Typography>
+                <Tooltip
+                  title={
+                    inList ? 'Удалить из избранного' : 'Добавить в избранное'
+                  }
+                  placement={'left'}
+                >
+                  <IconButton
+                    icon={inList ? 'favoriteFill' : 'favorite'}
+                    color={inList ? 'secondary' : 'default'}
+                    className={classes.icon}
+                    onClick={toggleWish}
+                  />
+                </Tooltip>
               </Grid>
               <Grid item>
                 <Typography

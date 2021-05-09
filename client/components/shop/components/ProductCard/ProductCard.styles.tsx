@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      height: 'auto',
+      height: 296,
       padding: 20,
       width: 233,
       position: 'relative',
@@ -14,15 +14,16 @@ export const useStyles = makeStyles((theme: Theme) =>
         boxShadow:
           'rgba(76, 175, 79, 0.75) 0px -2px inset, rgba(76, 175, 79, 0.1) 0px 4px 6px -1px, rgba(76, 175, 79, 0.06) 0px 2px 4px -1px',
         '& $iconAnimation': {
+          // display: 'block',
           opacity: 1,
           transform: 'translateX(0)',
         },
-        '& $rating': {
-          display: 'none',
-        },
-        '& $cartButton': {
-          display: 'flex',
-        },
+        // '& $rating': {
+        //   display: 'none',
+        // },
+        // '& $cartButton': {
+        //   display: 'flex',
+        // },
       },
     },
     name: {
@@ -34,6 +35,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       '& > *': {
         width: 'fit-content',
         borderBottom: '1px dashed #e0e0e0',
+        margin: '0 auto',
       },
     },
     imageContainer: {
@@ -58,6 +60,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       top: 20,
     },
     iconAnimation: {
+      // display: 'none',
       opacity: 0,
       transition: '.1s ease-in-out',
       transform: 'translateX(-10px)',
@@ -79,11 +82,16 @@ export const useStyles = makeStyles((theme: Theme) =>
         width: '1.2rem',
         height: '1.2rem',
       },
+      // display: 'none',
       display: 'flex',
       transition: '.1s ease-in-out',
+      position: 'absolute',
+      top: 171,
+      left: 'calc(50% - 48px)',
     },
     cartButton: {
-      display: 'none',
+      display: 'flex',
+      // display: 'none',
       transition: '.1s ease-in-out',
     },
     primaryButton: {
@@ -91,6 +99,22 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     actions: {
       minHeight: 30,
+    },
+    categories: {
+      position: 'absolute',
+      top: 5,
+      left: 5,
+    },
+    chip: {
+      '& > div': {
+        border: 'none',
+        borderRadius: 0,
+        backgroundColor: 'rgba(252, 186, 3,0.22)',
+        height: 'auto',
+      },
+      '& span': {
+        padding: '0 6px',
+      },
     },
   })
 )

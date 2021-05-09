@@ -18,7 +18,6 @@ const Checkout: FunctionComponent<ICheckoutProps> = ({
   resetFunction,
 }) => {
   const [address, setAddress] = useState<string>('')
-  console.log(address)
   const classes = useStyles()
   const { state } = useContext(AppContext)
 

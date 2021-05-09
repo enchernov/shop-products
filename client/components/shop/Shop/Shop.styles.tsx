@@ -14,7 +14,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: 40,
     },
     side: {
-      padding: '0 40px',
+      padding: '0 20px',
     },
     categoryLink: {
       marginTop: 8,

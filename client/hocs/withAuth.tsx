@@ -10,6 +10,7 @@ import * as SHOP_ACTIONS from '@actions/shop'
 import { logoutUser } from '@utils/auth'
 import Loader from '@components/ui/Loader'
 import { ShopContext } from '@providers/ShopProvider'
+import { loadAvatar } from '@actions/auth'
 
 const withAuth = (Component: any) => {
   const Wrapper = (props) => {
@@ -30,9 +31,17 @@ const withAuth = (Component: any) => {
       window.addEventListener('storage', syncLogout)
       if (!loading && data) {
         dispatch(ACTIONS.authSuccess({ user: { ...data.me, ...data.self } }))
+
         const dataWishlist = JSON.parse(data?.self?.wishlist || '[]')
         dataWishlist.length > 0 &&
           shopDispatch(SHOP_ACTIONS.updateWishlist(dataWishlist))
+        data?.self?.avatar?.url?.length &&
+          dispatch(
+            loadAvatar({
+              url: data?.self?.avatar?.url || '',
+              id: data?.self?.avatar?.id || '',
+            })
+          )
       }
 
       if (!loading && (error || !data)) {

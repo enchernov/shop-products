@@ -1,7 +1,11 @@
 import * as ACTIONS from '@actions/auth'
 import { getTotal } from '@utils/shop'
 import { ChangeEvent } from 'react'
-import { loadAvatar, requestAuth, stopLoading } from '@actions/auth'
+import {
+  loadAvatar,
+  requestAuth,
+  stopLoading,
+} from '@actions/auth'
 import { v4 as uuidv4 } from 'uuid'
 import { updUser } from '@utils/auth'
 
@@ -26,8 +30,10 @@ export const addAvatar = async (
       const { data } = await upload({
         variables: fileData,
       })
-      if (data) dispatch(loadAvatar(data.upload))
-      else return
+      if (data) {
+        dispatch(loadAvatar(data.upload))
+        return data.upload
+      } else return
     } catch (e) {
       dispatch(stopLoading())
     }

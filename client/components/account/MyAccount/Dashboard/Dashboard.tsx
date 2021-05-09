@@ -2,7 +2,6 @@ import React, {
   ChangeEvent,
   FunctionComponent,
   useContext,
-  useEffect,
 } from 'react'
 import LinkIcon from '@material-ui/icons/Link'
 import { useMutation } from '@apollo/client'
@@ -17,10 +16,8 @@ import { AppContext } from '@providers/AppProvider'
 
 import { useStyles } from './Dashboard.styles'
 
-import { loadAvatar, updateUserSuccess } from '@actions/auth'
 import { addAvatar, delAvatar } from '@utils/account'
 import { Skeleton } from '@material-ui/lab'
-import { IUserDataProps } from '@interfaces/auth'
 
 const Dashboard: FunctionComponent = () => {
   const classes = useStyles()
@@ -28,23 +25,12 @@ const Dashboard: FunctionComponent = () => {
   const [upload] = useMutation(UPLOAD)
   const [deleteFile] = useMutation(DELETE_FILE)
 
-  useEffect(() => {
-    state.user?.avatar?.url?.length &&
-      !state?.avatar?.url?.length &&
-      dispatch(
-        loadAvatar({
-          url: state?.user?.avatar?.url || '',
-          id: state.user?.avatar?.id || '',
-        })
-      )
-  }, [state.avatar, state.user?.avatar, dispatch])
-
-  const handleChange = async (e: ChangeEvent<HTMLInputElement>) =>
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     await addAvatar(e, state?.user?.id, dispatch, upload)
+  }
 
   const removeAvatar = async () => {
     await delAvatar(dispatch, deleteFile, state.avatar.id)
-    await updateUserSuccess({ ...state.user, avatar: null } as IUserDataProps)
   }
 
   return (
@@ -106,11 +92,20 @@ const Dashboard: FunctionComponent = () => {
       </Grid>
       {state.avatar.url ? (
         <Grid item>
-          <Button variant={'text'} color={'secondary'} onClick={removeAvatar}>
+          <Button
+            variant={'text'}
+            color={'secondary'}
+            onClick={removeAvatar}
+            className={classes.removeButton}
+          >
             Удалить аватар
           </Button>
         </Grid>
-      ) : null}
+      ) : (
+        <Grid item>
+          <Typography variant={'body2'}>Добавьте ваш аватар</Typography>
+        </Grid>
+      )}
     </Grid>
   )
 }

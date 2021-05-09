@@ -28,7 +28,7 @@ const ProductHits = connectInfiniteHits(({ hits, getCount }) => {
       ))}
       {!hits.length && (
         <Grid item>
-          <Typography variant={'body1'} paragraph>
+          <Typography variant={'body2'} paragraph>
             Ничего не нашлось.
           </Typography>
         </Grid>

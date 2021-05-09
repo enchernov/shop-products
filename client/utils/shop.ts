@@ -9,6 +9,16 @@ import { logoutUser, updUser } from '@utils/auth'
 // === SHOP
 
 export const buy = async (dispatch, id, cart, available, enqueueSnackbar) => {
+  // const action = (key) => (
+  //   <Button
+  //     href={`/my-account?panel=1`}
+  //     key={key}
+  //     style={{ border: 'none', color: 'white' }}
+  //     variant={'text'}
+  //   >
+  //     Перейти
+  //   </Button>
+  // )
   try {
     if ((await countOfItem(id, cart)) < available) {
       const data = await addToCart(dispatch, id, cart)

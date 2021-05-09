@@ -35,33 +35,37 @@ const Cart: FunctionComponent = () => {
     setCheckout(false)
   }
 
-  const lookMore =
-    cart.length > 0
-      ? Array.from(
-          new Set(
-            cart
-              .map((item) =>
-                state.products.filter((x) => {
-                  if (
-                    x.categories.some(
-                      (c) =>
-                        item &&
-                        item.categories.map((a) => a.name).indexOf(c.name) > -1
-                    ) &&
-                    x.id !== item?.id &&
-                    x.available > 0 &&
-                    state.cart.map((l) => l.id).indexOf(x.id) === -1
-                  ) {
-                    return x
-                  }
-                })
-              )
-              .flat()
+  const lookMore = useMemo(
+    () =>
+      cart.length > 0
+        ? Array.from(
+            new Set(
+              cart
+                .map((item) =>
+                  state.products.filter((x) => {
+                    if (
+                      x.categories.some(
+                        (c) =>
+                          item &&
+                          item.categories.map((a) => a.name).indexOf(c.name) >
+                            -1
+                      ) &&
+                      x.id !== item?.id &&
+                      x.available > 0 &&
+                      state.cart.map((l) => l.id).indexOf(x.id) === -1
+                    ) {
+                      return x
+                    }
+                  })
+                )
+                .flat()
+            )
           )
-        )
-          .sort(() => Math.random() - 0.5)
-          .slice(0, 4)
-      : []
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 4)
+        : [],
+    [state.cart.map((x) => x.id)]
+  )
 
   const theme = useTheme()
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))

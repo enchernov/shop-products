@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext } from 'react'
-import { Paper, Typography, Grid, Tooltip } from '@material-ui/core'
+import { Paper, Typography, Grid, Tooltip, Chip } from '@material-ui/core'
 import { Rating } from '@material-ui/lab'
 import { useSnackbar } from 'notistack'
 
@@ -58,6 +58,121 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
 
   return (
     <Paper
+      className={classes.root}
+      square={true}
+      aria-disabled={available < 1}
+      elevation={0}
+    >
+      <Rating
+        name="read-only"
+        value={rating}
+        readOnly
+        precision={0.5}
+        className={classes.rating}
+      />
+      <Grid
+        container
+        direction={'column'}
+        spacing={1}
+        className={classes.slideContainer}
+      >
+        <Grid item className={classes.iconAnimation}>
+          <Tooltip
+            title={inList ? 'Удалить из избранного' : 'Добавить в избранное'}
+            placement={'left'}
+          >
+            <IconButton
+              icon={inList ? 'favoriteFill' : 'favorite'}
+              color={inList ? 'secondary' : 'default'}
+              className={classes.icon}
+              onClick={toggleWish}
+            />
+          </Tooltip>
+        </Grid>
+        <Grid item className={classes.iconAnimation}>
+          <Tooltip title={'Подробнее'} placement={'left'}>
+            <Link href={productLink} style={{ border: 'none' }}>
+              <IconButton icon={'search'} className={classes.icon} />
+            </Link>
+          </Tooltip>
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        justify={'flex-start'}
+        alignItems={'center'}
+        spacing={1}
+        className={classes.categories}
+      >
+        {categories.map((category: ICategoryProps, index: number) => (
+          <Grid item key={index} className={classes.chip}>
+            <Chip label={category.name} />
+          </Grid>
+        ))}
+      </Grid>
+      <Grid
+        container
+        direction={'column'}
+        justify={'space-between'}
+        spacing={4}
+      >
+        <Grid item xs={12} className={classes.imageContainer}>
+          <img src={imgUrl} alt={name} className={classes.image} />
+        </Grid>
+        <Grid item>
+          <Grid container direction={'column'} spacing={2}>
+            <Grid item>
+              <Link href={productLink} className={classes.name}>
+                <Typography variant={'h4'}>{name}</Typography>
+              </Link>
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                justify={'space-between'}
+                alignItems={'center'}
+                className={classes.actions}
+              >
+                <Grid item>
+                  <Typography variant={'h4'}>{price + ' ₽'}</Typography>
+                </Grid>
+                <Grid item>
+                  {available > 0 ? (
+                    <Button
+                      variant={'text'}
+                      className={clsx(
+                        classes.cartButton,
+                        classes.primaryButton
+                      )}
+                      color={'primary'}
+                      icon={'cart'}
+                      onClick={toCart}
+                    >
+                      В корзину
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled={true}
+                      variant={'text'}
+                      className={classes.cartButton}
+                    >
+                      Нет в наличии
+                    </Button>
+                  )}
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Paper>
+  )
+}
+
+export default React.memo(ProductCard)
+
+/*
+ <Paper
       className={classes.root}
       square={true}
       aria-disabled={available < 1}
@@ -174,7 +289,4 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
         </Grid>
       </Grid>
     </Paper>
-  )
-}
-
-export default React.memo(ProductCard)
+ */

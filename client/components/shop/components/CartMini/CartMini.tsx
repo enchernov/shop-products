@@ -1,12 +1,37 @@
 import React, { useContext, useMemo } from 'react'
-import { Grid, Paper, Tooltip, Typography } from '@material-ui/core'
+import { Grid, Paper, Tooltip, Typography, Badge } from '@material-ui/core'
 import { Button, IconButton, Link } from '@ui/index'
 import { ShopContext } from '@providers/ShopProvider'
-import { clearCart, filterCart, formCart, getTotal } from '@utils/shop'
+import {
+  clearCart,
+  filterCart,
+  formCart,
+  getTotal,
+  inWishlist,
+  toggleWishlist,
+} from '@utils/shop'
 import { useStyles } from './CartMini.styles'
+import { AppContext } from '@providers/AppProvider'
+import { useMutation } from '@apollo/client'
+import UPDATE_USER from '@graphql/mutations/UpdateUser'
 
 const CartMini = () => {
   const { state, dispatch } = useContext(ShopContext)
+
+  const { state: userState, dispatch: userDispatch } = useContext(AppContext)
+  const [updateUser] = useMutation(UPDATE_USER)
+
+  const inList = (id = '') => inWishlist(state.wishlist, id)
+
+  const toggleWish = async (id: string) =>
+    await toggleWishlist(
+      dispatch,
+      id,
+      state.wishlist,
+      userDispatch,
+      updateUser,
+      userState.user
+    )
 
   const classes = useStyles()
 
@@ -23,11 +48,17 @@ const CartMini = () => {
       <Grid item>
         <Grid container justify={'space-between'} alignItems={'center'}>
           <Grid item>
-            <Link href={'/my-account?panel=1'}>
-              <Typography variant={'h3'} className={classes.link}>
-                Корзина
-              </Typography>
-            </Link>
+            <Badge
+              badgeContent={cart?.length}
+              color="secondary"
+              className={classes.badge}
+            >
+              <Link href={'/my-account?panel=1'}>
+                <Typography variant={'h3'} className={classes.link}>
+                  Корзина
+                </Typography>
+              </Link>
+            </Badge>
           </Grid>
           {cart.length ? (
             <Grid item>
@@ -69,7 +100,24 @@ const CartMini = () => {
                       >{`${price} ₽ × ${count}`}</Typography>
                     </Grid>
                     <Grid item>
-                      <Tooltip title={'Удалить из корзины'} placement={'top'}>
+                      <Tooltip
+                        title={
+                          inList(product?.id)
+                            ? 'Удалить из избранного'
+                            : 'Добавить в избранное'
+                        }
+                        placement={'left'}
+                      >
+                        <IconButton
+                          icon={
+                            inList(product?.id) ? 'favoriteFill' : 'favorite'
+                          }
+                          color={inList(product?.id) ? 'secondary' : 'default'}
+                          className={classes.icon}
+                          onClick={() => toggleWish(product?.id)}
+                        />
+                      </Tooltip>
+                      <Tooltip title={'Удалить из корзины'} placement={'left'}>
                         <IconButton
                           icon={'delete'}
                           color={'default'}
