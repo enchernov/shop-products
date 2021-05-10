@@ -1,8 +1,4 @@
-import React, {
-  ChangeEvent,
-  FunctionComponent,
-  useContext,
-} from 'react'
+import React, { ChangeEvent, FunctionComponent, useContext } from 'react'
 import LinkIcon from '@material-ui/icons/Link'
 import { useMutation } from '@apollo/client'
 import { CircularProgress, Grid, Typography } from '@material-ui/core'
@@ -81,6 +77,7 @@ const Dashboard: FunctionComponent = () => {
             variant={'circle'}
             className={classes.avatar}
             src={state.avatar.url || ''}
+            alt={state.user?.username[0].toUpperCase()}
           >
             {state.loading ? (
               <CircularProgress className={classes.progress} />

@@ -29,6 +29,7 @@ import {
   Pinterest,
   Instagram,
   LinkedIn,
+  ShoppingCartSharp,
 } from '@material-ui/icons'
 import clsx from 'clsx'
 
@@ -59,6 +60,7 @@ export type IconType =
   | 'pinterest'
   | 'instagram'
   | 'linkedIn'
+  | 'cart'
 
 export interface IIconButtonProps extends IconButtonProps {
   icon: IconType
@@ -66,6 +68,7 @@ export interface IIconButtonProps extends IconButtonProps {
   disabled?: boolean
   className?: string
   disableFocusRipple?: boolean
+  href?: string
 }
 
 const iconButtonMap: Record<IconType, ElementType<SvgIconProps>> = {
@@ -93,6 +96,7 @@ const iconButtonMap: Record<IconType, ElementType<SvgIconProps>> = {
   pinterest: Pinterest,
   instagram: Instagram,
   linkedIn: LinkedIn,
+  cart: ShoppingCartSharp,
 }
 
 const IconButton: FunctionComponent<IIconButtonProps> = forwardRef(

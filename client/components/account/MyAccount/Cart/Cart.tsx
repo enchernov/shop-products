@@ -105,7 +105,7 @@ const Cart: FunctionComponent = () => {
               ) : null}
               <Grid item>
                 <Typography variant={'h1'}>
-                  {checkout ? 'Оформить заказ' : 'Корзина'}
+                  {checkout ? 'Оформление заказа' : 'Корзина'}
                 </Typography>
               </Grid>
               {!checkout && cart.length ? (
@@ -181,7 +181,30 @@ const Cart: FunctionComponent = () => {
                       >
                         <Typography
                           variant={'h1'}
+                          style={{ marginBottom: 16 }}
                         >{`Итого ${total} ₽`}</Typography>
+                        <Grid container direction={'column'} spacing={2}>
+                          {cart.map((i) => (
+                            <Grid item key={i?.id}>
+                              <Grid
+                                container
+                                justify={'space-between'}
+                                spacing={4}
+                              >
+                                <Grid item>
+                                  <Typography variant={'body2'}>
+                                    {i?.name}
+                                  </Typography>
+                                </Grid>
+                                <Grid item>
+                                  <Typography
+                                    variant={'body2'}
+                                  >{`${i?.price}₽ × ${i?.count}`}</Typography>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          ))}
+                        </Grid>
                         <Button
                           fullWidth={true}
                           size={'large'}

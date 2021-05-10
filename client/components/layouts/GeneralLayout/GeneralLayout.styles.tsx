@@ -69,12 +69,14 @@ export const useStyles = makeStyles((theme: Theme & { name: string }) =>
       width: 48,
       height: 48,
       position: 'fixed',
-      bottom: 40,
+      bottom: 20,
       right: 20,
       transition: '.1s ease-in-out',
       backgroundColor: theme.palette.secondary.light,
       color: '#fafafa',
       zIndex: theme.zIndex.drawer + 10,
+      boxShadow:
+        'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
       '&:hover': {
         backgroundColor: theme.palette.secondary.dark,
         color: '#fafafa',

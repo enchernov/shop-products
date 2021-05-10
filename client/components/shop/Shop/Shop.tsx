@@ -1,5 +1,13 @@
-import React, { FunctionComponent, useState } from 'react'
-import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core'
+import React, { FunctionComponent, useContext, useState } from 'react'
+import {
+  Badge,
+  Grid,
+  IconButton as MatIconButton,
+  Typography,
+  useMediaQuery,
+  useScrollTrigger,
+  useTheme,
+} from '@material-ui/core'
 
 import SortingSelector from '@components/shop/components/SortingSelector'
 
@@ -10,6 +18,8 @@ import ProductSearchBox from '@components/shop/components/ProductSearchBox'
 import SideBar from '@components/shop/components/SideBar'
 import { useStyles } from '@components/shop/Shop/Shop.styles'
 import { Breadcrumbs, Divider } from '@ui/index'
+import { ShopContext } from '@providers/ShopProvider'
+import { ShoppingCart } from '@material-ui/icons'
 
 const indexName = 'dev_PRODUCTS'
 
@@ -20,14 +30,29 @@ const searchClient = algoliasearch(
 
 const Shop: FunctionComponent = () => {
   const classes = useStyles()
+  const { state } = useContext(ShopContext)
   const [count, setCount] = useState<number>(0)
   const getCount = (v: number) => setCount(v)
 
   const theme = useTheme()
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
 
+  const cartButtonShown = useScrollTrigger({ threshold: 50 })
+
   return (
     <>
+      {state.cart?.length > 0 && isSmallWidth ? (
+        <MatIconButton
+          href={'/my-account?panel=1'}
+          className={classes.cartIcon}
+          style={cartButtonShown ? { opacity: 1 } : { opacity: 0 }}
+          size="small"
+        >
+          <Badge badgeContent={state.cart?.length} color="secondary">
+            <ShoppingCart />
+          </Badge>
+        </MatIconButton>
+      ) : null}
       <Grid
         container
         direction={'column'}

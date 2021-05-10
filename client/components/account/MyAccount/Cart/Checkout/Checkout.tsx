@@ -66,12 +66,12 @@ const Checkout: FunctionComponent<ICheckoutProps> = ({
                   className={classes.item}
                 >
                   <Grid item>
-                    <Typography variant={'body1'}>{i.name}</Typography>
+                    <Typography variant={'body2'}>{i.name}</Typography>
                   </Grid>
                   <Grid item>
                     <Typography
-                      variant={'body1'}
-                    >{`${i.count} × ${i.price}₽`}</Typography>
+                      variant={'body2'}
+                    >{`${i?.price}₽ × ${i?.count}`}</Typography>
                   </Grid>
                 </Grid>
               </Grid>

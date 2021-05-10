@@ -231,11 +231,7 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
         icon={'up'}
         className={classes.scrollUp}
         onClick={() => typeof window !== 'undefined' && window?.scrollTo(0, 0)}
-        style={
-          scrollUpShown
-            ? { opacity: 1, display: 'block' }
-            : { opacity: 0, display: 'none' }
-        }
+        style={scrollUpShown ? { opacity: 1 } : { opacity: 0 }}
       />
     </>
   )

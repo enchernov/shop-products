@@ -84,8 +84,13 @@ const CardSection: FunctionComponent<ICardSectionProps> = ({
       <Grid item xs={12}>
         <CardElement className={classes.cardInput} />
       </Grid>
-      <Grid item xs={12}>
-        <Button onClick={submitOrder} size={'large'} className={classes.button}>
+      <Grid item xs={12} style={{ width: '100%' }}>
+        <Button
+          onClick={submitOrder}
+          size={'large'}
+          className={classes.button}
+          fullWidth={true}
+        >
           {`Оплатить ${total}₽`}
         </Button>
       </Grid>

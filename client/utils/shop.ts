@@ -18,11 +18,15 @@ export const buy = async (dispatch, id, cart, available, enqueueSnackbar) => {
   //   >
   //     Перейти
   //   </Button>
-  // )
+  // ) <Link href={`/my-account?panel=1`}>
   try {
     if ((await countOfItem(id, cart)) < available) {
       const data = await addToCart(dispatch, id, cart)
-      if (data) enqueueSnackbar('Товар в корзине', { variant: 'success' })
+      if (data)
+        enqueueSnackbar('Товар в корзине', {
+          variant: 'success',
+          preventDuplicate: true,
+        })
       else enqueueSnackbar('Возникла ошибка', { variant: 'error' })
     } else {
       enqueueSnackbar('Макс. кол-во товара в корзине', { variant: 'warning' })
