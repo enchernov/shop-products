@@ -68,7 +68,7 @@ const Orders: FunctionComponent = () => {
           ) : (
             <>
               <Grid item>
-                <Typography variant={'body2'} paragraph>
+                <Typography variant={'body2'} paragraph align={'center'}>
                   У вас пока нет заказов. Вы сможете оформить заказ, если
                   добавите в корзину продукты. Для этого воспользуйтесь{' '}
                   <Link href={'/shop'}>Магазином</Link>.

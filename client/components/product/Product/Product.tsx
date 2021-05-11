@@ -20,6 +20,7 @@ import { useStyles } from './Product.styles'
 import {
   buy,
   countOfItem,
+  formatPrice,
   inWishlist,
   toggleWishlist,
   updateCount,
@@ -158,7 +159,7 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
                   variant={'h1'}
                   align={isSmallWidth ? 'center' : 'left'}
                 >
-                  {price + ' ₽'}
+                  {formatPrice(price)}
                 </Typography>
                 <Tooltip
                   title={

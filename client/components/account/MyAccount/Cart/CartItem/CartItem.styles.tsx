@@ -3,6 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      position: 'relative',
       padding: 20,
       maxWidth: 550,
       width: '90vw',
@@ -24,7 +25,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     icon: {
-      transition: '.2s ease-in-out',
+      position: 'absolute',
+      right: 24,
+      width: '0.5rem',
+      height: '0.5rem',
+      transition: '.1s ease-in-out',
       '&:hover': {
         color: theme.palette.secondary.main,
       },
@@ -35,7 +40,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       '& > div': {
         marginBottom: 10,
       },
-      // textAlign: 'center',
     },
   })
 )

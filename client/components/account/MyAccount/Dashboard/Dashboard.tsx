@@ -1,7 +1,11 @@
 import React, { ChangeEvent, FunctionComponent, useContext } from 'react'
 import LinkIcon from '@material-ui/icons/Link'
 import { useMutation } from '@apollo/client'
-import { CircularProgress, Grid, Typography } from '@material-ui/core'
+import {
+  CircularProgress,
+  Grid,
+  Typography,
+} from '@material-ui/core'
 
 import { Avatar, Badge, Button, IconButton } from '@ui/index'
 
@@ -32,7 +36,7 @@ const Dashboard: FunctionComponent = () => {
   return (
     <Grid container direction={'column'} spacing={2} alignItems={'center'}>
       <Grid item>
-        <Typography variant={'h1'}>
+        <Typography variant={'h1'} align={'center'}>
           {state.user ? (
             <>
               Добро пожаловать,&nbsp;

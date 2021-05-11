@@ -5,6 +5,7 @@ import { Grid, Paper, TextField, Typography } from '@material-ui/core'
 import { useStyles } from './Checkout.styles'
 import { AppContext } from '@providers/AppProvider'
 import { Autocomplete } from '@material-ui/lab'
+import { formatPrice } from '@utils/shop'
 
 interface ICheckoutProps {
   cart: any
@@ -69,9 +70,9 @@ const Checkout: FunctionComponent<ICheckoutProps> = ({
                     <Typography variant={'body2'}>{i.name}</Typography>
                   </Grid>
                   <Grid item>
-                    <Typography
-                      variant={'body2'}
-                    >{`${i?.price}₽ × ${i?.count}`}</Typography>
+                    <Typography variant={'body2'}>{`${formatPrice(
+                      i?.price
+                    )} × ${i?.count}`}</Typography>
                   </Grid>
                 </Grid>
               </Grid>

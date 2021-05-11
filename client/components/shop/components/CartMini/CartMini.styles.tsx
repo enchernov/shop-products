@@ -54,6 +54,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     badge: {
       '& > span': {
+        color: 'white',
         top: 11,
         right: '-20px',
       },

@@ -1,6 +1,6 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((theme: Theme & { name?: string }) =>
   createStyles({
     root: {
       height: 296,
@@ -86,7 +86,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       transition: '.1s ease-in-out',
       position: 'absolute',
-      top: 171,
+      top: theme.name == 'Light Theme' ? 171 : 181,
       left: 'calc(50% - 48px)',
     },
     cartButton: {
@@ -109,7 +109,8 @@ export const useStyles = makeStyles((theme: Theme) =>
       '& > div': {
         border: 'none',
         borderRadius: 0,
-        backgroundColor: 'rgba(252, 186, 3,0.22)',
+        backgroundColor:
+          theme.name == 'Light Theme' ? 'rgba(252, 186, 3,0.22)' : '#607d8b',
         height: 'auto',
       },
       '& span': {

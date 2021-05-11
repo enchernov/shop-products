@@ -65,7 +65,7 @@ const Addresses: FunctionComponent = () => {
       ) : (
         <>
           <Grid item>
-            <Typography variant={'body2'} paragraph>
+            <Typography variant={'body2'} paragraph align={'center'}>
               Добавьте ваш первый адрес.
             </Typography>
           </Grid>

@@ -33,7 +33,7 @@ const Wishlist: FunctionComponent = () => {
           ) : (
             <>
               <Grid item>
-                <Typography variant={'body2'} paragraph>
+                <Typography variant={'body2'} paragraph align={'center'}>
                   В списке пока нет товаров. Мы уверены, что в{' '}
                   <Link href={'/shop'}>Магазине</Link> многе вам понравится.
                 </Typography>

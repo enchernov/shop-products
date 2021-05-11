@@ -78,7 +78,7 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
       <header className={classes.header}>
         <Grid
           container
-          justify={'space-between'}
+          justify={isSmallWidth ? 'center' : 'space-between'}
           spacing={isSmallWidth ? 2 : 1}
           alignItems={'center'}
           direction={isSmallWidth ? 'column' : 'row'}

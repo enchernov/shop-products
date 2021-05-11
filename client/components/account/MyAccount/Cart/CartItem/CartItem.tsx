@@ -21,6 +21,7 @@ import {
   inWishlist,
   filterCart,
   updateCount,
+  formatPrice,
 } from '@utils/shop'
 import { AppContext } from '@providers/AppProvider'
 import { useMutation } from '@apollo/client'
@@ -72,119 +73,105 @@ const CartItem: FunctionComponent<IProductProps> = ({
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
-    <Paper square={true} className={classes.root} elevation={0}>
-      <Grid
-        container
-        justify={'space-between'}
-        alignItems={'center'}
-        direction={isSmallWidth ? 'column' : 'row'}
-      >
+    <Paper
+      square={true}
+      className={classes.root}
+      elevation={0}
+      style={isSmallWidth ? { paddingBottom: 40 } : {}}
+    >
+      <Grid container direction={'column'} alignItems={'center'}>
         <Grid item>
-          <img src={image.url} alt={name} className={classes.image} />
+          <Link href={`/products/${id}`} className={classes.name}>
+            <Typography variant={'h3'} align={'center'}>
+              {name}
+            </Typography>
+          </Link>
         </Grid>
-        <Grid item>
+        <Grid item style={{ width: '100%' }}>
           <Grid
             container
-            direction={'column'}
-            alignItems={'center'}
-            spacing={4}
-          >
-            <Grid item>
-              <Link href={`/products/${id}`} className={classes.name}>
-                <Typography variant={'h3'}>{name}</Typography>
-              </Link>
-            </Grid>
-            <Grid item>
-              <Grid
-                container
-                direction={'column'}
-                alignItems={'center'}
-                justify={'space-between'}
-                spacing={2}
-              >
-                <Grid item>
-                  <Grid container alignItems={'center'}>
-                    <Grid item>
-                      <IconButton
-                        size={'medium'}
-                        icon={'minus'}
-                        disabled={itemCount <= 1}
-                        onClick={() =>
-                          itemCount > 1 && changeCount(+itemCount - 1)
-                        }
-                      />
-                    </Grid>
-                    <Grid item>
-                      <Input
-                        type={'number'}
-                        id={id + '_count'}
-                        label={'Количество'}
-                        value={itemCount}
-                        onChange={(e) => {
-                          changeCount(+e.currentTarget.value)
-                        }}
-                        className={classes.countInput}
-                      />
-                    </Grid>
-                    <Grid item>
-                      <IconButton
-                        size={'medium'}
-                        icon={'plus'}
-                        disabled={itemCount === available}
-                        onClick={() =>
-                          itemCount < available && changeCount(+itemCount + 1)
-                        }
-                      />
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  <Typography variant={'body1'}>
-                    <b>{price}</b>&nbsp;₽&nbsp;/&nbsp;шт.
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item style={isSmallWidth ? { marginTop: '1rem' } : {}}>
-          <Typography variant={'h2'}>
-            {count ? '' + (price * count).toFixed(2) : '' + price}&nbsp;₽
-          </Typography>
-        </Grid>
-        <Grid item style={isSmallWidth ? { marginTop: '1rem' } : {}}>
-          <Grid
-            container
-            direction={isSmallWidth ? 'row' : 'column'}
             justify={'space-between'}
             alignItems={'center'}
-            spacing={10}
+            direction={isSmallWidth ? 'column' : 'row'}
+            spacing={isSmallWidth ? 1 : 0}
           >
+            <Grid item>
+              <img src={image.url} alt={name} className={classes.image} />
+            </Grid>
+            <Grid item style={{ position: 'relative' }}>
+              <Grid container alignItems={'center'}>
+                <Grid item>
+                  <IconButton
+                    size={'medium'}
+                    icon={'minus'}
+                    disabled={itemCount <= 1}
+                    onClick={() => itemCount > 1 && changeCount(+itemCount - 1)}
+                  />
+                </Grid>
+                <Grid item>
+                  <Input
+                    type={'number'}
+                    id={id + '_count'}
+                    label={'Количество'}
+                    value={itemCount}
+                    onChange={(e) => {
+                      changeCount(+e.currentTarget.value)
+                    }}
+                    className={classes.countInput}
+                  />
+                </Grid>
+                <Grid item>
+                  <IconButton
+                    size={'medium'}
+                    icon={'plus'}
+                    disabled={itemCount === available}
+                    onClick={() =>
+                      itemCount < available && changeCount(+itemCount + 1)
+                    }
+                  />
+                </Grid>
+              </Grid>
+              <Typography
+                variant={'body1'}
+                align={'center'}
+                style={{ position: 'absolute', top: 75, width: '100%' }}
+              >
+                {`${formatPrice(price)} / шт.`}
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              style={isSmallWidth ? { margin: '1.25rem 0 0.5rem 0' } : {}}
+            >
+              <Typography variant={'h2'}>
+                {count
+                  ? formatPrice((price * count).toFixed(2))
+                  : formatPrice(price)}
+              </Typography>
+            </Grid>
+            {/*<Grid item style={isSmallWidth ? { marginTop: '1rem' } : {}}>*/}
             <Grid item>
               <Tooltip
                 title={
                   inList ? 'Удалить из избранного' : 'Добавить в избранное'
                 }
-                placement={isSmallWidth ? 'top' : 'left'}
+                placement={'left'}
               >
                 <IconButton
                   icon={inList ? 'favoriteFill' : 'favorite'}
                   color={inList ? 'secondary' : 'default'}
                   className={classes.icon}
                   onClick={toggleWish}
+                  style={isSmallWidth ? { bottom: 24, left: 48 } : { top: 24 }}
                 />
               </Tooltip>
-            </Grid>
-            <Grid item>
-              <Tooltip
-                title={'Удалить из корзины'}
-                placement={isSmallWidth ? 'top' : 'left'}
-              >
+              <Tooltip title={'Удалить из корзины'} placement={'left'}>
                 <IconButton
                   icon={'delete'}
                   color={'default'}
                   className={classes.icon}
                   onClick={remove}
+                  style={isSmallWidth ? { right: 48 } : { bottom: 24 }}
                 />
               </Tooltip>
             </Grid>

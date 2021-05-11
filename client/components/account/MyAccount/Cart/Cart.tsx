@@ -3,7 +3,7 @@ import React, { FunctionComponent, useContext, useMemo, useState } from 'react'
 import { useStyles } from './Cart.styles'
 import { ShopContext } from '@providers/ShopProvider'
 import CartItem from '@components/account/MyAccount/Cart/CartItem'
-import { clearCart, formCart, getTotal } from '@utils/shop'
+import { clearCart, formatPrice, formCart, getTotal } from '@utils/shop'
 import {
   Grid,
   Paper,
@@ -145,7 +145,11 @@ const Cart: FunctionComponent = () => {
                       ) : (
                         <>
                           <Grid item>
-                            <Typography variant={'body2'} paragraph>
+                            <Typography
+                              variant={'body2'}
+                              paragraph
+                              align={'center'}
+                            >
                               В корзине нет товаров. Посмотрите, что есть в{' '}
                               <Link href={'/shop'}>Магазине</Link>.
                             </Typography>
@@ -182,7 +186,7 @@ const Cart: FunctionComponent = () => {
                         <Typography
                           variant={'h1'}
                           style={{ marginBottom: 16 }}
-                        >{`Итого ${total} ₽`}</Typography>
+                        >{`Итого ${formatPrice(total)}`}</Typography>
                         <Grid container direction={'column'} spacing={2}>
                           {cart.map((i) => (
                             <Grid item key={i?.id}>
@@ -197,9 +201,9 @@ const Cart: FunctionComponent = () => {
                                   </Typography>
                                 </Grid>
                                 <Grid item>
-                                  <Typography
-                                    variant={'body2'}
-                                  >{`${i?.price}₽ × ${i?.count}`}</Typography>
+                                  <Typography variant={'body2'}>{`${formatPrice(
+                                    i?.price
+                                  )} × ${i?.count}`}</Typography>
                                 </Grid>
                               </Grid>
                             </Grid>

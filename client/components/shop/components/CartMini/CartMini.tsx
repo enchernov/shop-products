@@ -5,6 +5,7 @@ import { ShopContext } from '@providers/ShopProvider'
 import {
   clearCart,
   filterCart,
+  formatPrice,
   formCart,
   getTotal,
   inWishlist,
@@ -95,9 +96,9 @@ const CartMini = () => {
                           {name}
                         </Typography>
                       </Link>
-                      <Typography
-                        variant={'subtitle1'}
-                      >{`${price} ₽ × ${count}`}</Typography>
+                      <Typography variant={'subtitle1'}>{`${formatPrice(
+                        price
+                      )} × ${count}`}</Typography>
                     </Grid>
                     <Grid item>
                       <Tooltip
@@ -139,7 +140,7 @@ const CartMini = () => {
               className={classes.button}
               color={'secondary'}
             >
-              {`Перейти в корзину (${total}₽)`}
+              {`Перейти в корзину (${formatPrice(total)})`}
             </Button>
           </Grid>
         </>

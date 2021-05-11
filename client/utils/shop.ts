@@ -8,17 +8,13 @@ import { logoutUser, updUser } from '@utils/auth'
 
 // === SHOP
 
+export const formatPrice = (i) => {
+  const parts = i.toString().split('.')
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+  return `${parts.join('.')} ₽`
+}
+
 export const buy = async (dispatch, id, cart, available, enqueueSnackbar) => {
-  // const action = (key) => (
-  //   <Button
-  //     href={`/my-account?panel=1`}
-  //     key={key}
-  //     style={{ border: 'none', color: 'white' }}
-  //     variant={'text'}
-  //   >
-  //     Перейти
-  //   </Button>
-  // ) <Link href={`/my-account?panel=1`}>
   try {
     if ((await countOfItem(id, cart)) < available) {
       const data = await addToCart(dispatch, id, cart)

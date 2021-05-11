@@ -58,6 +58,9 @@ export const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: theme.palette.primary.dark,
         color: '#fafafa',
       },
+      '& span.MuiBadge-badge': {
+        color: 'white',
+      },
     },
   })
 )
