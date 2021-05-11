@@ -8,14 +8,14 @@ import clsx from 'clsx'
 import {
   GoogleIcon,
   FacebookIcon,
-  InstagramIcon,
+  GithubIcon,
   VKIcon,
 } from './icons/SocialIcons'
 import { Link } from '@ui/index'
 
 import { useStyles } from './SocialButton.styles'
 
-type SocialIconType = 'vk' | 'facebook' | 'instagram' | 'google'
+type SocialIconType = 'vk' | 'facebook' | 'github' | 'google'
 
 export interface ISocialButtonProps {
   icon: SocialIconType
@@ -27,7 +27,7 @@ export interface ISocialButtonProps {
 const iconButtonMap: Record<SocialIconType, ElementType<SvgIconProps>> = {
   facebook: FacebookIcon,
   vk: VKIcon,
-  instagram: InstagramIcon,
+  github: GithubIcon,
   google: GoogleIcon,
 }
 

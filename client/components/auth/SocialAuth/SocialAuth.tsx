@@ -7,8 +7,8 @@ import { useStyles as useButtonStyles } from '@ui/SocialButton/SocialButton.styl
 
 import { useStyles } from './SocialAuth.styles'
 
-type ServiceType = 'facebook' | 'vk' | 'instagram' | 'google'
-const services: Array<ServiceType> = ['facebook', 'vk', 'instagram', 'google']
+type ServiceType = 'facebook' | 'vk' | 'github' | 'google'
+const services: Array<ServiceType> = ['facebook', 'vk', 'github', 'google']
 
 const SocialAuth: FunctionComponent = (props) => {
   const classes = useStyles()

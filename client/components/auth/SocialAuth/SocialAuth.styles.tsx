@@ -24,9 +24,9 @@ export const useStyles = makeStyles((theme: Theme) =>
         marginRight: 10,
       },
     },
-    instagram: {
+    github: {
       '&': {
-        backgroundColor: '#E1306C',
+        backgroundColor: '#333333',
         color: theme.palette.primary.contrastText,
         padding: 10,
         marginRight: 10,

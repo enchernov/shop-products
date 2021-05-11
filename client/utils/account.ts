@@ -1,11 +1,7 @@
 import * as ACTIONS from '@actions/auth'
 import { getTotal } from '@utils/shop'
 import { ChangeEvent } from 'react'
-import {
-  loadAvatar,
-  requestAuth,
-  stopLoading,
-} from '@actions/auth'
+import { loadAvatar, requestAuth, stopLoading } from '@actions/auth'
 import { v4 as uuidv4 } from 'uuid'
 import { updUser } from '@utils/auth'
 
