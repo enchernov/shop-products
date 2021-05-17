@@ -18,6 +18,9 @@ export const useStyles = makeStyles((theme: Theme) =>
     item: {
       maxWidth: 450,
       width: '66vw',
+      '& .MuiOutlinedInput-root': {
+        borderRadius: 0,
+      },
     },
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,

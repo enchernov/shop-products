@@ -43,7 +43,7 @@ const Main: FunctionComponent = () => {
           <Grid
             item
             className={classes.poster}
-            style={mdWidth ? { marginBottom: 32 } : { marginRight: 32 }}
+            style={mdWidth ? { marginBottom: 24 } : { marginRight: 32 }}
           >
             <Typography variant={'h1'}>Любимые продукты</Typography>
             <Typography variant={'h2'}>На FoodMarket</Typography>
@@ -73,9 +73,9 @@ const Main: FunctionComponent = () => {
                   alignItems={'center'}
                   spacing={3}
                 >
-                  {popular.map((p) => (
+                  {popular.map((p, index: number) => (
                     <Grid item key={`product_${p.id}`}>
-                      <ProductCard hit={p} />
+                      <ProductCard hit={p} idx={index} />
                     </Grid>
                   ))}
                 </Grid>
@@ -83,14 +83,19 @@ const Main: FunctionComponent = () => {
             </Grid>
           </Grid>
         ) : null}
-        <Grid item xs={12}>
+        <Grid item xs={12} style={{ padding: '24px auto' }}>
           <Grid
             container
             justify={isSmallWidth ? 'space-around' : 'center'}
             alignItems={'center'}
             direction={isSmallWidth ? 'column' : 'row'}
           >
-            <Grid item className={classes.banner} xs={isSmallWidth ? 12 : 3}>
+            <Grid
+              item
+              className={classes.banner}
+              xs={isSmallWidth ? 12 : 3}
+              style={{ animationDelay: `1.1s` }}
+            >
               <div>
                 <Typography variant={'h1'}>Новинки</Typography>
                 <Link href={'/shop'}>Подробнее</Link>
@@ -100,7 +105,11 @@ const Main: FunctionComponent = () => {
               item
               className={classes.banner}
               xs={isSmallWidth ? 12 : 3}
-              style={isSmallWidth ? { marginTop: 24 } : { marginLeft: 24 }}
+              style={
+                isSmallWidth
+                  ? { marginTop: 24, animationDelay: `1.2s` }
+                  : { marginLeft: 24, animationDelay: `1.2s` }
+              }
             >
               <div>
                 <Typography variant={'h1'}>Доставка</Typography>
@@ -111,7 +120,11 @@ const Main: FunctionComponent = () => {
               item
               className={classes.banner}
               xs={isSmallWidth ? 12 : 3}
-              style={isSmallWidth ? { marginTop: 24 } : { marginLeft: 24 }}
+              style={
+                isSmallWidth
+                  ? { marginTop: 24, animationDelay: `1.3s` }
+                  : { marginLeft: 24, animationDelay: `1.3s` }
+              }
             >
               <div>
                 <Typography variant={'h1'}>Рецепты</Typography>
@@ -122,7 +135,7 @@ const Main: FunctionComponent = () => {
         </Grid>
         <Grid item xs={12}>
           <Grid container direction={'column'} spacing={3}>
-            <Grid item style={{ padding: '20px 40px' }}>
+            <Grid item style={{ padding: '20px 40px 0 40px' }}>
               <Typography variant={'h1'}>Люди о FoodMarket</Typography>
             </Grid>
             <Grid item>
@@ -142,8 +155,16 @@ const Main: FunctionComponent = () => {
                     className={classes.review}
                     style={
                       xsWidth
-                        ? { flexDirection: 'column', alignItems: 'center' }
-                        : { flexDirection: 'row', alignItems: 'flex-start' }
+                        ? {
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            animationDelay: `1.5s`,
+                          }
+                        : {
+                            flexDirection: 'row',
+                            alignItems: 'flex-start',
+                            animationDelay: `1.5s`,
+                          }
                     }
                   >
                     <img
@@ -182,8 +203,16 @@ const Main: FunctionComponent = () => {
                     className={classes.review}
                     style={
                       xsWidth
-                        ? { flexDirection: 'column', alignItems: 'center' }
-                        : { flexDirection: 'row', alignItems: 'flex-start' }
+                        ? {
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            animationDelay: `1.6s`,
+                          }
+                        : {
+                            flexDirection: 'row',
+                            alignItems: 'flex-start',
+                            animationDelay: `1.6s`,
+                          }
                     }
                   >
                     <img

@@ -23,8 +23,13 @@ const Menu = connectMenu(({ items, refine, createURL }) => {
           ) : null}
         </Grid>
       </Grid>
-      {items.map((item) => (
-        <Grid item key={item.value}>
+      {items.map((item, index: number) => (
+        <Grid
+          item
+          key={item.value}
+          className={classes.categoryRoot}
+          style={{ animationDelay: `${index / 10}s` }}
+        >
           <Grid container spacing={1} alignItems={'center'}>
             <Grid item>
               <CategoryOutlined

@@ -60,9 +60,9 @@ const Orders: FunctionComponent = () => {
           alignItems={isSmallWidth ? 'center' : 'flex-start'}
         >
           {state.user?.orders?.length ? (
-            state.user.orders.map((o) => (
+            state.user.orders.map((o, index: number) => (
               <Grid item key={o.id}>
-                <Order order={o} />
+                <Order order={o} idx={index} />
               </Grid>
             ))
           ) : (

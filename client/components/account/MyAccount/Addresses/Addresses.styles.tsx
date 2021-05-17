@@ -2,11 +2,26 @@ import { createStyles, makeStyles } from '@material-ui/core/styles'
 
 export const useStyles = makeStyles(() =>
   createStyles({
+    '@keyframes fadeIn': {
+      from: {
+        opacity: 0,
+      },
+      to: {
+        opacity: 1,
+      },
+    },
     root: {
       maxWidth: 450,
       width: '66vw',
     },
     item: {
+      opacity: 0,
+      animationName: '$fadeIn',
+      animationDuration: '1s',
+      animationIterationCount: '1',
+      animationTimingFunction: 'ease',
+      animationFillMode: 'forwards',
+      animationDirection: 'normal',
       maxWidth: 450,
       width: '66vw',
       padding: 20,

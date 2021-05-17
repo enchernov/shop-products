@@ -25,9 +25,9 @@ const Wishlist: FunctionComponent = () => {
           alignItems={isSmallWidth ? 'center' : 'flex-start'}
         >
           {list.length && list.every((x) => x !== undefined) ? (
-            list.map((product: any) => (
+            list.map((product: any, index: number) => (
               <Grid item key={product.id}>
-                <ProductCard hit={product} />
+                <ProductCard hit={product} idx={index} />
               </Grid>
             ))
           ) : (

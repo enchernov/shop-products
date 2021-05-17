@@ -34,7 +34,8 @@ const CartItem: FunctionComponent<IProductProps> = ({
   id,
   count,
   available,
-}: IProductProps) => {
+  idx = 0,
+}: IProductProps & { idx?: number }) => {
   const classes = useStyles()
 
   const { state, dispatch } = useContext(ShopContext)
@@ -77,7 +78,11 @@ const CartItem: FunctionComponent<IProductProps> = ({
       square={true}
       className={classes.root}
       elevation={0}
-      style={isSmallWidth ? { paddingBottom: 40 } : {}}
+      style={
+        isSmallWidth
+          ? { paddingBottom: 40, animationDelay: `${idx / 10}s` }
+          : { animationDelay: `${idx / 10}s` }
+      }
     >
       <Grid container direction={'column'} alignItems={'center'}>
         <Grid item>
@@ -162,7 +167,7 @@ const CartItem: FunctionComponent<IProductProps> = ({
                   color={inList ? 'secondary' : 'default'}
                   className={classes.icon}
                   onClick={toggleWish}
-                  style={isSmallWidth ? { bottom: 24, left: 48 } : { top: 24 }}
+                  style={isSmallWidth ? { left: 48 } : { top: 24 }}
                 />
               </Tooltip>
               <Tooltip title={'Удалить из корзины'} placement={'left'}>

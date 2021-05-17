@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useContext, useEffect } from 'react'
 import {
+  Badge,
   Grid,
   Typography,
   useMediaQuery,
@@ -31,12 +32,20 @@ import { ShopContext } from '@providers/ShopProvider'
 
 const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
   const { state, dispatch } = useContext(AppContext)
+
   const { dispatch: themeDispatch } = useContext(ThemeContext)
+
   const { isAuthenticated } = state
+
   const { enqueueSnackbar } = useSnackbar()
+
   const { data, loading, error } = useQuery(ME)
+
   const router = useRouter()
-  const { dispatch: shopDispatch } = useContext(ShopContext)
+  const currentRoute = router?.asPath || ''
+
+  const { state: shopState, dispatch: shopDispatch } = useContext(ShopContext)
+
   useEffect(() => {
     if (!loading && data && state.isAuthenticated) {
       dispatch(ACTIONS.authSuccess({ user: { ...data.me, ...data.self } }))
@@ -72,6 +81,7 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
 
   // console.log(state)
+  const redUnderline = { borderColor: '#ff5252' }
 
   return (
     <>
@@ -95,50 +105,97 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
           <Grid item>
             <Grid
               container
-              justify={isSmallWidth ? 'flex-start' : 'space-between'}
+              justify={isSmallWidth ? 'center' : 'space-between'}
               alignItems={'center'}
               spacing={1}
             >
               {isAuthenticated ? (
                 <>
                   <Grid item>
-                    <Link href={'/'} className={classes.link}>
+                    <Link
+                      href={'/'}
+                      className={classes.link}
+                      style={currentRoute == '/' ? redUnderline : {}}
+                    >
                       Главная
                     </Link>
                   </Grid>
                   <Grid item>·</Grid>
                   <Grid item>
-                    <Link href={'/shop'} className={classes.link}>
+                    <Link
+                      href={'/shop'}
+                      className={classes.link}
+                      style={currentRoute == '/shop' ? redUnderline : {}}
+                    >
                       Магазин
                     </Link>
                   </Grid>
                   <Grid item>·</Grid>
                   <Grid item>
-                    <Link href={'/my-account?panel=0'} className={classes.link}>
+                    <Link
+                      href={'/my-account?panel=0'}
+                      className={classes.link}
+                      style={
+                        currentRoute == '/my-account?panel=0'
+                          ? redUnderline
+                          : {}
+                      }
+                    >
                       Мой аккаунт
                     </Link>
                   </Grid>
                   <Grid item>·</Grid>
                   <Grid item>
-                    <Link href={'/my-account?panel=1'} className={classes.link}>
-                      Корзина
-                    </Link>
+                    <Badge
+                      color="secondary"
+                      variant="dot"
+                      invisible={shopState?.cart?.length < 1}
+                      className={classes.cartBadge}
+                    >
+                      <Link
+                        href={'/my-account?panel=1'}
+                        className={classes.link}
+                        style={
+                          currentRoute == '/my-account?panel=1'
+                            ? redUnderline
+                            : {}
+                        }
+                      >
+                        Корзина
+                      </Link>
+                    </Badge>
                   </Grid>
                   <Grid item>·</Grid>
                   <Grid item>
-                    <Link href={'/my-account?panel=3'} className={classes.link}>
+                    <Link
+                      href={'/my-account?panel=3'}
+                      className={classes.link}
+                      style={
+                        currentRoute == '/my-account?panel=3'
+                          ? redUnderline
+                          : {}
+                      }
+                    >
                       Избранное
                     </Link>
                   </Grid>
                   <Grid item>·</Grid>
                   <Grid item>
-                    <Link href={'/about-us'} className={classes.link}>
+                    <Link
+                      href={'/about-us'}
+                      className={classes.link}
+                      style={currentRoute == '/about-us' ? redUnderline : {}}
+                    >
                       О нас
                     </Link>
                   </Grid>
                   <Grid item>·</Grid>
                   <Grid item>
-                    <Link href={'/contacts'} className={classes.link}>
+                    <Link
+                      href={'/contacts'}
+                      className={classes.link}
+                      style={currentRoute == '/contacts' ? redUnderline : {}}
+                    >
                       Контакты
                     </Link>
                   </Grid>
@@ -146,25 +203,41 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
               ) : (
                 <>
                   <Grid item>
-                    <Link href={'/'} className={classes.link}>
+                    <Link
+                      href={'/'}
+                      className={classes.link}
+                      style={currentRoute == '/' ? redUnderline : {}}
+                    >
                       Главная
                     </Link>
                   </Grid>
                   <Grid item>·</Grid>
                   <Grid item>
-                    <Link href={'/shop'} className={classes.link}>
+                    <Link
+                      href={'/shop'}
+                      className={classes.link}
+                      style={currentRoute == '/shop' ? redUnderline : {}}
+                    >
                       Магазин
                     </Link>
                   </Grid>
                   <Grid item>·</Grid>
                   <Grid item>
-                    <Link href={'/about-us'} className={classes.link}>
+                    <Link
+                      href={'/about-us'}
+                      className={classes.link}
+                      style={currentRoute == '/about-us' ? redUnderline : {}}
+                    >
                       О нас
                     </Link>
                   </Grid>
                   <Grid item>·</Grid>
                   <Grid item>
-                    <Link href={'/contacts'} className={classes.link}>
+                    <Link
+                      href={'/contacts'}
+                      className={classes.link}
+                      style={currentRoute == '/contacts' ? redUnderline : {}}
+                    >
                       Контакты
                     </Link>
                   </Grid>

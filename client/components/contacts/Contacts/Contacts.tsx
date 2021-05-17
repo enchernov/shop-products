@@ -100,7 +100,7 @@ const Contacts: FunctionComponent = () => {
       </Grid>
       <Divider type={'wide'} />
       <Grid container direction={'column'} spacing={6} className={classes.root}>
-        <Grid item xs={12}>
+        <Grid item xs={12} style={{ width: '100%', minHeight: 450 }}>
           <Map />
         </Grid>
         <Grid item xs={12}>
@@ -112,7 +112,7 @@ const Contacts: FunctionComponent = () => {
           >
             <Grid
               item
-              className={classes.contactContanier}
+              className={classes.contactContainer}
               xs={isSmallWidth ? 12 : 3}
             >
               <Grid container direction={'column'} spacing={2}>
@@ -137,8 +137,9 @@ const Contacts: FunctionComponent = () => {
             </Grid>
             <Grid
               item
-              className={classes.contactContanier}
+              className={classes.contactContainer}
               xs={isSmallWidth ? 12 : 3}
+              style={{ animationDelay: `0.1s` }}
             >
               <Grid container direction={'column'} spacing={2}>
                 <Grid item>
@@ -162,8 +163,9 @@ const Contacts: FunctionComponent = () => {
             </Grid>
             <Grid
               item
-              className={classes.contactContanier}
+              className={classes.contactContainer}
               xs={isSmallWidth ? 12 : 3}
+              style={{ animationDelay: `0.2s` }}
             >
               <Grid container direction={'column'} spacing={2}>
                 <Grid item>
@@ -187,8 +189,9 @@ const Contacts: FunctionComponent = () => {
             </Grid>
             <Grid
               item
-              className={classes.contactContanier}
+              className={classes.contactContainer}
               xs={isSmallWidth ? 12 : 3}
+              style={{ animationDelay: `0.3s` }}
             >
               <Grid container direction={'column'} spacing={2}>
                 <Grid item>

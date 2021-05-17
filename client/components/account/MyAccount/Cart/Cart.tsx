@@ -137,9 +137,9 @@ const Cart: FunctionComponent = () => {
                       spacing={2}
                     >
                       {cart.length ? (
-                        cart.map((product: any) => (
+                        cart.map((product: any, index: number) => (
                           <Grid item key={product.id}>
-                            <CartItem {...product} />
+                            <CartItem {...product} idx={index} />
                           </Grid>
                         ))
                       ) : (
@@ -183,10 +183,21 @@ const Cart: FunctionComponent = () => {
                         square={true}
                         elevation={0}
                       >
-                        <Typography
-                          variant={'h1'}
+                        <Grid
+                          container
+                          justify={'space-between'}
+                          alignItems={'center'}
                           style={{ marginBottom: 16 }}
-                        >{`Итого ${formatPrice(total)}`}</Typography>
+                        >
+                          <Grid item>
+                            <Typography variant={'h1'}>Итого</Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography variant={'h1'}>{`${formatPrice(
+                              total
+                            )}`}</Typography>
+                          </Grid>
+                        </Grid>
                         <Grid container direction={'column'} spacing={2}>
                           {cart.map((i) => (
                             <Grid item key={i?.id}>
@@ -244,9 +255,9 @@ const Cart: FunctionComponent = () => {
                         alignItems={'center'}
                         spacing={3}
                       >
-                        {lookMore.map((p) => (
+                        {lookMore.map((p, index: number) => (
                           <Grid item key={`product_${p.id}`}>
-                            <ProductCard hit={p} />
+                            <ProductCard hit={p} idx={index} />
                           </Grid>
                         ))}
                       </Grid>

@@ -18,7 +18,10 @@ import { AppContext } from '@providers/AppProvider'
 import { useMutation } from '@apollo/client'
 import UPDATE_USER from '@graphql/mutations/UpdateUser'
 
-const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
+const ProductCard: FunctionComponent<IProductCardProps> = ({
+  hit,
+  idx = 0,
+}: any) => {
   const {
     name,
     image,
@@ -59,6 +62,7 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({ hit }: any) => {
   return (
     <Paper
       className={classes.root}
+      style={{ animationDelay: `${idx / 10}s` }}
       square={true}
       aria-disabled={available < 1}
       elevation={0}

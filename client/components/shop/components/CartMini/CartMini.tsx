@@ -72,11 +72,16 @@ const CartMini = () => {
       </Grid>
       {cart.length ? (
         <>
-          {cart.map((product: any) => {
+          {cart.map((product: any, index: number) => {
             const { name, image, price, id, count } = product
             return (
               <Grid item key={product?.id}>
-                <Paper square={true} className={classes.root} elevation={0}>
+                <Paper
+                  square={true}
+                  className={classes.root}
+                  elevation={0}
+                  style={{ animationDelay: `${index / 10}s` }}
+                >
                   <Grid
                     container
                     alignItems={'center'}

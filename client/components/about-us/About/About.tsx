@@ -91,7 +91,7 @@ const About: FunctionComponent = () => {
                 >
                   <Grid
                     item
-                    className={classes.contactContanier}
+                    className={classes.contactContainer}
                     xs={isSmallWidth ? 12 : 4}
                   >
                     <Grid container direction={'column'} spacing={2}>
@@ -122,8 +122,9 @@ const About: FunctionComponent = () => {
                   </Grid>
                   <Grid
                     item
-                    className={classes.contactContanier}
+                    className={classes.contactContainer}
                     xs={isSmallWidth ? 12 : 4}
+                    style={{ animationDelay: `0.1s` }}
                   >
                     <Grid container direction={'column'} spacing={2}>
                       <Grid item>
@@ -153,8 +154,9 @@ const About: FunctionComponent = () => {
                   </Grid>
                   <Grid
                     item
-                    className={classes.contactContanier}
+                    className={classes.contactContainer}
                     xs={isSmallWidth ? 12 : 4}
+                    style={{ animationDelay: `0.2s` }}
                   >
                     <Grid container direction={'column'} spacing={2}>
                       <Grid item>

@@ -3,11 +3,29 @@ import { grey } from '@material-ui/core/colors'
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    '@keyframes slideDown': {
+      from: {
+        transform: 'translateY(-10px)',
+        opacity: 0,
+      },
+      to: {
+        transform: 'translateY(0)',
+        opacity: 1,
+      },
+    },
     mainContainer: {
       overflow: 'hidden',
       marginBottom: '3rem',
     },
     poster: {
+      opacity: 0,
+      transform: 'translateY(-10px)',
+      animationName: '$slideDown',
+      animationDuration: '1s',
+      animationIterationCount: '1',
+      animationTimingFunction: 'ease',
+      animationFillMode: 'forwards',
+      animationDirection: 'normal',
       width: '100%',
       maxWidth: 600,
       height: 200,
@@ -43,6 +61,14 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     banner: {
+      opacity: 0,
+      transform: 'translateY(-10px)',
+      animationName: '$slideDown',
+      animationDuration: '1s',
+      animationIterationCount: '1',
+      animationTimingFunction: 'ease',
+      animationFillMode: 'forwards',
+      animationDirection: 'normal',
       width: '100%',
       minHeight: 158,
       backgroundSize: 'cover',
@@ -74,6 +100,14 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     review: {
+      opacity: 0,
+      transform: 'translateY(-10px)',
+      animationName: '$slideDown',
+      animationDuration: '1s',
+      animationIterationCount: '1',
+      animationTimingFunction: 'ease',
+      animationFillMode: 'forwards',
+      animationDirection: 'normal',
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'flex-start',

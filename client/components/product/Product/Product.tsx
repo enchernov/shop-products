@@ -361,9 +361,9 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
                     alignItems={'center'}
                     spacing={3}
                   >
-                    {related.map((p) => (
+                    {related.map((p, index: number) => (
                       <Grid item key={`product_${p.id}`}>
-                        <ProductCard hit={p} />
+                        <ProductCard hit={p} idx={index} />
                       </Grid>
                     ))}
                   </Grid>
@@ -383,17 +383,7 @@ const Product: FunctionComponent<IProductComponent> = ({ product }) => {
             : { padding: '20px', maxWidth: 450, margin: '0 auto' }
         }
       >
-        {/*<Grid*/}
-        {/*  container*/}
-        {/*  className={classes.side}*/}
-        {/*  */}
-        {/*  direction={'column'}*/}
-        {/*  spacing={3}*/}
-        {/*>*/}
-        {/*  <Grid item>*/}
         <CartMini />
-        {/*</Grid>*/}
-        {/*</Grid>*/}
       </Grid>
     </Grid>
   )

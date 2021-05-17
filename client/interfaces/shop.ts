@@ -31,6 +31,7 @@ export interface IProductProps {
 
 export interface IProductCardProps {
   hit: IProductProps
+  idx?: number
 }
 
 export interface IShopProps {

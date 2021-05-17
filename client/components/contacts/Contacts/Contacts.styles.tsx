@@ -12,7 +12,25 @@ export const useStyles = makeStyles(() =>
       marginTop: 20,
       paddingBottom: 40,
     },
-    contactContanier: {
+    '@keyframes slideDown': {
+      from: {
+        transform: 'translateY(-10px)',
+        opacity: 0,
+      },
+      to: {
+        transform: 'translateY(0)',
+        opacity: 1,
+      },
+    },
+    contactContainer: {
+      opacity: 0,
+      transform: 'translateY(-10px)',
+      animationName: '$slideDown',
+      animationDuration: '1s',
+      animationIterationCount: '1',
+      animationTimingFunction: 'ease',
+      animationFillMode: 'forwards',
+      animationDirection: 'normal',
       padding: 16,
       '& img': {
         width: '100%',

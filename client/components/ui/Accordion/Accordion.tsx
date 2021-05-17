@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core'
 
 import { useStyles } from './Accordion.styles'
+import clsx from 'clsx'
 
 interface IAccordionProps {
   children: ReactNode
@@ -24,7 +25,11 @@ const Accordion: FunctionComponent<IAccordionProps & AccordionProps> = ({
 
   return (
     <div className={classes.container}>
-      <MuiAccordion {...props} className={classes.root} elevation={0}>
+      <MuiAccordion
+        {...props}
+        className={clsx(classes.root, props?.className)}
+        elevation={0}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-label="Expand"

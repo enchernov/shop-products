@@ -82,5 +82,26 @@ export const useStyles = makeStyles((theme: Theme & { name: string }) =>
         color: '#fafafa',
       },
     },
+    '@keyframes colors': {
+      from: {
+        backgroundColor: theme.palette.secondary.light,
+      },
+      to: {
+        backgroundColor: theme.palette.secondary.main,
+      },
+    },
+    cartBadge: {
+      '& .MuiBadge-badge': {
+        top: '2.5px',
+        right: '-2.5px',
+        minWidth: 6,
+        height: 6,
+        borderRadius: '100%',
+        animationName: '$colors',
+        animationDuration: '2s',
+        animationIterationCount: 'infinite',
+        animationTimingFunction: 'linear',
+      },
+    },
   })
 )

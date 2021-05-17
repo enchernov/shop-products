@@ -23,7 +23,7 @@ const ProductHits = connectInfiniteHits(({ hits, getCount }) => {
     >
       {hits.map((p: IProductProps, index: number) => (
         <Grid item key={`${p.name}_${index}`}>
-          <ProductCard hit={p} />
+          <ProductCard hit={p} idx={index} />
         </Grid>
       ))}
       {!hits.length && (

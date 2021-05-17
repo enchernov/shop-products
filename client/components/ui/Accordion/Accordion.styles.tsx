@@ -14,7 +14,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       color: theme.palette.primary.contrastText,
-      fontWeight: 500,
+      fontWeight: 'bold',
       fontSize: '1rem',
     },
     icon: {

@@ -62,5 +62,22 @@ export const useStyles = makeStyles((theme: Theme) =>
         color: 'white',
       },
     },
+    '@keyframes fadeIn': {
+      from: {
+        opacity: 0,
+      },
+      to: {
+        opacity: 1,
+      },
+    },
+    categoryRoot: {
+      opacity: 0,
+      animationName: '$fadeIn',
+      animationDuration: '1s',
+      animationIterationCount: '1',
+      animationTimingFunction: 'ease',
+      animationFillMode: 'forwards',
+      animationDirection: 'normal',
+    },
   })
 )

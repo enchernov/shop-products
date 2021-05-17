@@ -4,18 +4,25 @@ import { Paper, Typography, Grid } from '@material-ui/core'
 import { useStyles } from './Order.styles'
 import { IOrderProps } from '@interfaces/shop'
 import { makeDate } from '@utils/account'
+import { formatPrice } from '@utils/shop'
 
 interface IOrderComponentProps {
   order: IOrderProps
+  idx?: number
 }
 
-const Order: FunctionComponent<IOrderComponentProps> = ({ order }) => {
+const Order: FunctionComponent<IOrderComponentProps> = ({ order, idx = 0 }) => {
   const { total, createdAt, address, id } = order
   const products = JSON.parse(order.products) || []
   const date = makeDate(createdAt)
   const classes = useStyles()
   return (
-    <Paper className={classes.root} square={true} elevation={0}>
+    <Paper
+      className={classes.root}
+      square={true}
+      elevation={0}
+      style={{ animationDelay: `${idx / 10}s` }}
+    >
       <Grid container direction={'column'} spacing={2}>
         <Grid item>
           <Grid
@@ -39,9 +46,9 @@ const Order: FunctionComponent<IOrderComponentProps> = ({ order }) => {
                 <Typography variant={'h5'}>{i.name}</Typography>
               </Grid>
               <Grid item>
-                <Typography
-                  variant={'h5'}
-                >{`${i.count} × ${i.price} ₽`}</Typography>
+                <Typography variant={'h5'}>{`${formatPrice(i.price)} × ${
+                  i.count
+                }`}</Typography>
               </Grid>
             </Grid>
           </Grid>

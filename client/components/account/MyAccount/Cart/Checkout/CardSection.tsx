@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext, useState } from 'react'
 
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { formCart } from '@utils/shop'
+import { formatPrice, formCart } from '@utils/shop'
 import { useMutation } from '@apollo/client'
 import CREATE_ORDER from '@graphql/mutations/CreateOrder'
 import { ShopContext } from '@providers/ShopProvider'
@@ -91,7 +91,7 @@ const CardSection: FunctionComponent<ICardSectionProps> = ({
           className={classes.button}
           fullWidth={true}
         >
-          {`Оплатить ${total}₽`}
+          {`Оплатить ${formatPrice(total)}`}
         </Button>
       </Grid>
       <Backdrop

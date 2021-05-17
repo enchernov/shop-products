@@ -47,9 +47,14 @@ const Addresses: FunctionComponent = () => {
         />
       </Grid>
       {addresses.length ? (
-        addresses.map((a) => (
+        addresses.map((a, index: number) => (
           <Grid item key={a.id}>
-            <Paper square={true} className={classes.item} elevation={0}>
+            <Paper
+              square={true}
+              className={classes.item}
+              elevation={0}
+              style={{ animationDelay: `${index / 10}s` }}
+            >
               <Grid container justify={'space-between'} alignItems={'center'}>
                 <Grid item>{a.address}</Grid>
                 <Grid item>
