@@ -29,7 +29,7 @@ const Order: FunctionComponent<IOrderComponentProps> = ({ order, idx = 0 }) => {
 
   const makeAgain = async () => {
     await makeOrderAgain(dispatch, order, state.products, enqueueSnackbar)
-    await appDispatch(changeAccountTab(2))
+    await appDispatch(changeAccountTab(1))
   }
 
   return (
