@@ -21,8 +21,8 @@ const slides: Array<ISlideProps> = [
     ),
     subtitle: (classes) => (
       <p className={classes.subtitle}>
-        Faster shopping with a whole new way to search and navigate. Shop your
-        last order again with just one click.
+        Быстрые покупки с совершенно новым поиском и навигацией. Заказывайте еду
+        в мобильном приложении FoodMarket
       </p>
     ),
     button: {
@@ -37,8 +37,8 @@ const slides: Array<ISlideProps> = [
     ),
     subtitle: (classes) => (
       <p className={classes.subtitle}>
-        From March 9 to May 31, 2021, you could win one of the 25 $1,000
-        FoodMarket gift cards each week.
+        С 9 марта по 31 мая 2021 года вы можете выиграть одну из 25 подарочных
+        карт FoodMarket на 21 000 ₽ каждую неделю
       </p>
     ),
     button: {

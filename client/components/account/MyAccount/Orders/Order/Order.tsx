@@ -1,10 +1,15 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useContext } from 'react'
 import { Paper, Typography, Grid } from '@material-ui/core'
 
 import { useStyles } from './Order.styles'
 import { IOrderProps } from '@interfaces/shop'
-import { makeDate } from '@utils/account'
+import { makeDate, makeOrderAgain } from '@utils/account'
 import { formatPrice } from '@utils/shop'
+import { ShopContext } from '@providers/ShopProvider'
+import { useSnackbar } from 'notistack'
+import { Button } from '@ui/index'
+import { AppContext } from '@providers/AppProvider'
+import { changeAccountTab } from '@actions/auth'
 
 interface IOrderComponentProps {
   order: IOrderProps
@@ -16,6 +21,17 @@ const Order: FunctionComponent<IOrderComponentProps> = ({ order, idx = 0 }) => {
   const products = JSON.parse(order.products) || []
   const date = makeDate(createdAt)
   const classes = useStyles()
+
+  const { dispatch: appDispatch } = useContext(AppContext)
+
+  const { state, dispatch } = useContext(ShopContext)
+  const { enqueueSnackbar } = useSnackbar()
+
+  const makeAgain = async () => {
+    await makeOrderAgain(dispatch, order, state.products, enqueueSnackbar)
+    await appDispatch(changeAccountTab(2))
+  }
+
   return (
     <Paper
       className={classes.root}
@@ -25,19 +41,13 @@ const Order: FunctionComponent<IOrderComponentProps> = ({ order, idx = 0 }) => {
     >
       <Grid container direction={'column'} spacing={2}>
         <Grid item>
-          <Grid
-            container
-            justify={'space-between'}
-            alignItems={'center'}
-            spacing={2}
+          <Typography
+            variant={'h4'}
+            align={'center'}
+            style={{ fontWeight: 'bold' }}
           >
-            <Grid item>
-              <Typography variant={'h4'}>ID</Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant={'h5'}>{id}</Typography>
-            </Grid>
-          </Grid>
+            {`#${id}`}
+          </Typography>
         </Grid>
         {products.map((i) => (
           <Grid item key={i.id}>
@@ -84,6 +94,16 @@ const Order: FunctionComponent<IOrderComponentProps> = ({ order, idx = 0 }) => {
               <Typography variant={'h5'}>{date}</Typography>
             </Grid>
           </Grid>
+        </Grid>
+        <Grid item>
+          <Button
+            fullWidth={true}
+            onClick={makeAgain}
+            variant={'text'}
+            className={classes.makeAgainButton}
+          >
+            Заказать снова
+          </Button>
         </Grid>
       </Grid>
     </Paper>

@@ -4,7 +4,6 @@ export const useStyles = makeStyles(() =>
   createStyles({
     divider: {
       border: 'none',
-      // backgroundColor: '#f6f6f6',
       backgroundColor: '#f0f0f0',
     },
     thin: {
@@ -19,20 +18,20 @@ export const useStyles = makeStyles(() =>
     solid: {
       borderStyle: 'solid',
     },
-    dotted: {
-      borderStyle: 'dotted',
-    },
-    dashed: {
-      borderStyle: 'dashed',
-    },
-    double: {
-      borderStyle: 'double',
-    },
-    groove: {
-      borderStyle: 'groove',
-    },
-    none: {
-      borderStyle: 'none',
-    },
+    // dotted: {
+    //   borderStyle: 'dotted',
+    // },
+    // dashed: {
+    //   borderStyle: 'dashed',
+    // },
+    // double: {
+    //   borderStyle: 'double',
+    // },
+    // groove: {
+    //   borderStyle: 'groove',
+    // },
+    // none: {
+    //   borderStyle: 'none',
+    // },
   })
 )

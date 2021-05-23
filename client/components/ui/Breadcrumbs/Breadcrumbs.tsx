@@ -16,7 +16,7 @@ const breadcrumbNameMap: { [key: string]: string } = {
 const Breadcrumbs: FunctionComponent = () => {
   const classes = useStyles()
   const router = useRouter()
-  const pathnames = router.pathname.split('/').filter((x) => x)
+  const pathnames = router?.pathname?.split('/')?.filter((x) => x)
   return (
     <MuiBreadcrumbs className={classes.breadcrumbs}>
       <Link href={'/'} color={'text'}>

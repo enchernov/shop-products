@@ -14,7 +14,6 @@ app
     server.use('/', express.static(join(__dirname, 'public/')))
 
     server.get('*', (req, res) => handle(req, res, parse(req.url, true)))
-
     server.listen(PORT, (err) => {
       if (err) throw err
       console.log(`Server ready on http://localhost:${PORT}`)

@@ -48,8 +48,8 @@ const About: FunctionComponent = () => {
                       Покупать онлайн легко
                     </p>
                     <p className={carouselClasses.subtitle}>
-                      We know how to pick the freshest produce with the perfect
-                      ripeness.
+                      Мы знаем, как выбрать самые свежие продукты с идеальной
+                      зрелостью
                     </p>
                     <Button href={'/shop'} className={carouselClasses.button}>
                       Магазин
@@ -76,10 +76,9 @@ const About: FunctionComponent = () => {
                   align={'center'}
                   className={classes.subHeading}
                 >
-                  We feature a great selection of high-quality merchandise,
-                  friendly service and, of course, Every Day Low Prices. We also
-                  have another goal: to bring you the best shopping experience
-                  on the Internet.
+                  У нас большой выбор высококачественных товаров, дружелюбное
+                  обслуживание и, конечно же, низкие цены каждый день. Цель
+                  FoodMarket – предоставить вам лучший опыт покупок в Интернете.
                 </Typography>
               </Grid>
               <Grid item>
@@ -108,8 +107,8 @@ const About: FunctionComponent = () => {
                       </Grid>
                       <Grid item>
                         <Typography variant={'body2'} paragraph={true}>
-                          Cheaper prices than your local supermarket, great
-                          cashback offers to top it off.
+                          Более низкие цены, чем в вашем местном супермаркете,
+                          отличный кэшбэк предлагается в довершение всего.
                         </Typography>
                         <Typography variant={'body2'} paragraph={true}>
                           Local: 1-555-0167-828
@@ -140,8 +139,8 @@ const About: FunctionComponent = () => {
                       </Grid>
                       <Grid item>
                         <Typography variant={'body2'} paragraph={true}>
-                          Choose from 5000+ products across food, personal care,
-                          household & other categories.
+                          Выберите из более чем 5000 продуктов питания, личной
+                          гигиены, домашнего хозяйства и других категорий.
                         </Typography>
                         <Typography variant={'body2'} paragraph={true}>
                           Local: 1-555-0167-828
@@ -170,8 +169,8 @@ const About: FunctionComponent = () => {
                       </Grid>
                       <Grid item>
                         <Typography variant={'body2'} paragraph={true}>
-                          Not satisfied with a product? Return it at the
-                          doorstep & get a refund within hours.
+                          Не удовлетворены продуктом? Верните его на пороге и
+                          получите возврат в течение нескольких часов.
                         </Typography>
                         <Typography variant={'body2'} paragraph={true}>
                           Local: 1-555-0167-828
@@ -206,9 +205,9 @@ const About: FunctionComponent = () => {
                       className={classes.subtitle}
                       paragraph={true}
                     >
-                      Faster shopping with a whole new way to search and
-                      navigate. Shop your last order again with just one click.
-                      Check out easily — just one step!
+                      Быстрые покупки с совершенно новым поиском и навигацией.
+                      Заказывайте еду в мобильном приложении FoodMarket.
+                      Проверьте это легко — всего один шаг!
                     </Typography>
                     <Button href={'/shop'} className={classes.button}>
                       Загрузить

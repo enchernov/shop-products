@@ -36,7 +36,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     button: {
       padding: 15,
       marginBottom: 20,
-      // color: theme.palette.primary.contrastText,
+      color: 'white',
     },
     error: {
       color: theme.palette.error.main,

@@ -86,6 +86,7 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({
             placement={'left'}
           >
             <IconButton
+              aria-label={'like'}
               icon={inList ? 'favoriteFill' : 'favorite'}
               color={inList ? 'secondary' : 'default'}
               className={classes.icon}
@@ -96,7 +97,11 @@ const ProductCard: FunctionComponent<IProductCardProps> = ({
         <Grid item className={classes.iconAnimation}>
           <Tooltip title={'Подробнее'} placement={'left'}>
             <Link href={productLink} style={{ border: 'none' }}>
-              <IconButton icon={'search'} className={classes.icon} />
+              <IconButton
+                icon={'search'}
+                className={classes.icon}
+                aria-label={'search'}
+              />
             </Link>
           </Tooltip>
         </Grid>

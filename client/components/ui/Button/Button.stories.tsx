@@ -42,12 +42,14 @@ Text.args = {
 
 export const Icon = Template.bind({})
 Icon.args = {
-  ...Text.args,
+  children: 'Edit Button',
+  disabled: false,
   icon: 'edit',
 }
 
 export const Link = Template.bind({})
 Link.args = {
-  ...Icon.args,
+  children: 'Link Button',
+  disabled: false,
   href: '/',
 }

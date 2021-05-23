@@ -1,6 +1,6 @@
-import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-export const useStyles = makeStyles(() =>
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       height: 550,
@@ -17,6 +17,7 @@ export const useStyles = makeStyles(() =>
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
       backgroundSize: 'cover',
+      backgroundColor: theme.palette.primary.main,
       transition: '.2s ease-in-out',
       padding: '52px 80px',
     },

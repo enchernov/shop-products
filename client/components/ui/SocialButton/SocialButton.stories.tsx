@@ -14,7 +14,7 @@ export default {
     icon: {
       control: {
         type: 'select',
-        options: ['google', 'vk', 'facebook', 'instagram'],
+        options: ['google', 'vk', 'facebook', 'github'],
       },
     },
   },
@@ -31,7 +31,22 @@ const Template: Story<ISocialButtonProps> = (args) => {
   )
 }
 
-export const Icon = Template.bind({})
-Icon.args = {
+export const Google = Template.bind({})
+Google.args = {
   icon: 'google',
+}
+
+export const VK = Template.bind({})
+VK.args = {
+  icon: 'vk',
+}
+
+export const Facebook = Template.bind({})
+Facebook.args = {
+  icon: 'facebook',
+}
+
+export const Github = Template.bind({})
+Github.args = {
+  icon: 'github',
 }

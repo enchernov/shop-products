@@ -1,9 +1,12 @@
 import * as ACTIONS from '@actions/auth'
+import Cookies from 'js-cookie'
 import { getTotal } from '@utils/shop'
 import { ChangeEvent } from 'react'
 import { loadAvatar, requestAuth, stopLoading } from '@actions/auth'
 import { v4 as uuidv4 } from 'uuid'
 import { updUser } from '@utils/auth'
+import { updateCart } from '@actions/shop'
+import {IOrderProps} from "@interfaces/shop";
 
 // === DASHBOARD
 export const addAvatar = async (
@@ -135,6 +138,48 @@ export const makeDate = (s) => {
     return `${D[2]}.${D[1]}.${D[0]} ${T.join(':')}`
   } catch (e) {
     return s
+  }
+}
+
+export const makeOrderAgain = async (
+  dispatch,
+  order,
+  products,
+  enqueueSnackbar
+) => {
+  try {
+    const newCart = [] as Array<IOrderProps>
+    const items = JSON.parse(order.products) || []
+    items.map((x) => {
+      const candidate = products.find((y) => y.id == x?.id)
+      if (candidate.available < 1) {
+        enqueueSnackbar(`Товара '${x.name}' нет в наличии`, {
+          variant: 'warning',
+        })
+      } else if (candidate && candidate.available < x.count) {
+        newCart.push({ ...x, count: candidate.available })
+        enqueueSnackbar(`Добавлено макс. кол-во товара '${x.name}'`, {
+          variant: 'info',
+        })
+      } else if (candidate) {
+        newCart.push(x)
+      } else {
+        enqueueSnackbar('Возникла ошибка', { variant: 'error' })
+      }
+    })
+    try {
+      if (newCart.length > 0) {
+        dispatch(updateCart(newCart))
+        Cookies.set('cart', JSON.stringify(newCart))
+        enqueueSnackbar('Заказ сформирован', { variant: 'success' })
+      }
+      return
+    } catch (error) {
+      enqueueSnackbar('Возникла ошибка', { variant: 'error' })
+      return
+    }
+  } catch (error) {
+    console.log(error)
   }
 }
 

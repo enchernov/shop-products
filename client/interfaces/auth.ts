@@ -1,8 +1,8 @@
-export interface IOrderProps {
-  id: string
-  total: number
-  products: string
-}
+// export interface IOrderProps {
+//   id: string
+//   total: number
+//   products: string
+// }
 
 type IAvatarProps = {
   url: string | undefined
@@ -35,6 +35,7 @@ export interface IAppProps {
   loading: boolean
   token: string | null
   avatar: IAvatarProps
+  accountTab: number
 }
 
 export interface IRegisterProps {

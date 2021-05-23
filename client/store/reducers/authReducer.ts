@@ -14,6 +14,7 @@ export const initialState: IAppProps = {
     url: '',
     id: '',
   },
+  accountTab: 0,
 }
 
 export const authReducer: Reducer<IAppProps, IActionsProps> = (
@@ -69,6 +70,12 @@ export const authReducer: Reducer<IAppProps, IActionsProps> = (
         ...state,
         avatar: action.payload,
         loading: false,
+      }
+    }
+    case ACTION_TYPES.CHANGE_ACCOUNT_TAB: {
+      return {
+        ...state,
+        accountTab: action.payload,
       }
     }
     default:

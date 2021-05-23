@@ -94,7 +94,7 @@ const Main: FunctionComponent = () => {
               item
               className={classes.banner}
               xs={isSmallWidth ? 12 : 3}
-              style={{ animationDelay: `1.1s` }}
+              style={{ animationDelay: `1s` }}
             >
               <div>
                 <Typography variant={'h1'}>Новинки</Typography>
@@ -107,8 +107,8 @@ const Main: FunctionComponent = () => {
               xs={isSmallWidth ? 12 : 3}
               style={
                 isSmallWidth
-                  ? { marginTop: 24, animationDelay: `1.2s` }
-                  : { marginLeft: 24, animationDelay: `1.2s` }
+                  ? { marginTop: 24, animationDelay: `1.1s` }
+                  : { marginLeft: 24, animationDelay: `1.1s` }
               }
             >
               <div>
@@ -122,8 +122,8 @@ const Main: FunctionComponent = () => {
               xs={isSmallWidth ? 12 : 3}
               style={
                 isSmallWidth
-                  ? { marginTop: 24, animationDelay: `1.3s` }
-                  : { marginLeft: 24, animationDelay: `1.3s` }
+                  ? { marginTop: 24, animationDelay: `1.2s` }
+                  : { marginLeft: 24, animationDelay: `1.2s` }
               }
             >
               <div>
@@ -158,12 +158,12 @@ const Main: FunctionComponent = () => {
                         ? {
                             flexDirection: 'column',
                             alignItems: 'center',
-                            animationDelay: `1.5s`,
+                            animationDelay: `1.3s`,
                           }
                         : {
                             flexDirection: 'row',
                             alignItems: 'flex-start',
-                            animationDelay: `1.5s`,
+                            animationDelay: `1.3s`,
                           }
                     }
                   >
@@ -206,12 +206,12 @@ const Main: FunctionComponent = () => {
                         ? {
                             flexDirection: 'column',
                             alignItems: 'center',
-                            animationDelay: `1.6s`,
+                            animationDelay: `1.4s`,
                           }
                         : {
                             flexDirection: 'row',
                             alignItems: 'flex-start',
-                            animationDelay: `1.6s`,
+                            animationDelay: `1.4s`,
                           }
                     }
                   >

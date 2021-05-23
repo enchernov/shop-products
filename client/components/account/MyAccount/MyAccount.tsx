@@ -1,7 +1,6 @@
 import React, {
   FunctionComponent,
   useContext,
-  useState,
   ChangeEvent,
   useEffect,
 } from 'react'
@@ -41,10 +40,11 @@ import Wishlist from '@components/account/MyAccount/Wishlist'
 import Orders from '@components/account/MyAccount/Orders'
 import Addresses from '@components/account/MyAccount/Addresses'
 import { useRouter } from 'next/router'
+import { changeAccountTab } from '@actions/auth'
 
 const MyAccount: FunctionComponent = () => {
   const classes = useStyles()
-  const { state } = useContext(AppContext)
+  const { state, dispatch } = useContext(AppContext)
   const router = useRouter()
 
   function a11yProps(index: any) {
@@ -54,15 +54,13 @@ const MyAccount: FunctionComponent = () => {
     }
   }
 
-  const [value, setValue] = useState<number>(0)
-
   useEffect(() => {
     const p = router.query?.panel
-    if (p && +p >= 0 && +p <= 5) setValue(+p)
+    if (p && +p >= 0 && +p <= 5) dispatch(changeAccountTab(+p))
   }, [router.query?.panel])
 
   const handleChange = (_: ChangeEvent<unknown>, newValue: number) => {
-    setValue(newValue)
+    dispatch(changeAccountTab(newValue))
   }
 
   const theme = useTheme()
@@ -92,7 +90,7 @@ const MyAccount: FunctionComponent = () => {
             <Tabs
               orientation={isSmallWidth ? 'horizontal' : 'vertical'}
               variant="scrollable"
-              value={value}
+              value={state.accountTab}
               onChange={handleChange}
               aria-label="account tabs"
               style={
@@ -104,7 +102,7 @@ const MyAccount: FunctionComponent = () => {
               <Tab
                 className={classes.tab}
                 icon={
-                  value === 0 ? (
+                  state.accountTab === 0 ? (
                     <AccountCircle color={'secondary'} />
                   ) : (
                     <AccountCircleOutlined />
@@ -116,7 +114,7 @@ const MyAccount: FunctionComponent = () => {
               <Tab
                 className={classes.tab}
                 icon={
-                  value === 1 ? (
+                  state.accountTab === 1 ? (
                     <ShoppingCart color={'secondary'} />
                   ) : (
                     <ShoppingCartOutlined />
@@ -128,7 +126,7 @@ const MyAccount: FunctionComponent = () => {
               <Tab
                 className={classes.tab}
                 icon={
-                  value === 2 ? (
+                  state.accountTab === 2 ? (
                     <Assignment color={'secondary'} />
                   ) : (
                     <AssignmentOutlined />
@@ -140,7 +138,7 @@ const MyAccount: FunctionComponent = () => {
               <Tab
                 className={classes.tab}
                 icon={
-                  value === 3 ? (
+                  state.accountTab === 3 ? (
                     <Favorite color={'secondary'} />
                   ) : (
                     <FavoriteBorderOutlined />
@@ -152,7 +150,7 @@ const MyAccount: FunctionComponent = () => {
               <Tab
                 className={classes.tab}
                 icon={
-                  value === 4 ? <Room color={'secondary'} /> : <RoomOutlined />
+                  state.accountTab === 4 ? <Room color={'secondary'} /> : <RoomOutlined />
                 }
                 label="Адреса"
                 {...a11yProps(4)}
@@ -160,7 +158,7 @@ const MyAccount: FunctionComponent = () => {
               <Tab
                 className={classes.tab}
                 icon={
-                  value === 5 ? (
+                  state.accountTab === 5 ? (
                     <SettingsFilled color={'secondary'} />
                   ) : (
                     <SettingsOutlined />
@@ -172,22 +170,22 @@ const MyAccount: FunctionComponent = () => {
             </Tabs>
           </Grid>
           <Grid item xs={isSmallWidth ? 12 : mdWidth ? 9 : 10}>
-            <TabPanel value={value} index={0}>
+            <TabPanel value={state.accountTab} index={0}>
               <Dashboard />
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel value={state.accountTab} index={1}>
               <Cart />
             </TabPanel>
-            <TabPanel value={value} index={2}>
+            <TabPanel value={state.accountTab} index={2}>
               <Orders />
             </TabPanel>
-            <TabPanel value={value} index={3}>
+            <TabPanel value={state.accountTab} index={3}>
               <Wishlist />
             </TabPanel>
-            <TabPanel value={value} index={4}>
+            <TabPanel value={state.accountTab} index={4}>
               <Addresses />
             </TabPanel>
-            <TabPanel value={value} index={5}>
+            <TabPanel value={state.accountTab} index={5}>
               <Settings />
             </TabPanel>
           </Grid>

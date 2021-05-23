@@ -108,6 +108,9 @@ export const useStyles = makeStyles((theme: Theme & { name?: string }) =>
       display: 'flex',
       // display: 'none',
       transition: '.1s ease-in-out',
+      '&:hover': {
+        boxShadow: 'none',
+      },
     },
     primaryButton: {
       color: theme.palette.primary.main + ' !important',

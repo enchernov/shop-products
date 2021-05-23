@@ -43,6 +43,7 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
 
   const router = useRouter()
   const currentRoute = router?.asPath || ''
+  const isAccountPath = currentRoute.includes('my-account')
 
   const { state: shopState, dispatch: shopDispatch } = useContext(ShopContext)
 
@@ -133,10 +134,10 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
                   <Grid item>·</Grid>
                   <Grid item>
                     <Link
-                      href={'/my-account?panel=0'}
+                      href={'/my-account'}
                       className={classes.link}
                       style={
-                        currentRoute == '/my-account?panel=0'
+                        isAccountPath && [0, 2, 4, 5].includes(state.accountTab)
                           ? redUnderline
                           : {}
                       }
@@ -156,7 +157,7 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
                         href={'/my-account?panel=1'}
                         className={classes.link}
                         style={
-                          currentRoute == '/my-account?panel=1'
+                          isAccountPath && state.accountTab === 1
                             ? redUnderline
                             : {}
                         }
@@ -171,7 +172,7 @@ const GeneralLayout: FunctionComponent<ILayoutProps> = ({ children }) => {
                       href={'/my-account?panel=3'}
                       className={classes.link}
                       style={
-                        currentRoute == '/my-account?panel=3'
+                        isAccountPath && state.accountTab === 3
                           ? redUnderline
                           : {}
                       }

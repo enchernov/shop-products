@@ -45,3 +45,10 @@ export const loadAvatar = (value: IAvatarProps) => {
     payload: value,
   }
 }
+
+export const changeAccountTab = (value: number) => {
+  return {
+    type: ACTION_TYPES.CHANGE_ACCOUNT_TAB,
+    payload: value,
+  }
+}

@@ -3,6 +3,8 @@ import { Story } from '@storybook/react'
 import { Meta } from '@storybook/react/types-6-0'
 
 import Badge, { IBadgeProps } from './Badge'
+import { Avatar, IconButton } from '@ui/index'
+import LinkIcon from '@material-ui/icons/Link'
 
 export default {
   title: 'ui/Badge',
@@ -15,6 +17,14 @@ const Template: Story<IBadgeProps> = ({ children, badgeContent }) => (
 
 export const Default = Template.bind({})
 Default.args = {
-  badgeContent: '<Avatar>E<Avatar>',
-  children: '<Avatar>E<Avatar>',
+  badgeContent: (
+    <IconButton
+      aria-label="upload picture"
+      icon="photo"
+      style={{ padding: 4, color: 'rgba(0, 0, 0, 0.26)' }}
+    >
+      <LinkIcon />
+    </IconButton>
+  ),
+  children: <Avatar>E</Avatar>,
 }

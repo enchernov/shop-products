@@ -13,6 +13,7 @@ import { useStyles } from './Orders.styles'
 import { useMutation } from '@apollo/client'
 import UPDATE_USER from '@graphql/mutations/UpdateUser'
 import { updUser } from '@utils/auth'
+import { IOrderProps } from '@interfaces/shop'
 
 const Orders: FunctionComponent = () => {
   const { state, dispatch } = useContext(AppContext)
@@ -26,6 +27,14 @@ const Orders: FunctionComponent = () => {
   }
   const theme = useTheme()
   const isSmallWidth = useMediaQuery(theme.breakpoints.down('sm'))
+  let orders = state?.user?.orders as Array<IOrderProps>
+  orders =
+    orders.length > 0
+      ? Array.from(orders).sort(
+          (a: IOrderProps, b: IOrderProps) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        )
+      : []
   return (
     <Grid container direction={'column'} spacing={2} alignItems={'center'}>
       <Grid item xs={12}>
@@ -59,8 +68,8 @@ const Orders: FunctionComponent = () => {
           }
           alignItems={isSmallWidth ? 'center' : 'flex-start'}
         >
-          {state.user?.orders?.length ? (
-            state.user.orders.map((o, index: number) => (
+          {orders.length ? (
+            orders.map((o, index: number) => (
               <Grid item key={o.id}>
                 <Order order={o} idx={index} />
               </Grid>
