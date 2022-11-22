@@ -45,7 +45,7 @@
     "@babel/preset-typescript": "^7.12.1",
     "@storybook/addon-actions": "^6.0.27",
     "@storybook/addon-controls": "^6.0.27",
-    "@storybook/addon-docs": "^6.0.27",
+    "@storybook/addon-docs": "^6.5.13",
     "@storybook/addon-links": "^6.0.27",
     "@storybook/addon-viewport": "^6.0.27",
     "@storybook/addons": "^6.0.27",
